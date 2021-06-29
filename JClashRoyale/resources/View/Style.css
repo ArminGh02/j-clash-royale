@@ -1,0 +1,15 @@
+@font-face {
+    -fx-font-family: "Lalezar";
+    src: url("../Font/Lalezar-Regular.ttf");
+}
+
+.login-view {
+    -fx-background-image: url("../Images/Background.png");
+}
+
+.login-view .label {
+    -fx-text-fill: Black;
+    -fx-opacity: 100%;
+    -fx-font-family: "Lalezar";
+
+}

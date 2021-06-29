@@ -11,7 +11,7 @@ import java.util.Properties;
  * @author Adibov & Armin Gh
  */
 public class Config extends Properties {
-    final private static String configFileAddress = "/Resources/Config.properties";
+    final private static String configFileAddress = "Resources/Config.properties";
     private static boolean hasInitialize = false;
     final private static Config instance = new Config();
 
@@ -27,11 +27,23 @@ public class Config extends Properties {
     }
 
     /**
+     * retrieve the given property and return the double result
+     * @param key given property key
+     * @return retrieved result
+     */
+    public static double retrieveDoubleProperty(String key) {
+        String result = retrieveProperty(key);
+        if (result == null)
+            return 0;
+        return Double.parseDouble(result);
+    }
+
+    /**
      * initialize class to make it unable to retrieve configs
      */
     private static void initialize() {
         try {
-            FileReader fileReader = new FileReader(Config.configFileAddress);
+            FileReader fileReader = new FileReader(FileUtils.getAbsolutePath(configFileAddress));
             instance.load(fileReader);
             hasInitialize = true;
         }

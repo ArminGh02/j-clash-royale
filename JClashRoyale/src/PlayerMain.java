@@ -1,3 +1,7 @@
+import View.Login.LoginView;
+
+import java.awt.*;
+
 /**
  * PlayerMain class, start a new client and connect him to the server
  * @version 1.0
@@ -9,6 +13,6 @@ public class PlayerMain {
      * @param args program args
      */
     public static void main(String[] args) {
-
+        LoginView.main(args);
     }
 }
