@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="JClashRoyale">
+    <output-path>$PROJECT_DIR$/out/artifacts/JClashRoyale</output-path>
+    <root id="root">
+      <element id="archive" name="JClashRoyale.jar">
+        <element id="module-output" name="JClashRoyale" />
+      </element>
+    </root>
+  </artifact>
+</component>
