@@ -1,4 +1,4 @@
-package Controller;
+package util;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -39,7 +39,7 @@ public class FileUtils {
      * @return absolute path
      */
     public static String getAbsolutePath(String relativePath) {
-        relativePath = relativePath.replaceAll("/", getFileSeparator());
+        // relativePath = relativePath.replaceAll("/", getFileSeparator());
         return Paths.get(relativePath).toAbsolutePath().toString();
     }
 

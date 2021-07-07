@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
       <ImageView fitHeight="800.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -28,16 +28,16 @@
                         <Font size="40.0" />
                      </font>
                   </Label>
-                  <TextField alignment="CENTER" maxWidth="-Infinity" prefHeight="26.0" prefWidth="250.0" promptText="username" styleClass="label" stylesheets="@Style.css" />
-                  <PasswordField alignment="CENTER" maxWidth="-Infinity" prefWidth="250.0" promptText="password" styleClass="label" stylesheets="@Style.css" />
+                  <TextField fx:id="usernameTextField" alignment="CENTER" maxWidth="-Infinity" prefHeight="26.0" prefWidth="250.0" promptText="username" styleClass="label" stylesheets="@Style.css" />
+                  <PasswordField fx:id="passwordField" alignment="CENTER" maxWidth="-Infinity" prefWidth="250.0" promptText="password" styleClass="label" stylesheets="@Style.css" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
                      <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="label" stylesheets="@Style.css" text="Login">
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loginButtonOnAction" styleClass="label" stylesheets="@Style.css" text="Login">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="label" stylesheets="@Style.css" text="Button">
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#signUpButtonOnAction" styleClass="label" stylesheets="@Style.css" text="Sign up">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

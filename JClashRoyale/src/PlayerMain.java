@@ -1,6 +1,4 @@
-import View.Login.LoginView;
-
-import java.awt.*;
+import View.LoginView;
 
 /**
  * PlayerMain class, start a new client and connect him to the server

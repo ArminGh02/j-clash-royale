@@ -7,9 +7,12 @@
     -fx-background-image: url("../Images/Background.png");
 }
 
-.login-view .label {
+.label {
     -fx-text-fill: Black;
     -fx-opacity: 100%;
     -fx-font-family: "Lalezar";
+}
 
+.login-view .button {
+    -fx-background-radius: 15px;
 }
