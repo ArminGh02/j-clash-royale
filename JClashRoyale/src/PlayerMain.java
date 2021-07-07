@@ -1,4 +1,4 @@
-import View.LoginView;
+import view.LoginView;
 
 /**
  * PlayerMain class, start a new client and connect him to the server
