@@ -16,7 +16,7 @@
    <children>
       <ImageView fitHeight="800.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Images/LoginWallpaper.gif" />
+            <Image url="@../Images/LoginGif.gif" />
          </image>
       </ImageView>
       <AnchorPane layoutX="450.0" prefHeight="800.0" prefWidth="800.0" styleClass="login-view" stylesheets="@Style.css">

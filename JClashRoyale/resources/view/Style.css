@@ -4,7 +4,7 @@
 }
 
 .login-view {
-    -fx-background-image: url("../Images/Background.png");
+    -fx-background-image: url("../Images/LoginBackground.png");
 }
 
 .label {
@@ -13,6 +13,19 @@
     -fx-font-family: "Lalezar";
 }
 
-.login-view .button {
+.button {
     -fx-background-radius: 15px;
+    -fx-font-family: "Lalezar";
+}
+
+.tab-label {
+    -fx-font-family: "Lalezar";
+}
+
+.battle-tab-of-main-menu {
+    -fx-background-image: url("../Images/BattleBackground.jpg");
+}
+
+.deck-tab-of-main-menu {
+    -fx-background-image: url("../Images/DeckBackground.jpg");
 }

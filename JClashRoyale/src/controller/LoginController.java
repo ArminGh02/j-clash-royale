@@ -24,6 +24,9 @@ public class LoginController {
     @FXML
     private PasswordField passwordField;
 
+    private static String username;
+    private static String password;
+
     @FXML
     void loginButtonOnAction(ActionEvent event) {
         String username = usernameTextField.getText();
@@ -44,6 +47,7 @@ public class LoginController {
         String username = usernameTextField.getText();
         String password = passwordField.getText();
         if (true) { // TODO: replace "true" with !DataBaseHandler.userExists(username, password)
+            // TODO: add user to existing users' list in this line
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             switchToMainMenuScene(currentStage);
         } else { // user already exists
