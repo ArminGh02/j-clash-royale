@@ -1,6 +1,6 @@
 @font-face {
     -fx-font-family: "Lalezar";
-    src: url("../Font/Lalezar-Regular.ttf");
+    src: url("../font/Lalezar-Regular.ttf");
 }
 
 .root {
@@ -9,7 +9,7 @@
 }
 
 .login-view {
-    -fx-background-image: url("../Images/LoginBackground.png");
+    -fx-background-image: url("../images/LoginBackground.png");
 }
 
 .label {
@@ -26,9 +26,9 @@
 }
 
 .battle-tab-of-main-menu {
-    -fx-background-image: url("../Images/BattleBackground.jpg");
+    -fx-background-image: url("../images/BattleBackground.jpg");
 }
 
 .deck-tab-of-main-menu {
-    -fx-background-image: url("../Images/DeckBackground.jpg");
+    -fx-background-image: url("../images/DeckBackground.jpg");
 }
