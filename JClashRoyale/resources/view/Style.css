@@ -3,6 +3,11 @@
     src: url("../Font/Lalezar-Regular.ttf");
 }
 
+.root {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Lalezar";
+}
+
 .login-view {
     -fx-background-image: url("../Images/LoginBackground.png");
 }
@@ -11,15 +16,13 @@
     -fx-text-fill: Black;
     -fx-opacity: 100%;
     -fx-font-family: "Lalezar";
+    -fx-font-size: 20pt;
 }
 
 .button {
     -fx-background-radius: 15px;
     -fx-font-family: "Lalezar";
-}
-
-.tab-label {
-    -fx-font-family: "Lalezar";
+    -fx-font-size: 20pt;
 }
 
 .battle-tab-of-main-menu {
