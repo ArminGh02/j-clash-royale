@@ -24,9 +24,6 @@ public class LoginController {
     @FXML
     private PasswordField passwordField;
 
-    private static String username;
-    private static String password;
-
     @FXML
     void loginButtonOnAction(ActionEvent event) {
         String username = usernameTextField.getText();
