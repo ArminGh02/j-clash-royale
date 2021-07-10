@@ -34,4 +34,13 @@ public class Person {
     public Password getPassword() {
         return password;
     }
+
+    /**
+     * password setter
+     * @param password new password
+     */
+    public void setPassword(String  password) {
+        this.password = new Password(password);
+        this.password.setHashedPassword(password);
+    }
 }

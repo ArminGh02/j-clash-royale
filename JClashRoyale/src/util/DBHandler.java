@@ -1,5 +1,6 @@
 package util;
 
+import model.Password;
 import model.Person;
 import model.Player;
 
@@ -86,6 +87,28 @@ public class DBHandler {
     }
 
     /**
+     * check if a person with the given username exists in database
+     * @param username given username
+     * @return boolean result
+     */
+    public static boolean doesPersonExists(String username) {
+        return doesPersonExists(new Person(username, "123"));
+    }
+
+    /**
+     * check if a person with the given username and password exists in database
+     * @param username given username
+     * @param password given password
+     * @return boolean result
+     */
+    public static boolean doesPersonExists(String username, String password) {
+        Person person = getPerson(username);
+        if (person == null)
+            return false;
+        return person.getPassword().toString().equals(Password.hashPassword(password));
+    }
+
+    /**
      * add the given person to the table
      * @param person the given person
      */
@@ -101,5 +124,31 @@ public class DBHandler {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+    }
+
+    /**
+     * retrieve the person with the given username from database
+     * @param username the given username
+     * @return result person
+     */
+    public static Person getPerson(String username) {
+        if (!doesPersonExists(username))
+            return null;
+        try {
+            if (dbStatement.execute("" +
+                    "SELECT * FROM Persons " +
+                    "WHERE username='" + username + "';")) {
+                ResultSet resultSet = dbStatement.getResultSet();
+                resultSet.next();
+                Person person = new Person(resultSet.getString("username"), resultSet.getString("password"));
+                person.setPassword(resultSet.getString("password"));
+                System.out.println("Hey: " + resultSet.getString("username") + " " + resultSet.getString("password"));
+                return person;
+            }
+        }
+        catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return null;
     }
 }

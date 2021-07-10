@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
       <ImageView fitHeight="800.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -44,6 +44,8 @@
                         </Button>
                      </children>
                   </HBox>
+                  <Label fx:id="userExistsLabel" styleClass="label-warning" stylesheets="@Style.css" text="User already exists" textFill="RED" visible="false" />
+                  <Label fx:id="wrongPasswordLabel" styleClass="label-warning" stylesheets="@Style.css" text="Username or Password is incorrect" textFill="#e60000" visible="false" />
                </children>
             </VBox>
          </children>

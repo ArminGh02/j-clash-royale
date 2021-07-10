@@ -19,6 +19,10 @@
     -fx-font-size: 20pt;
 }
 
+.label-warning {
+    -fx-text-fill: RED;
+}
+
 .button {
     -fx-background-radius: 15px;
     -fx-font-family: "Lalezar";

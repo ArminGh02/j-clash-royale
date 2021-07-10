@@ -3,6 +3,7 @@ package model;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 /**
  * Password class, handles actions on password like hashing, parsing, etc
@@ -56,11 +57,45 @@ public class Password {
     }
 
     /**
+     * hashedPassword setter
+     * @param hashedPassword hashedPassword new value
+     */
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
+    }
+
+    /**
+     * hashedPassword getter
+     * @return hashedPassword
+     */
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+
+    /**
      * override toString method
      * @return result string
      */
     @Override
     public String toString() {
         return hashedPassword;
+    }
+
+    /**
+     * override equals method
+     * @param o given object
+     * @return boolean result
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Password)) return false;
+        Password password = (Password) o;
+        return this.hashedPassword.equals(password.getHashedPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hashedPassword);
     }
 }
