@@ -17,6 +17,7 @@ public class Password {
      * @param password given password
      */
     public Password(String password) {
+        this.hashedPassword = Password.hashPassword(password);
     }
 
     /**
@@ -52,5 +53,14 @@ public class Password {
             hexString.append(hex);
         }
         return hexString.toString();
+    }
+
+    /**
+     * override toString method
+     * @return result string
+     */
+    @Override
+    public String toString() {
+        return hashedPassword;
     }
 }

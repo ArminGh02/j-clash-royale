@@ -18,4 +18,20 @@ public class Person {
         this.username = username;
         this.password = new Password(password);
     }
+
+    /**
+     * username getter
+     * @return username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * password getter
+     * @return password
+     */
+    public Password getPassword() {
+        return password;
+    }
 }
