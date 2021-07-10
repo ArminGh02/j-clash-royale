@@ -7,10 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Person;
 import util.Config;
+import util.DBHandler;
 
 /**
  * LoginController class, handles interactions and events in login view
@@ -18,40 +21,37 @@ import util.Config;
  * @author Adibov & Armin Gh
  */
 public class LoginController {
-    @FXML
-    private TextField usernameTextField;
-
-    @FXML
-    private PasswordField passwordField;
+    @FXML private TextField usernameTextField;
+    @FXML private PasswordField passwordField;
+    @FXML private Label userExistsLabel;
+    @FXML private Label wrongPasswordLabel;
 
     @FXML
     void loginButtonOnAction(ActionEvent event) {
+        resetVisibility();
         String username = usernameTextField.getText();
         String password = passwordField.getText();
-        if (true) { // TODO: replace "true" with DataBaseHandler.userExists(username, password)
+        if (DBHandler.doesPersonExists(username, password)) {
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             switchToMainMenuScene(currentStage);
-        } else { // user is not created before
-            usernameTextField.setText("Username or password is incorrect");
-            usernameTextField.selectAll();
-            usernameTextField.requestFocus();
-            passwordField.clear();
+        }
+        else { // user is not created before
+            wrongPasswordLabel.setVisible(true);
         }
     }
 
     @FXML
     void signUpButtonOnAction(ActionEvent event) {
+        resetVisibility();
         String username = usernameTextField.getText();
         String password = passwordField.getText();
-        if (true) { // TODO: replace "true" with !DataBaseHandler.userExists(username, password)
-            // TODO: add user to existing users' list in this line
+        if (!DBHandler.doesPersonExists(username)) {
+            DBHandler.addPerson(new Person(username, password));
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             switchToMainMenuScene(currentStage);
-        } else { // user already exists
-            usernameTextField.setText("User already exists");
-            usernameTextField.selectAll();
-            usernameTextField.requestFocus();
-            passwordField.clear();
+        }
+        else { // user already exists
+            userExistsLabel.setVisible(true);
         }
     }
 
@@ -65,5 +65,13 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * reset labels visibility
+     */
+    private void resetVisibility() {
+        userExistsLabel.setVisible(false);
+        wrongPasswordLabel.setVisible(false);
     }
 }

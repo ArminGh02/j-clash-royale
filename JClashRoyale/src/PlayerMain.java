@@ -1,3 +1,4 @@
+import util.DBHandler;
 import view.LoginView;
 
 /**
@@ -11,6 +12,14 @@ public class PlayerMain {
      * @param args program args
      */
     public static void main(String[] args) {
+        init();
         LoginView.main(args);
+    }
+
+    /**
+     * initialize program
+     */
+    public static void init() {
+        DBHandler.initialize();
     }
 }
