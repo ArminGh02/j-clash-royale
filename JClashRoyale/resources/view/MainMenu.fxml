@@ -110,7 +110,7 @@
                         </ImageView>
                      </children>
                   </GridPane>
-                  <Label fx:id="unableToPlaceCardLabel" layoutX="468.0" layoutY="613.0" prefHeight="47.0" prefWidth="317.0" styleClass="label-and-button-for-deck" text="Unable to Place Card in Deck" visible="false" />
+                  <Label fx:id="unableToPlaceCardLabel" layoutX="459.0" layoutY="613.0" prefHeight="47.0" prefWidth="333.0" styleClass="label-and-button-for-deck" text="Unable to Place Card in Deck" />
                   <Button layoutX="1137.0" layoutY="613.0" mnemonicParsing="false" onAction="#resetDeck" styleClass="label-and-button-for-deck" text="Reset" />
                </children></AnchorPane>
       </content>

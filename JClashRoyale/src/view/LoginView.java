@@ -52,6 +52,7 @@ public class LoginView extends Application {
         try {
             Pane root = LoginView.currentFXML.load();
             currentStage.setScene(new Scene(root));
+            currentStage.setTitle("JClashRoyale");
             currentStage.show();
         }
         catch (IOException exception) {
