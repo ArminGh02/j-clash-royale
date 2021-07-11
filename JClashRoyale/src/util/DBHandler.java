@@ -142,7 +142,6 @@ public class DBHandler {
                 resultSet.next();
                 Person person = new Person(resultSet.getString("username"), resultSet.getString("password"));
                 person.setPassword(resultSet.getString("password"));
-                System.out.println("Hey: " + resultSet.getString("username") + " " + resultSet.getString("password"));
                 return person;
             }
         }
