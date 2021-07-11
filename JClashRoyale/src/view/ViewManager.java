@@ -55,6 +55,14 @@ public class ViewManager extends Application {
     }
 
     /**
+     * load map view
+     */
+    public static void loadMapView() {
+        currentFXMLLoader = new FXMLLoader(ViewManager.class.getResource(Config.retrieveProperty("MAP_VIEW")));
+        updateScene();
+    }
+
+    /**
      * update the current scene
      */
     private static void updateScene() {

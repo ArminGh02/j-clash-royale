@@ -40,7 +40,7 @@
                <children>
                   <VBox alignment="TOP_CENTER" layoutX="538.0" layoutY="314.0" spacing="20.0" stylesheets="@MainMenuStyle.css">
                      <children>
-                        <Button mnemonicParsing="false" stylesheets="@MainMenuStyle.css" text="Battle Against Easy Bot">
+                        <Button mnemonicParsing="false" onAction="#startGameVsEasyBot" stylesheets="@MainMenuStyle.css" text="Battle Against Easy Bot">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
@@ -77,66 +77,105 @@
                            <image>
                               <Image url="@../images/deck-cards/archer.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addArrows" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                            <image>
                               <Image url="@../images/deck-cards/arrows.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addGiant" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../images/deck-cards/giant.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addBabyDragon" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                            <image>
                               <Image url="@../images/deck-cards/baby-dragon.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addInfernoTower" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../images/deck-cards/inferno-tower.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addMiniPekka" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../images/deck-cards/mini-pekka.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addBarbarians" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
                            <image>
                               <Image url="@../images/deck-cards/barbarians.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addRage" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../images/deck-cards/rage.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addCannon" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
                            <image>
                               <Image url="@../images/deck-cards/cannon.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addValkyrie" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../images/deck-cards/valkyrie.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addWizard" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../images/deck-cards/wizard.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addFireball" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
                            <image>
                               <Image url="@../images/deck-cards/fireball.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                      </children>
                   </GridPane>
                   <Label fx:id="unableToPlaceCardLabel" layoutX="468.0" layoutY="613.0" prefHeight="47.0" prefWidth="317.0" styleClass="label-and-button-for-deck" text="Unable to Place Card in Deck" visible="false" />
-                  <Button layoutX="1137.0" layoutY="613.0" mnemonicParsing="false" onAction="#resetDeck" styleClass="label-and-button-for-deck" text="Reset" />
+                  <Button layoutX="1137.0" layoutY="613.0" mnemonicParsing="false" onAction="#resetDeck" styleClass="label-and-button-for-deck" text="Reset">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                </children></AnchorPane>
       </content>
     </Tab>
