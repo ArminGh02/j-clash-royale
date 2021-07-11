@@ -23,7 +23,15 @@ import model.card.MiniPekka;
 import model.card.Rage;
 import model.card.Valkyrie;
 import model.card.Wizard;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import view.ViewManager;
 
+/**
+ * MainMenuController class, handles interactions in main menu
+ * @author Adibov & Armin Gh
+ * @version 1.0
+ */
 public class MainMenuController {
   private List<Card> deck = new ArrayList<>(Deck.SIZE);
 
@@ -54,6 +62,15 @@ public class MainMenuController {
     unableToPlaceCardLabel.setVisible(false);
   }
 
+  /**
+     * logout from the current account and return to log in view
+     * @param event occurred event
+     */
+    @FXML
+    void logoutPressed(ActionEvent event) {
+        ViewManager.loadLoginView();
+    }
+  
   @FXML
   public void addArcher(MouseEvent event) {
     if (!isCardAdded[ARCHER_INDEX] && deck.size() < Deck.SIZE) {

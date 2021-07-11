@@ -34,6 +34,10 @@
     -fx-font-size: 20pt;
 }
 
+.button-logout {
+    -fx-alignment: center-left;
+}
+
 .login-buttons {
     -fx-background-color: #00f1f2;
 }
@@ -46,11 +50,11 @@
 }
 
 .battle-tab-of-main-menu {
-    -fx-background-image: url("../images/BattleBackground.jpg");
+    -fx-background-image: url("../images/BattleBackground.png");
 }
 
 .deck-tab-of-main-menu {
-    -fx-background-image: url("../images/DeckBackground.jpg");
+    -fx-background-image: url("../images/DeckBackground.png");
 }
 
 #deck-card-image:hover {
