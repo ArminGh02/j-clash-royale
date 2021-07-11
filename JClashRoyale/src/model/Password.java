@@ -11,7 +11,7 @@ import java.util.Objects;
  * @version 1.0
  */
 public class Password {
-    String hashedPassword;
+    private String hashedPassword;
 
     /**
      * class constructor, hash the given password and save it

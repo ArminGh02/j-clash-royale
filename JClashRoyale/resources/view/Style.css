@@ -23,6 +23,11 @@
     -fx-text-fill: RED;
 }
 
+.label-and-button-for-deck {
+    -fx-background-color: #666565;
+    -fx-opacity: 70%;
+}
+
 .button {
     -fx-background-radius: 15px;
     -fx-font-family: "Lalezar";
@@ -33,10 +38,27 @@
     -fx-alignment: center-left;
 }
 
+.login-buttons {
+    -fx-background-color: #00f1f2;
+}
+
+.button:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-scale-z: 1.1;
+    -fx-opacity: 1;
+}
+
 .battle-tab-of-main-menu {
     -fx-background-image: url("../images/BattleBackground.png");
 }
 
 .deck-tab-of-main-menu {
     -fx-background-image: url("../images/DeckBackground.png");
+}
+
+#deck-card-image:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-scale-z: 1.1;
 }

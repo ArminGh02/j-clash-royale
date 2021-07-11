@@ -6,8 +6,8 @@ package model;
  * @version 1.0
  */
 public class Person {
-    String username;
-    Password password;
+    private String username;
+    private Password password;
 
     /**
      * class constructor
