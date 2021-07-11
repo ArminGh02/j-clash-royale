@@ -23,7 +23,7 @@
          <children>
             <VBox alignment="TOP_CENTER" layoutX="135.0" layoutY="100.0" prefHeight="590.0" prefWidth="600.0" spacing="40.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="71.0" prefWidth="629.0" text="Login">
+                  <Label alignment="CENTER" prefHeight="71.0" prefWidth="629.0" style="-fx-text-fill: White;" text="Login" textFill="WHITE">
                      <font>
                         <Font size="40.0" />
                      </font>

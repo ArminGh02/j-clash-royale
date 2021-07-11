@@ -29,10 +29,14 @@
     -fx-font-size: 20pt;
 }
 
+.button-logout {
+    -fx-alignment: center-left;
+}
+
 .battle-tab-of-main-menu {
-    -fx-background-image: url("../images/BattleBackground.jpg");
+    -fx-background-image: url("../images/BattleBackground.png");
 }
 
 .deck-tab-of-main-menu {
-    -fx-background-image: url("../images/DeckBackground.jpg");
+    -fx-background-image: url("../images/DeckBackground.png");
 }
