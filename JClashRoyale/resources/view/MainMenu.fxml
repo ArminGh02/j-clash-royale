@@ -48,8 +48,6 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" opacity="0.7" text="Battle Against Easy Bot" />
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" opacity="0.7" text="Battle Against Smart Bot" />
                      </children>
                   </VBox>
                </children></AnchorPane>
