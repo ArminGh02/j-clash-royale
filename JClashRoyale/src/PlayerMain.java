@@ -1,5 +1,5 @@
+import view.ViewManager;
 import util.DBHandler;
-import view.LoginView;
 
 /**
  * PlayerMain class, start a new client and connect him to the server
@@ -13,7 +13,7 @@ public class PlayerMain {
      */
     public static void main(String[] args) {
         init();
-        LoginView.main(args);
+        ViewManager.main(args);
     }
 
     /**

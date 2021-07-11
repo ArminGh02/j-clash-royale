@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import model.Person;
 import util.Config;
 import util.DBHandler;
+import view.ViewManager;
 
 /**
  * LoginController class, handles interactions and events in login view
@@ -31,15 +32,17 @@ public class LoginController {
         resetVisibility();
         String username = usernameTextField.getText();
         String password = passwordField.getText();
-        if (DBHandler.doesPersonExists(username, password)) {
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            switchToMainMenuScene(currentStage);
-        }
+        if (DBHandler.doesPersonExists(username, password))
+            ViewManager.loadMainMenuView();
         else { // user is not created before
             wrongPasswordLabel.setVisible(true);
         }
     }
 
+    /**
+     * implement signup button on action
+     * @param event new event
+     */
     @FXML
     void signUpButtonOnAction(ActionEvent event) {
         resetVisibility();
@@ -47,23 +50,10 @@ public class LoginController {
         String password = passwordField.getText();
         if (!DBHandler.doesPersonExists(username)) {
             DBHandler.addPerson(new Person(username, password));
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            switchToMainMenuScene(currentStage);
+            ViewManager.loadMainMenuView();
         }
         else { // user already exists
             userExistsLabel.setVisible(true);
-        }
-    }
-
-    private void switchToMainMenuScene(Stage currentStage) {
-        try {
-            Parent root =
-                FXMLLoader.load(getClass().getResource(Config.retrieveProperty("MAIN_MENU")));
-            Scene scene = new Scene(root);
-            currentStage.setScene(scene);
-            currentStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
