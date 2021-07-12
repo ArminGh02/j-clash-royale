@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import model.BeginnerRobot;
 import model.Deck;
 import model.card.Archer;
 import model.card.Arrows;
@@ -54,6 +55,7 @@ public class MainMenuController {
 
     @FXML
     void startGameVsEasyBot(ActionEvent event) {
+        SoloGameController.getInstance().setRobotPlayer(new BeginnerRobot());
       ViewManager.loadMapView();
     }
 
