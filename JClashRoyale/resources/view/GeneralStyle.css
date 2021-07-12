@@ -28,3 +28,7 @@
     -fx-scale-z: 1.1;
     -fx-opacity: 1;
 }
+
+.anchor-pane {
+    -fx-background-color: rgb(49, 49, 49);
+}

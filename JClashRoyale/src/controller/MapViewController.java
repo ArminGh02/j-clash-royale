@@ -11,11 +11,14 @@ public class MapViewController {
 
     @FXML private GridPane mapGrid;
     private ImageView friendlyKingTower;
+    private ImageView friendlyPrinceTowerL, friendlyPrinceTowerR;
+    private ImageView enemyKingTower;
+    private ImageView enemyPrinceTowerL, enemyPrinceTowerR;
 
     @FXML
     public void initialize() {
         makeMapBaseField();
-//        addTowersToMap();
+        addTowersToMap();
     }
 
     /**
@@ -59,6 +62,18 @@ public class MapViewController {
      */
     private void addTowersToMap() {
         friendlyKingTower = new ImageView(Config.retrieveProperty("FRIENDLY_KING_TOWER_IMAGE"));
-        mapGrid.add(friendlyKingTower, 3, 11);
+        friendlyPrinceTowerL = new ImageView(Config.retrieveProperty("FRIENDLY_PRINCE_TOWER_IMAGE"));
+        friendlyPrinceTowerR = new ImageView(Config.retrieveProperty("FRIENDLY_PRINCE_TOWER_IMAGE"));
+        enemyKingTower = new ImageView(Config.retrieveProperty("ENEMY_KING_TOWER_IMAGE"));
+        enemyPrinceTowerL = new ImageView(Config.retrieveProperty("ENEMY_PRINCE_TOWER_IMAGE"));
+        enemyPrinceTowerR = new ImageView(Config.retrieveProperty("ENEMY_PRINCE_TOWER_IMAGE"));
+
+        int middleColumn = mapColumnCount / 2;
+        mapGrid.add(friendlyKingTower, middleColumn, mapRowCount - 1);
+        mapGrid.add(friendlyPrinceTowerL, 1, mapRowCount - 3);
+        mapGrid.add(friendlyPrinceTowerR, mapColumnCount - 2, mapRowCount - 3);
+        mapGrid.add(enemyKingTower, middleColumn, 0);
+        mapGrid.add(enemyPrinceTowerL, 1, 1);
+        mapGrid.add(enemyPrinceTowerR, mapColumnCount - 2, 1);
     }
 }
