@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1250.0" side="BOTTOM" stylesheets="@MainMenuStyle.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1250.0" side="BOTTOM" stylesheets="@MainMenuStyle.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
   <tabs>
       <Tab text="Profile">
         <content>
@@ -58,7 +58,7 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="deck-tab-of-main-menu">
                <children>
                   <HBox fx:id="deckView" layoutX="17.0" layoutY="14.0" prefHeight="182.0" prefWidth="1216.0" />
-                  <Label layoutX="380.0" layoutY="232.0" styleClass="label-and-button-for-deck" text="Pick 8 Cards for Your Battle Deck by Clicking:" />
+                  <Label layoutX="380.0" layoutY="232.0" styleClass="label-of-deck" text="Pick 8 Cards for Your Battle Deck by Clicking:" />
                   <GridPane alignment="CENTER" cache="true" layoutX="225.0" layoutY="296.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="308.0" prefWidth="801.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -171,7 +171,7 @@
                         </ImageView>
                      </children>
                   </GridPane>
-                  <Label fx:id="unableToPlaceCardLabel" layoutX="468.0" layoutY="613.0" prefHeight="47.0" prefWidth="317.0" styleClass="label-and-button-for-deck" text="Unable to Place Card in Deck" visible="false" />
+                  <Label fx:id="unableToPlaceCardLabel" layoutX="468.0" layoutY="613.0" prefHeight="47.0" prefWidth="317.0" styleClass="label-of-deck" text="Unable to Place Card in Deck" visible="false" />
                   <Button layoutX="1137.0" layoutY="613.0" mnemonicParsing="false" onAction="#resetDeck" styleClass="label-and-button-for-deck" text="Reset">
                      <cursor>
                         <Cursor fx:constant="HAND" />

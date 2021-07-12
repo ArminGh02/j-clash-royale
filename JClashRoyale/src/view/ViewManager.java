@@ -1,11 +1,9 @@
 package view;
 
-import com.sun.tools.hat.internal.model.Root;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import util.Config;
 import java.io.IOException;
