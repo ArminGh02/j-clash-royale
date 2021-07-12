@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import model.player.BeginnerRobot;
 import model.card.Cards;
+import model.BeginnerRobot;
 import model.Deck;
 import model.card.Archer;
 import model.card.Arrows;
