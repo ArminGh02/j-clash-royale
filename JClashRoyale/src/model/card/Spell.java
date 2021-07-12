@@ -1,5 +1,8 @@
 package model.card;
 
-public class Spell extends Card {
+public abstract class Spell extends Card {
 
+  public Spell(int elixirCost) {
+    super(elixirCost);
+  }
 }

@@ -1,4 +1,7 @@
 package model.card;
 
-public class Troop extends Card {
+public abstract class Troop extends Card {
+  public Troop(int elixirCost) {
+    super(elixirCost);
+  }
 }

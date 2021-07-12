@@ -20,6 +20,7 @@
     -fx-text-fill: rgb(256, 256, 256);
     -fx-background-color: rgb(33, 150, 243);
     -fx-background-radius: 15px;
+    -fx-opacity: 0.8;
 }
 
 .button:hover {
