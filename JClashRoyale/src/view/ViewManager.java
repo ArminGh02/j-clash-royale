@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import util.Config;
-
 import java.io.IOException;
 
 /**
@@ -52,6 +51,14 @@ public class ViewManager extends Application {
      */
     public static void loadMainMenuView() {
         currentFXMLLoader = new FXMLLoader(ViewManager.class.getResource(Config.retrieveProperty("MAIN_MENU_VIEW")));
+        updateScene();
+    }
+
+    /**
+     * load map view
+     */
+    public static void loadMapView() {
+        currentFXMLLoader = new FXMLLoader(ViewManager.class.getResource(Config.retrieveProperty("MAP_VIEW")));
         updateScene();
     }
 

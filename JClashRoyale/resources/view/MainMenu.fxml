@@ -14,13 +14,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1250.0" side="BOTTOM" stylesheets="@Style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1250.0" side="BOTTOM" stylesheets="@MainMenuStyle.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
   <tabs>
       <Tab text="Profile">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="profile-tab-of-main-menu" stylesheets="@MainMenuStyle.css">
                <children>
-                  <Button layoutX="1056.0" layoutY="614.0" mnemonicParsing="false" onAction="#logoutPressed" prefHeight="62.0" prefWidth="152.0" styleClass="button-logout" stylesheets="@Style.css" text="Logout">
+                  <Button layoutX="1056.0" layoutY="614.0" mnemonicParsing="false" onAction="#logoutPressed" prefHeight="62.0" prefWidth="152.0" styleClass="logout-button" stylesheets="@MainMenuStyle.css" text="Logout">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -36,20 +36,18 @@
       </Tab>
     <Tab text="Battle">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="battle-tab-of-main-menu">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: rgb(49, 49, 49)rgb(49, 49, 49);" styleClass="battle-tab-of-main-menu">
                <children>
-                  <VBox alignment="TOP_CENTER" layoutX="538.0" layoutY="314.0" spacing="20.0">
+                  <VBox alignment="TOP_CENTER" layoutX="538.0" layoutY="314.0" spacing="20.0" stylesheets="@MainMenuStyle.css">
                      <children>
-                        <Button mnemonicParsing="false" text="Battle Against Easy Bot">
+                        <Button mnemonicParsing="false" onAction="#startGameVsEasyBot" stylesheets="@MainMenuStyle.css" text="Battle Against Easy Bot">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
-                        <Button mnemonicParsing="false" text="Battle Against Smart Bot">
+                        <Button mnemonicParsing="false" stylesheets="@MainMenuStyle.css" text="Battle Against Smart Bot">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" opacity="0.7" text="Battle Against Easy Bot" />
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" opacity="0.7" text="Battle Against Smart Bot" />
                      </children>
                   </VBox>
                </children></AnchorPane>
@@ -79,72 +77,111 @@
                            <image>
                               <Image url="@../images/deck-cards/archer.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addArrows" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                            <image>
                               <Image url="@../images/deck-cards/arrows.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addGiant" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../images/deck-cards/giant.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addBabyDragon" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                            <image>
                               <Image url="@../images/deck-cards/baby-dragon.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addInfernoTower" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../images/deck-cards/inferno-tower.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addMiniPekka" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../images/deck-cards/mini-pekka.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addBarbarians" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
                            <image>
                               <Image url="@../images/deck-cards/barbarians.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addRage" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../images/deck-cards/rage.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addCannon" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
                            <image>
                               <Image url="@../images/deck-cards/cannon.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addValkyrie" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../images/deck-cards/valkyrie.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addWizard" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../images/deck-cards/wizard.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView id="deck-card-image" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#addFireball" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
                            <image>
                               <Image url="@../images/deck-cards/fireball.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                      </children>
                   </GridPane>
-                  <Label fx:id="unableToPlaceCardLabel" layoutX="459.0" layoutY="613.0" prefHeight="47.0" prefWidth="333.0" styleClass="label-and-button-for-deck" text="Unable to Place Card in Deck" />
-                  <Button layoutX="1137.0" layoutY="613.0" mnemonicParsing="false" onAction="#resetDeck" styleClass="label-and-button-for-deck" text="Reset" />
+                  <Label fx:id="unableToPlaceCardLabel" layoutX="468.0" layoutY="613.0" prefHeight="47.0" prefWidth="317.0" styleClass="label-and-button-for-deck" text="Unable to Place Card in Deck" visible="false" />
+                  <Button layoutX="1137.0" layoutY="613.0" mnemonicParsing="false" onAction="#resetDeck" styleClass="label-and-button-for-deck" text="Reset">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                </children></AnchorPane>
       </content>
     </Tab>
       <Tab text="Battle History">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="battle-history-tab-of-main-menu" />
         </content>
       </Tab>
   </tabs>

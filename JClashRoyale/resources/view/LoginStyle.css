@@ -1,0 +1,13 @@
+@import "GeneralStyle.css";
+
+.login-view {
+    -fx-background-image: url("../images/LoginBackground.png");
+}
+
+.login-label {
+    -fx-font-size: 25pt;
+}
+
+.warning-label {
+    -fx-text-fill: RED;
+}

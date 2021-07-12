@@ -1,0 +1,30 @@
+@font-face {
+    -fx-font-family: "Lalezar";
+    src: url("../font/Lalezar-Regular.ttf");
+}
+
+.root {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Lalezar";
+    -fx-background-color: rgb(49, 49, 49);
+}
+
+.label {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Lalezar";
+    -fx-text-fill: rgb(256, 256, 256);
+    -fx-opacity: 100%;
+}
+
+.button {
+    -fx-text-fill: rgb(256, 256, 256);
+    -fx-background-color: rgb(33, 150, 243);
+    -fx-background-radius: 15px;
+}
+
+.button:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-scale-z: 1.1;
+    -fx-opacity: 1;
+}

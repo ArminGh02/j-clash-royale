@@ -1,18 +1,11 @@
 package controller;
 
-import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import model.Person;
-import util.Config;
 import util.DBHandler;
 import view.ViewManager;
 
@@ -24,18 +17,18 @@ import view.ViewManager;
 public class LoginController {
     @FXML private TextField usernameTextField;
     @FXML private PasswordField passwordField;
-    @FXML private Label userExistsLabel;
-    @FXML private Label wrongPasswordLabel;
+    @FXML private Label warningLabel;
 
     @FXML
     void loginButtonOnAction(ActionEvent event) {
-        resetVisibility();
+        warningLabel.setVisible(false);
         String username = usernameTextField.getText();
         String password = passwordField.getText();
         if (DBHandler.doesPersonExists(username, password))
             ViewManager.loadMainMenuView();
         else { // user is not created before
-            wrongPasswordLabel.setVisible(true);
+            warningLabel.setText("Username or password is incorrect");
+            warningLabel.setVisible(true);
         }
     }
 
@@ -45,7 +38,7 @@ public class LoginController {
      */
     @FXML
     void signUpButtonOnAction(ActionEvent event) {
-        resetVisibility();
+        warningLabel.setVisible(false);
         String username = usernameTextField.getText();
         String password = passwordField.getText();
         if (!DBHandler.doesPersonExists(username)) {
@@ -53,15 +46,8 @@ public class LoginController {
             ViewManager.loadMainMenuView();
         }
         else { // user already exists
-            userExistsLabel.setVisible(true);
+            warningLabel.setText("User already exists");
+            warningLabel.setVisible(true);
         }
-    }
-
-    /**
-     * reset labels visibility
-     */
-    private void resetVisibility() {
-        userExistsLabel.setVisible(false);
-        wrongPasswordLabel.setVisible(false);
     }
 }
