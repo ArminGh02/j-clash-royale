@@ -24,8 +24,10 @@ public class LoginController {
         warningLabel.setVisible(false);
         String username = usernameTextField.getText();
         String password = passwordField.getText();
-        if (DBHandler.doesPersonExists(username, password))
+        if (DBHandler.doesPersonExists(username, password)) {
+            SoloGameController.getInstance().setPersonPlayer(DBHandler.getPerson(username));
             ViewManager.loadMainMenuView();
+        }
         else { // user is not created before
             warningLabel.setText("Username or password is incorrect");
             warningLabel.setVisible(true);

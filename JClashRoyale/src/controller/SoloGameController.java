@@ -24,7 +24,7 @@ public class SoloGameController {
      * return an instance of the class
      * @return class object
      */
-    public SoloGameController getInstance() {
+    public static SoloGameController getInstance() {
         if (instance == null)
             instance = new SoloGameController();
         return instance;
