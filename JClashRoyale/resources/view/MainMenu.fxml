@@ -40,11 +40,11 @@
                <children>
                   <VBox alignment="TOP_CENTER" layoutX="538.0" layoutY="314.0" spacing="20.0" stylesheets="@MainMenuStyle.css">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#startGameVsEasyBot" stylesheets="@MainMenuStyle.css" text="Battle Against Easy Bot">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#startGameVsEasyBot" stylesheets="@MainMenuStyle.css" text="Battle Against Easy Bot">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
-                        <Button mnemonicParsing="false" stylesheets="@MainMenuStyle.css" text="Battle Against Smart Bot">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@MainMenuStyle.css" text="Battle Against Smart Bot">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
