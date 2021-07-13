@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import util.Config;
 import java.io.IOException;
@@ -67,6 +68,8 @@ public class ViewManager extends Application {
         try {
             Parent root = currentFXMLLoader.load();
             currentStage.setScene(new Scene(root));
+            currentStage.setTitle("Clash Royale");
+            currentStage.getIcons().add(new Image(Config.retrieveProperty("ICON")));
             currentStage.show();
         }
         catch (IOException exception) {
