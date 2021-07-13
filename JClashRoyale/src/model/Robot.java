@@ -5,5 +5,5 @@ package model;
  * @author Adibov & Armin Gh
  * @version 1.0
  */
-public class Robot {
+public class Robot extends Player {
 }

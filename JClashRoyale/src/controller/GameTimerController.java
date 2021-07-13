@@ -1,9 +1,10 @@
-package model;
+package controller;
 
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import model.Settings;
 
 /**
  * <strong>This class handles the timer {@code Label} of the game</strong>
@@ -13,10 +14,9 @@ import javafx.scene.control.Label;
  * @author Adibov & Armin Gh
  * @version 1.0
  */
-public class GameTimer {
+public class GameTimerController {
   private boolean ended;
-  private int GAME_DURATION = 3 * 60;
-  private Timer timer = new Timer();
+  private final Timer timer = new Timer();
 
   /**
    * the label that this class should update after calling {@code start} method
@@ -27,7 +27,7 @@ public class GameTimer {
    * constructs a {@code GameTimer}
    * @param timerLabel label that should be updated
    */
-  public GameTimer(Label timerLabel) {
+  public GameTimerController(Label timerLabel) {
     this.timerLabel = timerLabel;
   }
 
@@ -35,8 +35,8 @@ public class GameTimer {
    * starts the game timer and updates the {@code timerLabel}
    */
   public void start() {
-    TimerTask updatingTimerTask = new TimerTask() {
-      private int currentSeconds = GAME_DURATION;
+    TimerTask updatingTimer_Task = new TimerTask() {
+      private int currentSeconds = Settings.GAME_DURATION_IN_SECONDS;
 
       @Override
       public void run() {
@@ -54,7 +54,7 @@ public class GameTimer {
         }
       }
     };
-    timer.scheduleAtFixedRate(updatingTimerTask, 0, 1000);
+    timer.scheduleAtFixedRate(updatingTimer_Task, 0, 1000);
   }
 
   public boolean isEnded() {

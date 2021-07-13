@@ -8,11 +8,15 @@ import java.awt.geom.Point2D;
  * @version 1.0
  */
 abstract public class Troop extends Card {
-    private int hp, damage, hitSpeed, areaSplash, count, elixirCost;
+    private int hp, damage, hitSpeed, areaSplash, count;
     private Speed speed;
     private Range range;
     private Target target;
     private Point2D velocity;
+
+    public Troop(int elixirCost) {
+        super(elixirCost);
+    }
 
     /**
      * hp getter
@@ -52,14 +56,6 @@ abstract public class Troop extends Card {
      */
     public int getCount() {
         return count;
-    }
-
-    /**
-     * elixirCost getter
-     * @return elixirCost
-     */
-    public int getElixirCost() {
-        return elixirCost;
     }
 
     /**
