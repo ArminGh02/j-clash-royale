@@ -33,6 +33,7 @@ public class MapViewController {
         addTowersToMap();
         startElixirControllers();
         startTimer();
+        startGameLoop();
     }
 
     private void startElixirControllers() {
@@ -44,6 +45,10 @@ public class MapViewController {
         GameTimerController timer = new GameTimerController(timerLabel);
         timer.start();
         gameController.setTimer(timer);
+    }
+
+    private void startGameLoop() {
+
     }
 
   /** add map base images to the grid pane */
@@ -107,8 +112,17 @@ public class MapViewController {
   @FXML
   void gridPaneMouseClicked(MouseEvent event) {
     double x = event.getSceneX() - 32, y = event.getSceneY() - 32;
+    if (!SoloGameController.getInstance().getPersonPlayer().canDeployCard())
+      return;
+    Card deployedCard = SoloGameController.getInstance().getPersonPlayer().getDeck().getChosenCard();
     SoloGameController.getInstance().getPersonPlayer().deployChosenCard();
-    
+    deployedCard.setTeamNumber(0);
+    if (deployedCard instanceof Troop)
+      activeTroops.add((Troop) deployedCard);
+    else if (deployedCard instanceof Spell)
+      activeSpells.add((Spell) deployedCard);
+    else
+      activeBuildings.add((Building) deployedCard);
   }
 
   /**
