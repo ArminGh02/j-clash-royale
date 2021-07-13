@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+import model.card.Card;
 import model.player.Person;
 import model.player.Robot;
 
@@ -55,5 +57,9 @@ public class SoloGameController {
      */
     public void setRobotPlayer(Robot robotPlayer) {
         this.robotPlayer = robotPlayer;
+    }
+
+    public void setPersonDeck(List<Card> deck) {
+        personPlayer.setDeck(deck);
     }
 }

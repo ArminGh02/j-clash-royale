@@ -25,8 +25,6 @@ public class GameElixirController {
    */
   private final Label elixirLabel;
 
-  private final Timer timer = new Timer();
-
   /**
    * @param elixirLabel label that should be updated
    * @param player player that his/her/its elixir should be updated
@@ -47,27 +45,32 @@ public class GameElixirController {
    * starts updating {@code elixirLabel} and {@code player} elixir
    */
   public void start() {
+    Timer firstTimer = new Timer();
+    Timer secondTimer = new Timer();
+
     TimerTask firstPeriodTask =
-        new increasingElixirTask((Settings.GAME_DURATION_IN_SECONDS / 3));
+        new increasingElixirTask((Settings.GAME_DURATION_IN_SECONDS / 3), firstTimer);
     TimerTask secondPeriodTask =
-        new increasingElixirTask((Settings.GAME_DURATION_IN_SECONDS / 3));
+        new increasingElixirTask((Settings.GAME_DURATION_IN_SECONDS / 3), secondTimer);
 
     // every one fifth of second, increase player elixir by 0.1 (Settings.ELIXIR_INCREASE)
-    timer.scheduleAtFixedRate(firstPeriodTask, 0, Settings.FIRST_PERIOD_TO_INCREMENT_ELIXIR);
+    firstTimer.scheduleAtFixedRate(firstPeriodTask, 0, Settings.FIRST_PERIOD_TO_INCREMENT_ELIXIR);
 
     // after 2 minutes delay, every one tenth of second, increase player elixir by 0.1
-    timer.scheduleAtFixedRate(secondPeriodTask, (Settings.GAME_DURATION_IN_SECONDS / 3) * 2 * 1000,
+    secondTimer.scheduleAtFixedRate(secondPeriodTask, (Settings.GAME_DURATION_IN_SECONDS / 3) * 2 * 1000,
         Settings.SECOND_PERIOD_TO_INCREMENT_ELIXIR);
   }
 
   private class increasingElixirTask extends TimerTask {
+    private final Timer timer;
     private int executionCount;
 
-    public increasingElixirTask(int executionCount) {
+    public increasingElixirTask(int executionCount, Timer timer) {
       if (executionCount < 1) {
         throw new IllegalArgumentException();
       }
       this.executionCount = executionCount;
+      this.timer = timer;
     }
 
     @Override
