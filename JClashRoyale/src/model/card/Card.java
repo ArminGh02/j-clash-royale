@@ -17,7 +17,7 @@ abstract public class Card {
    * elixirCost getter
    * @return elixirCost
    */
-  public double getElixirCost() {
+  public int getElixirCost() {
     return ELIXIR_COST;
   }
 }
