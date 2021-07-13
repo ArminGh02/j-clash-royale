@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * Deck class, handles deck usages
+ * @author Adibov & Armin Gh
+ * @version 1.0
+ */
 public class Deck {
-  public static final int SIZE = 8;
+
 }
