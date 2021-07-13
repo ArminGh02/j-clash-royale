@@ -6,8 +6,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import model.player.Player;
-import model.player.Robot;
 import util.Config;
 
 public class MapViewController {
@@ -20,16 +18,23 @@ public class MapViewController {
     private ImageView friendlyPrinceTowerL, friendlyPrinceTowerR;
     private ImageView enemyKingTower;
     private ImageView enemyPrinceTowerL, enemyPrinceTowerR;
+
     @FXML private Label elixirLabel;
     @FXML private Label timerLabel;
+
+    private SoloGameController gameController = SoloGameController.getInstance();
 
     @FXML
     public void initialize() {
         makeMapBaseField();
         addTowersToMap();
-        new GameElixirController(elixirLabel, new Player()).start();
-        new GameElixirController(new Robot()).start(); // TODO: Robot and Player should be fields in SoloGameController
-        new GameTimerController(timerLabel).start();
+
+        new GameElixirController(elixirLabel, gameController.getPersonPlayer()).start();
+        new GameElixirController(gameController.getRobotPlayer()).start();
+
+        GameTimerController timer = new GameTimerController(timerLabel);
+        timer.start();
+        gameController.setTimer(timer);
     }
 
     /**

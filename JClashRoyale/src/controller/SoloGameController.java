@@ -10,15 +10,14 @@ import model.player.Robot;
  */
 public class SoloGameController {
     private Person personPlayer;
-    private Robot robotPlayer;
+    private Robot robotPlayer = new Robot();
+    private GameTimerController timer;
     private static SoloGameController instance;
 
     /**
      * class constructor
      */
-    private SoloGameController() {
-
-    }
+    private SoloGameController() {}
 
     /**
      * return an instance of the class
@@ -28,6 +27,18 @@ public class SoloGameController {
         if (instance == null)
             instance = new SoloGameController();
         return instance;
+    }
+
+    public Person getPersonPlayer() {
+        return personPlayer;
+    }
+
+    public Robot getRobotPlayer() {
+        return robotPlayer;
+    }
+
+    public void setTimer(GameTimerController timer) {
+        this.timer = timer;
     }
 
     /**
