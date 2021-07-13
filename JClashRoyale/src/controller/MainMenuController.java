@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import model.BeginnerRobot;
+import model.player.BeginnerRobot;
 import model.card.Cards;
 import model.BeginnerRobot;
 import model.Deck;

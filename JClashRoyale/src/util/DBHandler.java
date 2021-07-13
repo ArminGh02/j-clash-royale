@@ -1,10 +1,8 @@
 package util;
 
 import model.Password;
-import model.Person;
-import model.Player;
+import model.player.Person;
 
-import java.io.PrintWriter;
 import java.sql.*;
 
 /**

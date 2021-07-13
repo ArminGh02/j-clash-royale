@@ -1,7 +1,7 @@
 package controller;
 
-import model.Person;
-import model.Robot;
+import model.player.Person;
+import model.player.Robot;
 
 /**
  * SoloGameController class, manages turns and players in a solo player game using singleton design pattern

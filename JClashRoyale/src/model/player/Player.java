@@ -1,19 +1,21 @@
-package model;
+package model.player;
+
+import model.Settings;
 
 /**
  * player class, handles information/action for players
  * @author Adibov & Armin Gh
  * @version 1.0
  */
-public abstract class Player {
-    private double elixir = Settings.INITIAL_ELIXIR;
+public class Player {
+    private int elixir = Settings.INITIAL_ELIXIR;
 
-    public double getElixir() {
+    public int getElixir() {
         return elixir;
     }
 
-    public void increaseElixir() {
-        this.elixir += Settings.ELIXIR_INCREASE;
+    public void incrementElixir() {
+        elixir++;
     }
 
     public void decreaseElixir(int decreaseAmount) {

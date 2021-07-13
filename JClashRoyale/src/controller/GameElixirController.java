@@ -4,8 +4,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
-import model.Player;
-import model.Robot;
+import model.player.Player;
+import model.player.Robot;
 import model.Settings;
 
 /**
@@ -48,16 +48,16 @@ public class GameElixirController {
    */
   public void start() {
     TimerTask firstPeriodTask =
-        new increasingElixirTask((Settings.GAME_DURATION_IN_SECONDS / 3) * 10);
+        new increasingElixirTask((Settings.GAME_DURATION_IN_SECONDS / 3));
     TimerTask secondPeriodTask =
-        new increasingElixirTask((Settings.GAME_DURATION_IN_SECONDS / 3) * 10);
+        new increasingElixirTask((Settings.GAME_DURATION_IN_SECONDS / 3));
 
     // every one fifth of second, increase player elixir by 0.1 (Settings.ELIXIR_INCREASE)
-    timer.scheduleAtFixedRate(firstPeriodTask, 0, Settings.FIRST_PERIOD_TO_INCREMENT_ELIXIR / 10);
+    timer.scheduleAtFixedRate(firstPeriodTask, 0, Settings.FIRST_PERIOD_TO_INCREMENT_ELIXIR);
 
     // after 2 minutes delay, every one tenth of second, increase player elixir by 0.1
     timer.scheduleAtFixedRate(secondPeriodTask, (Settings.GAME_DURATION_IN_SECONDS / 3) * 2 * 1000,
-        Settings.SECOND_PERIOD_TO_INCREMENT_ELIXIR / 10);
+        Settings.SECOND_PERIOD_TO_INCREMENT_ELIXIR);
   }
 
   private class increasingElixirTask extends TimerTask {
@@ -72,10 +72,11 @@ public class GameElixirController {
 
     @Override
     public void run() {
-      player.increaseElixir();
-
-      if (elixirLabel != null) {
-        Platform.runLater(() -> elixirLabel.setText(String.valueOf(player.getElixir())));
+      if (player.getElixir() < 10) {
+        player.incrementElixir();
+        if (elixirLabel != null) {
+          Platform.runLater(() -> elixirLabel.setText(String.valueOf(player.getElixir())));
+        }
       }
 
       if (executionCount <= 1) {

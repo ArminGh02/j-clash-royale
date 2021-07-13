@@ -1,4 +1,6 @@
-package model;
+package model.player;
+
+import model.player.Player;
 
 /**
  * Robot class, implements robots turn

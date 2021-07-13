@@ -1,11 +1,14 @@
-package model;
+package model.player;
+
+import model.Password;
+import model.player.Player;
 
 /**
  * Person class, implements real player
  * @author Adibov & Armin Gh
  * @version 1.0
  */
-public class Person {
+public class Person extends Player {
     private String username;
     private Password password;
 
