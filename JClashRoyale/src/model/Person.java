@@ -20,6 +20,16 @@ public class Person {
     }
 
     /**
+     * check if the player can deploy chosen card
+     * @return boolean result
+     */
+    public boolean canDeployCard() {
+        if (false) // FIXME chosenCard == null
+            return false;
+        return true; // FIXME
+    }
+
+    /**
      * username getter
      * @return username
      */

@@ -2,6 +2,8 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import util.Config;
 
@@ -10,6 +12,7 @@ public class MapViewController {
     public final int mapColumnCount = 7;
 
     @FXML private GridPane mapGrid;
+    @FXML private AnchorPane basePane;
     private ImageView friendlyKingTower;
     private ImageView friendlyPrinceTowerL, friendlyPrinceTowerR;
     private ImageView enemyKingTower;
@@ -75,5 +78,19 @@ public class MapViewController {
         mapGrid.add(enemyKingTower, middleColumn, 0);
         mapGrid.add(enemyPrinceTowerL, 1, 1);
         mapGrid.add(enemyPrinceTowerR, mapColumnCount - 2, 1);
+    }
+
+    /**
+     * player clicked on map and wants to deploy card
+     * @param event happened event
+     */
+    @FXML
+    void gridPaneMouseClicked(MouseEvent event) {
+        double x = event.getSceneX(), y = event.getSceneY();
+        System.out.println("x: " + x + "\ny: " + y);
+        ImageView imageView = new ImageView(Config.retrieveProperty("BARBARIAN_UP"));
+        imageView.setX(x - 32);
+        imageView.setY(y - 32);
+        basePane.getChildren().add(imageView);
     }
 }
