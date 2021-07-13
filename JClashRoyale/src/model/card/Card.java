@@ -6,17 +6,18 @@ package model.card;
  * @version 1.0
  */
 abstract public class Card {
-  int elixirCost, level;
+  protected final int ELIXIR_COST;
+  private int level;
 
   protected Card(int elixirCost) {
-    this.elixirCost = elixirCost;
+    this.ELIXIR_COST = elixirCost;
   }
 
   /**
    * elixirCost getter
    * @return elixirCost
    */
-  public int getElixirCost() {
-    return elixirCost;
+  public double getElixirCost() {
+    return ELIXIR_COST;
   }
 }

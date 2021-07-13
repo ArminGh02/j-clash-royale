@@ -11,9 +11,4 @@ public class Fireball extends Spell {
   public static Image getDeckImage() {
     return new Image(Config.retrieveProperty("FIREBALL_DECK_IMAGE"));
   }
-
-  @Override
-  public double getElixirCost() {
-    return ELIXIR_COST;
-  }
 }

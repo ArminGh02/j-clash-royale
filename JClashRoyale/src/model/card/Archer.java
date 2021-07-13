@@ -8,11 +8,6 @@ public class Archer extends Troop {
     super(3);
   }
 
-  @Override
-  public double getElixirCost() {
-    return ELIXIR_COST;
-  }
-
   public static Image getDeckImage() {
     return new Image(Config.retrieveProperty("ARCHER_DECK_IMAGE"));
   }

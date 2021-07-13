@@ -11,9 +11,4 @@ public class Wizard extends Troop {
   public static Image getDeckImage() {
     return new Image(Config.retrieveProperty("WIZARD_DECK_IMAGE"));
   }
-
-  @Override
-  public double getElixirCost() {
-    return ELIXIR_COST;
-  }
 }

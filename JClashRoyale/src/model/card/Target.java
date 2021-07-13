@@ -6,5 +6,5 @@ package model.card;
  * @version 1.0
  */
 public enum Target {
-    GROUND, AIR, ALL
+    GROUND, AIR, ALL, BUILDING
 }
