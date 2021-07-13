@@ -5,6 +5,8 @@ import model.Password;
 import model.card.Card;
 import model.player.Player;
 
+import model.card.Card;
+
 /**
  * Person class, implements real player
  * @author Adibov & Armin Gh
@@ -21,18 +23,9 @@ public class Person extends Player {
      * @param password person password
      */
     public Person(String username, String password) {
+        super();
         this.username = username;
         this.password = new Password(password);
-    }
-
-    /**
-     * check if the player can deploy chosen card
-     * @return boolean result
-     */
-    public boolean canDeployCard() {
-        if (false) // FIXME chosenCard == null
-            return false;
-        return true; // FIXME
     }
 
     /**

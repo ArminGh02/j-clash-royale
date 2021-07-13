@@ -72,11 +72,18 @@ public class GameElixirController {
 
     @Override
     public void run() {
+<<<<<<< HEAD
       if (player.getElixir() < 10) {
         player.incrementElixir();
         if (elixirLabel != null) {
           Platform.runLater(() -> elixirLabel.setText(String.valueOf(player.getElixir())));
         }
+=======
+      player.increaseElixir();
+
+      if (elixirLabel != null) {
+        Platform.runLater(() -> elixirLabel.setText(String.valueOf(player.getElixirCount())));
+>>>>>>> 6194ef3 (Make ready to deploy card)
       }
 
       if (executionCount <= 1) {

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Deck {
   final private ArrayList<Card> activeCards = new ArrayList<>();
   final private ArrayList<Card> cards = new ArrayList<>();
+  private Card chosenCard;
 
   /**
    * add the given card to the list of cards
@@ -36,14 +37,14 @@ public class Deck {
   }
 
   /**
-   * choose the given card from active cards and add it to the end of the cards queue
-   * @param card chosen card
+   * pick the chosen card from active cards and add it to the end of the cards queue
    */
-  public void chooseCard(Card card) {
-    if (!activeCards.contains(card))
+  public void pickChosenCard() {
+    if (chosenCard == null || !activeCards.contains(chosenCard))
       return;
-    activeCards.remove(card);
-    cards.add(card);
+    activeCards.remove(chosenCard);
+    cards.add(chosenCard);
+    chosenCard = null;
     Card newCard = cards.get(0);
     cards.remove(0);
     activeCards.add(newCard);
@@ -56,5 +57,21 @@ public class Deck {
    */
   public boolean isCardActive(Card card) {
     return activeCards.contains(card);
+  }
+
+  /**
+   * chosenCard getter
+   * @return chosenCard
+   */
+  public Card getChosenCard() {
+    return chosenCard;
+  }
+
+  /**
+   * chosenCard setter
+   * @param chosenCard new chosenCard
+   */
+  public void setChosenCard(Card chosenCard) {
+    this.chosenCard = chosenCard;
   }
 }
