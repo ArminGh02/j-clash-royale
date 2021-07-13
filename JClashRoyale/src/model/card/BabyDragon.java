@@ -11,9 +11,4 @@ public class BabyDragon extends Troop {
   public static Image getDeckImage() {
     return new Image(Config.retrieveProperty("BABY_DRAGON_DECK_IMAGE"));
   }
-
-  @Override
-  public double getElixirCost() {
-    return ELIXIR_COST;
-  }
 }
