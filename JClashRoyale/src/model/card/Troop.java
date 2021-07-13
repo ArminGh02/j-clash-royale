@@ -109,4 +109,5 @@ public abstract class Troop extends Card {
   public boolean isAttacking() {
     return isAttacking;
   }
+
 }

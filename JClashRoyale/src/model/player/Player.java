@@ -3,7 +3,6 @@ package model.player;
 import model.Deck;
 import model.Settings;
 
-import javafx.scene.image.ImageView;
 import model.card.Card;
 
 /**
@@ -13,19 +12,19 @@ import model.card.Card;
  * @version 1.0
  */
 public abstract class Player {
-  protected double elixirCount = Settings.INITIAL_ELIXIR;
+  protected int elixir = Settings.INITIAL_ELIXIR;
   protected Deck deck = new Deck();
 
-  public double getElixirCount() {
-    return elixirCount;
+  public int getElixir() {
+    return elixir;
   }
 
   public void increaseElixir() {
-    this.elixirCount += Settings.ELIXIR_INCREASE;
+    this.elixir += Settings.ELIXIR_INCREASE;
   }
 
   public void decreaseElixir(int decreaseAmount) {
-    this.elixirCount -= decreaseAmount;
+    this.elixir -= decreaseAmount;
   }
 
   /**
@@ -46,6 +45,14 @@ public abstract class Player {
   public boolean canDeployCard() {
     Card chosenCard = deck.getChosenCard();
     if (chosenCard == null) return false;
-    return chosenCard.getElixirCost() <= elixirCount;
+    return chosenCard.getElixirCost() <= elixir;
+  }
+
+  /**
+   * deck getter
+   * @return deck
+   */
+  public Deck getDeck() {
+    return deck;
   }
 }
