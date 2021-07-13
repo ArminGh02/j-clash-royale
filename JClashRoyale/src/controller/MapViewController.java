@@ -28,10 +28,16 @@ public class MapViewController {
     public void initialize() {
         makeMapBaseField();
         addTowersToMap();
+        startElixirControllers();
+        startTimer();
+    }
 
+    private void startElixirControllers() {
         new GameElixirController(elixirLabel, gameController.getPersonPlayer()).start();
         new GameElixirController(gameController.getRobotPlayer()).start();
+    }
 
+    private void startTimer() {
         GameTimerController timer = new GameTimerController(timerLabel);
         timer.start();
         gameController.setTimer(timer);
