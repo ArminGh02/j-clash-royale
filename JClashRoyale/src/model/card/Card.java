@@ -1,11 +1,22 @@
 package model.card;
 
-public abstract class Card {
-  protected final int ELIXIR_COST;
+/**
+ * card class, saves card details and handles card usages
+ * @author Adibov & Armin Gh
+ * @version 1.0
+ */
+abstract public class Card {
+  int elixirCost, level;
 
   protected Card(int elixirCost) {
-    this.ELIXIR_COST = elixirCost;
+    this.elixirCost = elixirCost;
   }
 
-  public abstract double getElixirCost();
+  /**
+   * elixirCost getter
+   * @return elixirCost
+   */
+  public int getElixirCost() {
+    return elixirCost;
+  }
 }
