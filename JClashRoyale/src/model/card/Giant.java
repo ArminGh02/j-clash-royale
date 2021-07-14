@@ -5,7 +5,7 @@ import util.Config;
 
 public class Giant extends Troop {
   public Giant() {
-    super(5);
+    super(5, "GIANT_DECK_ELIXIR_IMAGE");
   }
 
   public static Image getDeckImage() {

@@ -5,7 +5,7 @@ import util.Config;
 
 public class Arrows extends Spell {
   public Arrows() {
-    super(3);
+    super(3, "ARROWS_DECK_ELIXIR_IMAGE");
   }
 
   public static Image getDeckImage() {

@@ -1,6 +1,7 @@
 package model.player;
 
 import java.util.List;
+import javafx.scene.image.ImageView;
 import model.Password;
 import model.card.Card;
 import model.player.Player;
@@ -14,6 +15,7 @@ public class Person extends Player {
     private String username;
     private Password password;
     private List<Card> deck;
+    private int chosenSlotIndex = -1;
 
     /**
      * class constructor
@@ -62,5 +64,17 @@ public class Person extends Player {
 
     public void setDeck(List<Card> deck) {
         this.deck = deck;
+    }
+
+    public List<Card> getDeck() {
+        return deck;
+    }
+
+    public void setChosenSlotIndex(int i) {
+        this.chosenSlotIndex = i;
+    }
+
+    public int getChosenSlotIndex() {
+        return chosenSlotIndex;
     }
 }

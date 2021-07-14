@@ -14,8 +14,8 @@ abstract public class Troop extends Card {
     private Target target;
     private Point2D velocity;
 
-    public Troop(int elixirCost) {
-        super(elixirCost);
+    public Troop(int elixirCost, String deckElixirImageKey) {
+        super(elixirCost, deckElixirImageKey);
     }
 
     /**

@@ -5,7 +5,7 @@ import util.Config;
 
 public class MiniPekka extends Troop {
   public MiniPekka() {
-    super(4);
+    super(4, "MINI_PEKKA_DECK_ELIXIR_IMAGE");
   }
 
   public static Image getDeckImage() {
