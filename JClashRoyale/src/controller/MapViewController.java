@@ -1,8 +1,6 @@
 package controller;
 
-import java.util.ArrayDeque;
 import java.util.List;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -159,9 +157,9 @@ public class MapViewController {
       // TODO: add chosenCard's image to basePane
       gameController.getPersonPlayer().setChosenSlotIndex(-1);
       // TODO:
-      // Card nextCard = gameController.getPersonPlayer().nextCard()
-      // deckSlots[chosenSlot].setUserData();
-      // deckSlots[chosenSlot].setImage()
+      // Card nextCard = gameController.getPersonPlayer().nextCard();
+      // deckSlots[chosenSlot].setUserData(nextCard);
+      // deckSlots[chosenSlot].setImage(nextCard.getDeckElixirImage());
     }
   }
 }
