@@ -42,6 +42,10 @@ public class FrameController {
       activeSpells.add((Spell) card);
     else
       activeBuildings.add((Building) card);
-
+    ImageView newImageView = new ImageView(card.getImageKey());
+    newImageView.setX(x);
+    newImageView.setY(y);
+    cardImage.put(card, newImageView);
+    mapViewController.addImageView(newImageView);
   }
 }
