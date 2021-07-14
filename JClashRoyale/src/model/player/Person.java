@@ -15,7 +15,6 @@ import model.card.Card;
 public class Person extends Player {
     private String username;
     private Password password;
-    private List<Card> deck;
 
     /**
      * class constructor
@@ -51,9 +50,5 @@ public class Person extends Player {
     public void setPassword(String  password) {
         this.password = new Password(password);
         this.password.setHashedPassword(password);
-    }
-
-    public void setDeck(List<Card> deck) {
-        this.deck = deck;
     }
 }
