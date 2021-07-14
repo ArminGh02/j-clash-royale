@@ -4,134 +4,89 @@ import java.awt.geom.Point2D;
 
 /**
  * Troop class, saves
- *
  * @author Adibov & Armin Gh
  * @version 1.0
  */
-public abstract class Troop extends Card {
-  private int hp, damage, hitSpeed, areaSplash, count;
-  private Speed speed;
-  private Range range;
-  private Target target;
-  private Point2D velocity;
-  private boolean isAttacking;
-  private Card currentTarget;
+abstract public class Troop extends Card {
+    private int hp, damage, hitSpeed, areaSplash, count;
+    private Speed speed;
+    private Range range;
+    private Target target;
+    private Point2D velocity;
 
-  public Troop(int elixirCost, Cards cardType) {
-    super(elixirCost, cardType, CardGroups.TROOP);
-  }
+    public Troop(int elixirCost, String deckElixirImageKey) {
+        super(elixirCost, deckElixirImageKey);
+    }
 
-  /**
-   * isAttacking setter
-   * @param attacking isAttacking new value
-   */
-  public void setAttacking(boolean attacking) {
-    isAttacking = attacking;
-  }
+    /**
+     * hp getter
+     * @return hp
+     */
+    public int getHp() {
+        return hp;
+    }
 
-  /**
-   * currentTarget setter
-   * @param currentTarget currentTarget new value
-   */
-  public void setCurrentTarget(Card currentTarget) {
-    this.currentTarget = currentTarget;
-  }
+    /**
+     * damage getter
+     * @return damage
+     */
+    public int getDamage() {
+        return damage;
+    }
 
-  /**
-   * hp getter
-   *
-   * @return hp
-   */
-  public int getHp() {
-    return hp;
-  }
+    /**
+     * hitSpeed getter
+     * @return hitSpeed
+     */
+    public int getHitSpeed() {
+        return hitSpeed;
+    }
 
-  /**
-   * damage getter
-   *
-   * @return damage
-   */
-  public int getDamage() {
-    return damage;
-  }
+    /**
+     * areaSplash getter
+     * @return areaSplash
+     */
+    public int getAreaSplash() {
+        return areaSplash;
+    }
 
-  /**
-   * hitSpeed getter
-   *
-   * @return hitSpeed
-   */
-  public int getHitSpeed() {
-    return hitSpeed;
-  }
+    /**
+     * count getter
+     * @return count
+     */
+    public int getCount() {
+        return count;
+    }
 
-  /**
-   * areaSplash getter
-   *
-   * @return areaSplash
-   */
-  public int getAreaSplash() {
-    return areaSplash;
-  }
+    /**
+     * speed getter
+     * @return speed
+     */
+    public Speed getSpeed() {
+        return speed;
+    }
 
-  /**
-   * count getter
-   *
-   * @return count
-   */
-  public int getCount() {
-    return count;
-  }
+    /**
+     * range getter
+     * @return range
+     */
+    public Range getRange() {
+        return range;
+    }
 
-  /**
-   * speed getter
-   *
-   * @return speed
-   */
-  public Speed getSpeed() {
-    return speed;
-  }
+    /**
+     * target getter
+     * @return target
+     */
+    public Target getTarget() {
+        return target;
+    }
 
-  /**
-   * range getter
-   *
-   * @return range
-   */
-  public Range getRange() {
-    return range;
-  }
-
-  /**
-   * target getter
-   *
-   * @return target
-   */
-  public Target getTarget() {
-    return target;
-  }
-
-  /**
-   * velocity getter
-   *
-   * @return velocity
-   */
-  public Point2D getVelocity() {
-    return velocity;
-  }
-
-  /**
-   * isAttacking getter
-   *
-   * @return isAttacking
-   */
-  public boolean isAttacking() {
-    return isAttacking;
-  }
-
-  /**
-   * currentTarget getter
-   * @return currentTarget
-   */
-  public Card getCurrentTarget() {
-    return currentTarget;
-  }
+    /**
+     * velocity getter
+     * @return velocity
+     */
+    public Point2D getVelocity() {
+        return velocity;
+    }
 }

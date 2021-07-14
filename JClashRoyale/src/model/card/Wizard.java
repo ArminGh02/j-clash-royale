@@ -5,20 +5,10 @@ import util.Config;
 
 public class Wizard extends Troop {
   public Wizard() {
-    super(5, Cards.WIZARD);
+    super(5, "WIZARD_DECK_ELIXIR_IMAGE");
   }
 
   public static Image getDeckImage() {
     return new Image(Config.retrieveProperty("WIZARD_DECK_IMAGE"));
-  }
-
-  /**
-   * return the image key of the card with respect to config file
-   *
-   * @return image key
-   */
-  @Override
-  public String getImageKey() {
-    return "WIZARD";
   }
 }

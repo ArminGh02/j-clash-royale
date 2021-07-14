@@ -5,20 +5,10 @@ import util.Config;
 
 public class Fireball extends Spell {
   public Fireball() {
-    super(4, Cards.FIREBALL);
+    super(4, "FIREBALL_DECK_ELIXIR_IMAGE");
   }
 
   public static Image getDeckImage() {
     return new Image(Config.retrieveProperty("FIREBALL_DECK_IMAGE"));
-  }
-
-  /**
-   * return the image key of the card with respect to config file
-   *
-   * @return image key
-   */
-  @Override
-  public String getImageKey() {
-    return "FIRE_BALL";
   }
 }

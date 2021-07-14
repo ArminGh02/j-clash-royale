@@ -53,6 +53,7 @@
                         <Image url="@../images/Elixir.png" />
                      </image>
                   </ImageView>
+                  <VBox fx:id="deckSlotsView" alignment="CENTER" layoutY="73.0" prefHeight="681.0" prefWidth="150.0" />
                </children>
             </AnchorPane>
          </children>

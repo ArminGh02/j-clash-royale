@@ -5,20 +5,10 @@ import util.Config;
 
 public class Giant extends Troop {
   public Giant() {
-    super(5, Cards.GIANT);
+    super(5, "GIANT_DECK_ELIXIR_IMAGE");
   }
 
   public static Image getDeckImage() {
     return new Image(Config.retrieveProperty("GIANT_DECK_IMAGE"));
-  }
-
-  /**
-   * return the image key of the card with respect to config file
-   *
-   * @return image key
-   */
-  @Override
-  public String getImageKey() {
-    return "GIANT";
   }
 }

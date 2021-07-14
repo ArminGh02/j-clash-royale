@@ -5,20 +5,10 @@ import util.Config;
 
 public class Rage extends Spell {
   public Rage() {
-    super(3, Cards.RAGE);
+    super(3, "RAGE_DECK_ELIXIR_IMAGE");
   }
 
   public static Image getDeckImage() {
     return new Image(Config.retrieveProperty("RAGE_DECK_IMAGE"));
-  }
-
-  /**
-   * return the image key of the card with respect to config file
-   *
-   * @return image key
-   */
-  @Override
-  public String getImageKey() {
-    return "RAGE";
   }
 }
