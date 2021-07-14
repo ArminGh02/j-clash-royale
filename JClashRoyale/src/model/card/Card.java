@@ -37,4 +37,10 @@ abstract public class Card {
   public int getTeamNumber() {
     return teamNumber;
   }
+
+  /**
+   * return the image key of the card with respect to config file
+   * @return image key
+   */
+  abstract public String getImageKey();
 }

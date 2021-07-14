@@ -1,6 +1,9 @@
 package controller;
 
+import model.card.Card;
+import model.player.BeginnerRobot;
 import model.player.Person;
+import model.player.Player;
 import model.player.Robot;
 
 /**
@@ -11,51 +14,69 @@ import model.player.Robot;
  * @version 1.0
  */
 public class SoloGameController {
-    private Person personPlayer;
-    private Robot robotPlayer = new Robot();
-    private GameTimerController timer;
-    private static SoloGameController instance;
+  private Person personPlayer;
+  private Robot robotPlayer = new BeginnerRobot();
+  private GameTimerController timer;
+  private static SoloGameController instance;
 
-    /**
-     * class constructor
-     */
-    private SoloGameController() {}
+  /** class constructor */
+  private SoloGameController() {}
 
-    /**
-     * return an instance of the class
-     * @return class object
-     */
-    public static SoloGameController getInstance() {
-        if (instance == null)
-            instance = new SoloGameController();
-        return instance;
-    }
+  /**
+   * return an instance of the class
+   *
+   * @return class object
+   */
+  public static SoloGameController getInstance() {
+    if (instance == null) instance = new SoloGameController();
+    return instance;
+  }
 
-    public Person getPersonPlayer() {
-        return personPlayer;
-    }
+  /**
+   * deploy the given card for the given player
+   * @param player the given player
+   * @param x x position of the deployment
+   * @param y y position of the deployment
+   * @return deployed card
+   */
+  public Card deployCard(Player player, double x, double y) {
+    if (!player.canDeployCard())
+      return null;
+    Card deployedCard = player.deployChosenCard();
+    if (player instanceof Person)
+      deployedCard.setTeamNumber(0);
+    else
+      deployedCard.setTeamNumber(1);
+    return deployedCard;
+  }
 
-    public Robot getRobotPlayer() {
-        return robotPlayer;
-    }
+  public Person getPersonPlayer() {
+    return personPlayer;
+  }
 
-    public void setTimer(GameTimerController timer) {
-        this.timer = timer;
-    }
+  public Robot getRobotPlayer() {
+    return robotPlayer;
+  }
 
-    /**
-     * personPlayer setter
-     * @param personPlayer new personPlayer value
-     */
-    public void setPersonPlayer(Person personPlayer) {
-        this.personPlayer = personPlayer;
-    }
+  public void setTimer(GameTimerController timer) {
+    this.timer = timer;
+  }
 
-    /**
-     * robotPlayer setter
-     * @param robotPlayer new robotPlayer value
-     */
-    public void setRobotPlayer(Robot robotPlayer) {
-        this.robotPlayer = robotPlayer;
-    }
+  /**
+   * personPlayer setter
+   *
+   * @param personPlayer new personPlayer value
+   */
+  public void setPersonPlayer(Person personPlayer) {
+    this.personPlayer = personPlayer;
+  }
+
+  /**
+   * robotPlayer setter
+   *
+   * @param robotPlayer new robotPlayer value
+   */
+  public void setRobotPlayer(Robot robotPlayer) {
+    this.robotPlayer = robotPlayer;
+  }
 }

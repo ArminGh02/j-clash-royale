@@ -29,12 +29,15 @@ public abstract class Player {
 
   /**
    * deploy chosen card for the given player if possible
+   * @return chosen card
    */
-  public void deployChosenCard() {
+  public Card deployChosenCard() {
     if (!canDeployCard())
-      return;
+      return null;
+    Card result = deck.getChosenCard();
     decreaseElixir(deck.getChosenCard().getElixirCost());
     deck.pickChosenCard();
+    return result;
   }
 
   /**
