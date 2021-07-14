@@ -17,39 +17,37 @@ public class MapViewController {
 
   @FXML private GridPane mapGrid;
   @FXML private AnchorPane basePane;
-    @FXML private Label elixirLabel;
-    @FXML private Label timerLabel;
-    private ImageView friendlyKingTower;
-    private ImageView friendlyPrinceTowerL, friendlyPrinceTowerR;
-    private ImageView enemyKingTower;
-    private ImageView enemyPrinceTowerL, enemyPrinceTowerR;
+  @FXML private Label elixirLabel;
+  @FXML private Label timerLabel;
+  private ImageView friendlyKingTower;
+  private ImageView friendlyPrinceTowerL, friendlyPrinceTowerR;
+  private ImageView enemyKingTower;
+  private ImageView enemyPrinceTowerL, enemyPrinceTowerR;
 
+  private SoloGameController gameController = SoloGameController.getInstance();
+  private FrameController frameController = new FrameController(this);
 
-    private SoloGameController gameController = SoloGameController.getInstance();
+  @FXML
+  public void initialize() {
+    makeMapBaseField();
+    addTowersToMap();
+    startElixirControllers();
+    startTimer();
+    startGameLoop();
+  }
 
-    @FXML
-    public void initialize() {
-        makeMapBaseField();
-        addTowersToMap();
-        startElixirControllers();
-        startTimer();
-        startGameLoop();
-    }
+  private void startElixirControllers() {
+    new GameElixirController(elixirLabel, gameController.getPersonPlayer()).start();
+    new GameElixirController(gameController.getRobotPlayer()).start();
+  }
 
-    private void startElixirControllers() {
-        new GameElixirController(elixirLabel, gameController.getPersonPlayer()).start();
-        new GameElixirController(gameController.getRobotPlayer()).start();
-    }
+  private void startTimer() {
+    GameTimerController timer = new GameTimerController(timerLabel);
+    timer.start();
+    gameController.setTimer(timer);
+  }
 
-    private void startTimer() {
-        GameTimerController timer = new GameTimerController(timerLabel);
-        timer.start();
-        gameController.setTimer(timer);
-    }
-
-    private void startGameLoop() {
-
-    }
+  private void startGameLoop() {}
 
   /** add map base images to the grid pane */
   private void makeMapBaseField() {
@@ -112,24 +110,17 @@ public class MapViewController {
   @FXML
   void gridPaneMouseClicked(MouseEvent event) {
     double x = event.getSceneX() - 32, y = event.getSceneY() - 32;
-    if (!SoloGameController.getInstance().getPersonPlayer().canDeployCard())
+    Card deployedCard = gameController.deployCard(gameController.getPersonPlayer(), x, y);
+    if (deployedCard == null)
       return;
-    Card deployedCard = SoloGameController.getInstance().getPersonPlayer().getDeck().getChosenCard();
-    SoloGameController.getInstance().getPersonPlayer().deployChosenCard();
-    deployedCard.setTeamNumber(0);
-    if (deployedCard instanceof Troop)
-      activeTroops.add((Troop) deployedCard);
-    else if (deployedCard instanceof Spell)
-      activeSpells.add((Spell) deployedCard);
-    else
-      activeBuildings.add((Building) deployedCard);
+    frameController.addCard(deployedCard, x, y);
   }
 
   /**
-   * deploy the given card
-   * @param card the given card
+   * add the given image view to the base pane
+   * @param imageView the given image view
    */
-  private void deployCard(Card card) {
-    
+  public void addImageView(ImageView imageView) {
+    basePane.getChildren().add(imageView);
   }
 }
