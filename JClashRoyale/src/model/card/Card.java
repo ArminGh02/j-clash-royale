@@ -7,11 +7,15 @@ package model.card;
  */
 abstract public class Card {
   protected final int ELIXIR_COST;
+  protected final Cards cardType;
+  protected CardGroups cardGroup;
   private int level;
   private int teamNumber;
 
-  protected Card(int elixirCost) {
-    this.ELIXIR_COST = elixirCost;
+  public Card(int ELIXIR_COST, Cards cardType, CardGroups cardGroup) {
+    this.ELIXIR_COST = ELIXIR_COST;
+    this.cardType = cardType;
+    this.cardGroup = cardGroup;
   }
 
   /**
@@ -44,4 +48,20 @@ abstract public class Card {
    * @return image key
    */
   abstract public String getImageKey();
+
+  /**
+   * cardType getter
+   * @return cardType
+   */
+  public Cards getCardType() {
+    return cardType;
+  }
+
+  /**
+   * cardGroup getter
+   * @return cardGroup
+   */
+  public CardGroups getCardGroup() {
+    return cardGroup;
+  }
 }

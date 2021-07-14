@@ -15,9 +15,26 @@ public abstract class Troop extends Card {
   private Target target;
   private Point2D velocity;
   private boolean isAttacking;
+  private Card currentTarget;
 
-  public Troop(int elixirCost) {
-    super(elixirCost);
+  public Troop(int elixirCost, Cards cardType) {
+    super(elixirCost, cardType, CardGroups.TROOP);
+  }
+
+  /**
+   * isAttacking setter
+   * @param attacking isAttacking new value
+   */
+  public void setAttacking(boolean attacking) {
+    isAttacking = attacking;
+  }
+
+  /**
+   * currentTarget setter
+   * @param currentTarget currentTarget new value
+   */
+  public void setCurrentTarget(Card currentTarget) {
+    this.currentTarget = currentTarget;
   }
 
   /**
@@ -110,4 +127,11 @@ public abstract class Troop extends Card {
     return isAttacking;
   }
 
+  /**
+   * currentTarget getter
+   * @return currentTarget
+   */
+  public Card getCurrentTarget() {
+    return currentTarget;
+  }
 }

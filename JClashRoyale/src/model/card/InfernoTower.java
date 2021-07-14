@@ -5,7 +5,7 @@ import util.Config;
 
 public class InfernoTower extends Building {
   public InfernoTower() {
-    super(5);
+    super(5, Cards.INFERNO_TOWER);
   }
 
   public static Image getDeckImage() {

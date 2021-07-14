@@ -5,7 +5,7 @@ import util.Config;
 
 public class Giant extends Troop {
   public Giant() {
-    super(5);
+    super(5, Cards.GIANT);
   }
 
   public static Image getDeckImage() {

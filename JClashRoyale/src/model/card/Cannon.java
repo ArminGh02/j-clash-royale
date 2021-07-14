@@ -5,7 +5,7 @@ import util.Config;
 
 public class Cannon extends Building {
   public Cannon() {
-    super(3);
+    super(3, Cards.CANNON);
   }
 
   public static Image getDeckImage() {
