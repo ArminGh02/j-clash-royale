@@ -5,7 +5,7 @@ import util.Config;
 
 public class BabyDragon extends Troop {
   public BabyDragon() {
-    super(4);
+    super(4, Cards.BABY_DRAGON);
   }
 
   public static Image getDeckImage() {

@@ -5,7 +5,7 @@ import util.Config;
 
 public class Rage extends Spell {
   public Rage() {
-    super(3);
+    super(3, Cards.RAGE);
   }
 
   public static Image getDeckImage() {
