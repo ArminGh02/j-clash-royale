@@ -11,4 +11,14 @@ public class MiniPekka extends Troop {
   public static Image getDeckImage() {
     return new Image(Config.retrieveProperty("MINI_PEKKA_DECK_IMAGE"));
   }
+
+  /**
+   * return the image key of the card with respect to config file
+   *
+   * @return image key
+   */
+  @Override
+  public String getImageKey() {
+    return "MINI_PEKKA";
+  }
 }

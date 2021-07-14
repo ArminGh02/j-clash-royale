@@ -8,16 +8,38 @@ package model.card;
 abstract public class Card {
   protected final int ELIXIR_COST;
   private int level;
+  private int teamNumber;
 
   protected Card(int elixirCost) {
     this.ELIXIR_COST = elixirCost;
   }
 
   /**
+   * teamNumber setter
+   * @param teamNumber teamNumber new value
+   */
+  public void setTeamNumber(int teamNumber) {
+    this.teamNumber = teamNumber;
+
+  /**
    * elixirCost getter
    * @return elixirCost
    */
-  public double getElixirCost() {
+  public int getElixirCost() {
     return ELIXIR_COST;
   }
+
+  /**
+   * teamNumber getter
+   * @return teamNumber
+   */
+  public int getTeamNumber() {
+    return teamNumber;
+  }
+
+  /**
+   * return the image key of the card with respect to config file
+   * @return image key
+   */
+  abstract public String getImageKey();
 }

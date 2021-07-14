@@ -73,7 +73,7 @@ public class GameElixirController {
     @Override
     public void run() {
       if (player.getElixir() < 10) {
-        player.incrementElixir();
+        player.increaseElixir();
         if (elixirLabel != null) {
           Platform.runLater(() -> elixirLabel.setText(String.valueOf(player.getElixir())));
         }

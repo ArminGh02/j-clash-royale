@@ -21,6 +21,7 @@ public class Person extends Player {
      * @param password person password
      */
     public Person(String username, String password) {
+        super();
         this.username = username;
         this.password = new Password(password);
     }
