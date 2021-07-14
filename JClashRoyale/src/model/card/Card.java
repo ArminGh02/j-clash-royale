@@ -16,11 +16,13 @@ abstract public class Card {
 
   /**
    * teamNumber setter
+   *
    * @param teamNumber teamNumber new value
    */
   public void setTeamNumber(int teamNumber) {
     this.teamNumber = teamNumber;
-
+  }
+  
   /**
    * elixirCost getter
    * @return elixirCost
