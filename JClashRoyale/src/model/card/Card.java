@@ -22,7 +22,7 @@ abstract public class Card {
   public void setTeamNumber(int teamNumber) {
     this.teamNumber = teamNumber;
   }
-  
+
   /**
    * elixirCost getter
    * @return elixirCost
