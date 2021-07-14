@@ -66,6 +66,11 @@ public class MapViewController {
     deckSlots[2].setOnMouseClicked(event -> gameController.getPersonPlayer().setChosenSlotIndex(2));
     deckSlots[3].setOnMouseClicked(event -> gameController.getPersonPlayer().setChosenSlotIndex(3));
 
+    deckSlots[0].idProperty().setValue("deck-slot");
+    deckSlots[1].idProperty().setValue("deck-slot");
+    deckSlots[2].idProperty().setValue("deck-slot");
+    deckSlots[3].idProperty().setValue("deck-slot");
+
     deckSlotsView.getChildren().addAll(deckSlots);
   }
 
