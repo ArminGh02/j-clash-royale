@@ -5,7 +5,7 @@ import util.Config;
 
 public class Fireball extends Spell {
   public Fireball() {
-    super(4);
+    super(4, Cards.FIREBALL);
   }
 
   public static Image getDeckImage() {

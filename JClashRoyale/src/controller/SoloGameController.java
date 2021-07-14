@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.animation.AnimationTimer;
 import model.card.Card;
 import model.player.BeginnerRobot;
 import model.player.Person;
@@ -17,6 +18,7 @@ public class SoloGameController {
   private Person personPlayer;
   private Robot robotPlayer = new BeginnerRobot();
   private GameTimerController timer;
+  private AnimationTimer gameLoop;
   private static SoloGameController instance;
 
   /** class constructor */
@@ -35,11 +37,9 @@ public class SoloGameController {
   /**
    * deploy the given card for the given player
    * @param player the given player
-   * @param x x position of the deployment
-   * @param y y position of the deployment
    * @return deployed card
    */
-  public Card deployCard(Player player, double x, double y) {
+  public Card deployCard(Player player) {
     if (!player.canDeployCard())
       return null;
     Card deployedCard = player.deployChosenCard();
@@ -78,5 +78,13 @@ public class SoloGameController {
    */
   public void setRobotPlayer(Robot robotPlayer) {
     this.robotPlayer = robotPlayer;
+  }
+
+  /**
+   * gameLoop setter
+   * @param gameLoop gameLoop new value
+   */
+  public void setGameLoop(AnimationTimer gameLoop) {
+    this.gameLoop = gameLoop;
   }
 }

@@ -5,7 +5,7 @@ import util.Config;
 
 public class Wizard extends Troop {
   public Wizard() {
-    super(5);
+    super(5, Cards.WIZARD);
   }
 
   public static Image getDeckImage() {

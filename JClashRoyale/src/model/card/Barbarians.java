@@ -5,7 +5,7 @@ import util.Config;
 
 public class Barbarians extends Troop {
   public Barbarians() {
-    super(5);
+    super(5, Cards.BARBARIANS);
   }
 
   public static Image getDeckImage() {

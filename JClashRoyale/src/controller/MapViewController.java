@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -47,7 +48,9 @@ public class MapViewController {
     gameController.setTimer(timer);
   }
 
-  private void startGameLoop() {}
+  private void startGameLoop() {
+    frameController.start();
+  }
 
   /** add map base images to the grid pane */
   private void makeMapBaseField() {
@@ -110,7 +113,7 @@ public class MapViewController {
   @FXML
   void gridPaneMouseClicked(MouseEvent event) {
     double x = event.getSceneX() - 32, y = event.getSceneY() - 32;
-    Card deployedCard = gameController.deployCard(gameController.getPersonPlayer(), x, y);
+    Card deployedCard = gameController.deployCard(gameController.getPersonPlayer());
     if (deployedCard == null)
       return;
     frameController.addCard(deployedCard, x, y);

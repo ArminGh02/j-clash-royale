@@ -5,7 +5,7 @@ import util.Config;
 
 public class Valkyrie extends Troop {
   public Valkyrie() {
-    super(4);
+    super(4, Cards.VALKYRIE);
   }
 
   public static Image getDeckImage() {
