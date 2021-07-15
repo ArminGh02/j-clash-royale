@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -36,6 +35,7 @@ public class MapViewController {
   private ImageView[] deckSlots;
 
   private SoloGameController gameController = SoloGameController.getInstance();
+  private FrameController gameLoop = new FrameController(this);
 
   @FXML
   public void initialize() {
@@ -44,6 +44,7 @@ public class MapViewController {
     addTowersToMap();
     startElixirControllers();
     startTimer();
+    startGameLoop();
   }
 
   private void initializeDeckSlots() {
@@ -82,6 +83,10 @@ public class MapViewController {
     GameTimerController timer = new GameTimerController(timerLabel);
     timer.start();
     gameController.setTimer(timer);
+  }
+
+  private void startGameLoop() {
+    gameLoop.start();
   }
 
   /**
@@ -152,16 +157,11 @@ public class MapViewController {
    */
   @FXML
   void gridPaneMouseClicked(MouseEvent event) {
-    int chosenSlot = gameController.getPersonPlayer().getChosenSlotIndex();
-    if (chosenSlot != -1) { // player selected a card
-      Card chosenCard = (Card) deckSlots[chosenSlot].getUserData();
-      // TODO: add chosenCard's image to basePane
-      gameController.getPersonPlayer().setChosenSlotIndex(-1);
-      // TODO:
-      // Card nextCard = gameController.getPersonPlayer().nextCard();
-      // deckSlots[chosenSlot].setUserData(nextCard);
-      // deckSlots[chosenSlot].setImage(nextCard.getDeckElixirImage());
-    }
+    double x = event.getSceneX() - 32, y = event.getSceneY() - 32;
+    Card deployedCard = gameController.deployCard(gameController.getPersonPlayer());
+    if (deployedCard == null)
+      return;
+    gameLoop.addCardToMap(deployedCard, x, y);
   }
 
   /**

@@ -42,12 +42,13 @@ public class Deck {
   public void pickChosenCard() {
     if (chosenCard == null || !activeCards.contains(chosenCard))
       return;
-    activeCards.remove(chosenCard);
-    cards.add(chosenCard);
-    chosenCard = null;
     Card newCard = cards.get(0);
     cards.remove(0);
-    activeCards.add(newCard);
+    cards.add(chosenCard);
+    Card tmp = newCard;
+    newCard = chosenCard;
+    chosenCard = tmp;
+    chosenCard = null;
   }
 
   /**
