@@ -74,4 +74,32 @@ public class Deck {
   public void setChosenCard(Card chosenCard) {
     this.chosenCard = chosenCard;
   }
+
+  /**
+   * return the active card with the given index
+   * @param index the given index
+   * @return result card
+   */
+  public Card getActiveCard(int index) {
+    if (index >= activeCards.size())
+      return null;
+    return activeCards.get(index);
+  }
+
+  /**
+   * clear the current deck
+   */
+  public void clear() {
+    cards.clear();
+    activeCards.clear();
+    chosenCard = null;
+  }
+
+  /**
+   * return the number of total cards
+   * @return total cards' count
+   */
+  public int size() {
+    return cards.size() + activeCards.size();
+  }
 }

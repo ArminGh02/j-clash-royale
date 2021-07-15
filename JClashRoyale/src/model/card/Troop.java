@@ -18,6 +18,11 @@ abstract public class Troop extends Card {
         super(elixirCost, deckElixirImageKey);
     }
 
+    @Override
+    public CardGroups getCardGroup() {
+        return CardGroups.TROOP;
+    }
+
     /**
      * hp getter
      * @return hp

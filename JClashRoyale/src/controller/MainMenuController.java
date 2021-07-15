@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import model.Deck;
 import model.player.BeginnerRobot;
 import model.Settings;
 import model.card.Cards;
@@ -33,7 +34,7 @@ import view.ViewManager;
  * @version 1.0
  */
 public class MainMenuController {
-    private List<Card> deck = new ArrayList<>(Settings.DECK_SIZE);
+    private Deck deck = SoloGameController.getInstance().getPersonPlayer().getDeck();
     private boolean[] isCardAdded = new boolean[12];
     @FXML private HBox deckView;
     @FXML private Label unableToPlaceCardLabel;
@@ -64,7 +65,7 @@ public class MainMenuController {
     @FXML
     public void addArcher(MouseEvent event) {
       if (!isCardAdded[Cards.ARCHER.ordinal()] && deck.size() < Settings.DECK_SIZE) {
-        deck.add(new Archer());
+        deck.addCard(new Archer());
         deckView.getChildren().add(new ImageView(Archer.getDeckImage()));
         isCardAdded[Cards.ARCHER.ordinal()] = true;
         unableToPlaceCardLabel.setVisible(false);
@@ -76,7 +77,7 @@ public class MainMenuController {
     @FXML
     public void addArrows(MouseEvent event) {
       if (!isCardAdded[Cards.ARROWS.ordinal()] && deck.size() < Settings.DECK_SIZE) {
-        deck.add(new Arrows());
+        deck.addCard(new Arrows());
         deckView.getChildren().add(new ImageView(Arrows.getDeckImage()));
         isCardAdded[Cards.ARROWS.ordinal()] = true;
         unableToPlaceCardLabel.setVisible(false);
@@ -88,7 +89,7 @@ public class MainMenuController {
     @FXML
     public void addBabyDragon(MouseEvent event) {
       if (!isCardAdded[Cards.BABY_DRAGON.ordinal()] && deck.size() < Settings.DECK_SIZE) {
-        deck.add(new BabyDragon());
+        deck.addCard(new BabyDragon());
         deckView.getChildren().add(new ImageView(BabyDragon.getDeckImage()));
         isCardAdded[Cards.BABY_DRAGON.ordinal()] = true;
         unableToPlaceCardLabel.setVisible(false);
@@ -100,7 +101,7 @@ public class MainMenuController {
     @FXML
     public void addBarbarians(MouseEvent event) {
       if (!isCardAdded[Cards.BARBARIANS.ordinal()] && deck.size() < Settings.DECK_SIZE) {
-        deck.add(new Barbarians());
+        deck.addCard(new Barbarians());
         deckView.getChildren().add(new ImageView(Barbarians.getDeckImage()));
         isCardAdded[Cards.BARBARIANS.ordinal()] = true;
         unableToPlaceCardLabel.setVisible(false);
@@ -112,7 +113,7 @@ public class MainMenuController {
     @FXML
     public void addCannon(MouseEvent event) {
       if (!isCardAdded[Cards.CANNON.ordinal()] && deck.size() < Settings.DECK_SIZE) {
-        deck.add(new Cannon());
+        deck.addCard(new Cannon());
         deckView.getChildren().add(new ImageView(Cannon.getDeckImage()));
         isCardAdded[Cards.CANNON.ordinal()] = true;
         unableToPlaceCardLabel.setVisible(false);
@@ -124,7 +125,7 @@ public class MainMenuController {
     @FXML
     public void addFireball(MouseEvent event) {
       if (!isCardAdded[Cards.FIREBALL.ordinal()] && deck.size() < Settings.DECK_SIZE) {
-        deck.add(new Fireball());
+        deck.addCard(new Fireball());
         deckView.getChildren().add(new ImageView(Fireball.getDeckImage()));
         isCardAdded[Cards.FIREBALL.ordinal()] = true;
         unableToPlaceCardLabel.setVisible(false);
@@ -136,7 +137,7 @@ public class MainMenuController {
     @FXML
     public void addGiant(MouseEvent event) {
       if (!isCardAdded[Cards.GIANT.ordinal()] && deck.size() < Settings.DECK_SIZE) {
-        deck.add(new Giant());
+        deck.addCard(new Giant());
         deckView.getChildren().add(new ImageView(Giant.getDeckImage()));
         isCardAdded[Cards.GIANT.ordinal()] = true;
         unableToPlaceCardLabel.setVisible(false);
@@ -148,7 +149,7 @@ public class MainMenuController {
     @FXML
     public void addInfernoTower(MouseEvent event) {
       if (!isCardAdded[Cards.INFERNO_TOWER.ordinal()] && deck.size() < Settings.DECK_SIZE) {
-        deck.add(new InfernoTower());
+        deck.addCard(new InfernoTower());
         deckView.getChildren().add(new ImageView(InfernoTower.getDeckImage()));
         isCardAdded[Cards.INFERNO_TOWER.ordinal()] = true;
         unableToPlaceCardLabel.setVisible(false);
@@ -160,7 +161,7 @@ public class MainMenuController {
     @FXML
     public void addMiniPekka(MouseEvent event) {
       if (!isCardAdded[Cards.MINI_PEKKA.ordinal()] && deck.size() < Settings.DECK_SIZE) {
-        deck.add(new MiniPekka());
+        deck.addCard(new MiniPekka());
         deckView.getChildren().add(new ImageView(MiniPekka.getDeckImage()));
         isCardAdded[Cards.MINI_PEKKA.ordinal()] = true;
         unableToPlaceCardLabel.setVisible(false);
@@ -172,7 +173,7 @@ public class MainMenuController {
     @FXML
     public void addRage(MouseEvent event) {
       if (!isCardAdded[Cards.RAGE.ordinal()] && deck.size() < Settings.DECK_SIZE) {
-        deck.add(new Rage());
+        deck.addCard(new Rage());
         deckView.getChildren().add(new ImageView(Rage.getDeckImage()));
         isCardAdded[Cards.RAGE.ordinal()] = true;
         unableToPlaceCardLabel.setVisible(false);
@@ -184,7 +185,7 @@ public class MainMenuController {
     @FXML
     public void addValkyrie(MouseEvent event) {
       if (!isCardAdded[Cards.VALKYRIE.ordinal()] && deck.size() < Settings.DECK_SIZE) {
-        deck.add(new Valkyrie());
+        deck.addCard(new Valkyrie());
         deckView.getChildren().add(new ImageView(Valkyrie.getDeckImage()));
         isCardAdded[Cards.VALKYRIE.ordinal()] = true;
         unableToPlaceCardLabel.setVisible(false);
@@ -196,7 +197,7 @@ public class MainMenuController {
     @FXML
     public void addWizard(MouseEvent event) {
       if (!isCardAdded[Cards.WIZARD.ordinal()] && deck.size() < Settings.DECK_SIZE) {
-        deck.add(new Wizard());
+        deck.addCard(new Wizard());
         deckView.getChildren().add(new ImageView(Wizard.getDeckImage()));
         isCardAdded[Cards.WIZARD.ordinal()] = true;
         unableToPlaceCardLabel.setVisible(false);

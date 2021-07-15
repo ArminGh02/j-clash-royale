@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import model.Deck;
 import model.card.Card;
 import util.Config;
 
@@ -47,17 +48,17 @@ public class MapViewController {
 
   private void initializeDeckSlots() {
     deckSlots = new ImageView[4];
-    List<Card> deck = gameController.getPersonPlayer().getDeck();
+    Deck deck = gameController.getPersonPlayer().getDeck();
 
-    deckSlots[0] = new ImageView(deck.get(0).getDeckElixirImage());
-    deckSlots[1] = new ImageView(deck.get(1).getDeckElixirImage());
-    deckSlots[2] = new ImageView(deck.get(2).getDeckElixirImage());
-    deckSlots[3] = new ImageView(deck.get(3).getDeckElixirImage());
+    deckSlots[0] = new ImageView(deck.getCard().getDeckElixirImage());
+    deckSlots[1] = new ImageView(deck.getCard().getDeckElixirImage());
+    deckSlots[2] = new ImageView(deck.getCard().getDeckElixirImage());
+    deckSlots[3] = new ImageView(deck.getCard().getDeckElixirImage());
 
-    deckSlots[0].setUserData(deck.get(0));
-    deckSlots[1].setUserData(deck.get(1));
-    deckSlots[2].setUserData(deck.get(2));
-    deckSlots[3].setUserData(deck.get(3));
+    deckSlots[0].setUserData(deck.getActiveCard(0));
+    deckSlots[1].setUserData(deck.getActiveCard(1));
+    deckSlots[2].setUserData(deck.getActiveCard(2));
+    deckSlots[3].setUserData(deck.getActiveCard(3));
 
     deckSlots[0].setOnMouseClicked(event -> gameController.getPersonPlayer().setChosenSlotIndex(0));
     deckSlots[1].setOnMouseClicked(event -> gameController.getPersonPlayer().setChosenSlotIndex(1));
@@ -161,5 +162,13 @@ public class MapViewController {
       // deckSlots[chosenSlot].setUserData(nextCard);
       // deckSlots[chosenSlot].setImage(nextCard.getDeckElixirImage());
     }
+  }
+
+  /**
+   * add the given imageView to the base pane
+   * @param imageView the given image view
+   */
+  public void addImageView(ImageView imageView) {
+    basePane.getChildren().add(imageView);
   }
 }

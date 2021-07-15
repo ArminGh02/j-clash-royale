@@ -10,7 +10,7 @@ import util.Config;
  */
 abstract public class Card {
   protected final int ELIXIR_COST;
-  private int level;
+  private int level, teamNumber;
   private final Image deckElixirImage;
 
   protected Card(int elixirCost, String deckElixirImageKey) {
@@ -19,14 +19,34 @@ abstract public class Card {
   }
 
   /**
+   * teamNumber setter
+   * @param teamNumber teamNumber new value
+   */
+  public void setTeamNumber(int teamNumber) {
+    this.teamNumber = teamNumber;
+  }
+
+  /**
+   * teamNumber getter
+   * @return teamNumber
+   */
+  public int getTeamNumber() {
+    return teamNumber;
+  }
+
+  /**
    * elixirCost getter
    * @return elixirCost
    */
-  public double getElixirCost() {
+  public int getElixirCost() {
     return ELIXIR_COST;
   }
 
   public Image getDeckElixirImage() {
     return deckElixirImage;
   }
+
+  abstract public CardGroups getCardGroup();
+
+  abstract public String getImageKey();
 }

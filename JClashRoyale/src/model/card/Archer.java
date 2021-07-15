@@ -11,4 +11,9 @@ public class Archer extends Troop {
   public static Image getDeckImage() {
     return new Image(Config.retrieveProperty("ARCHER_DECK_IMAGE"));
   }
+
+  @Override
+  public String getImageKey() {
+    return "ARCHER";
+  }
 }

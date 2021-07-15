@@ -11,4 +11,9 @@ public class InfernoTower extends Building {
   public static Image getDeckImage() {
     return new Image(Config.retrieveProperty("INFERNO_TOWER_DECK_IMAGE"));
   }
+
+  @Override
+  public String getImageKey() {
+    return "INFERNO_TOWER";
+  }
 }
