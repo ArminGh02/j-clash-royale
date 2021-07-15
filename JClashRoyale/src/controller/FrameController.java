@@ -3,6 +3,7 @@ package controller;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.ImageView;
 import model.card.*;
+import util.Config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,14 +34,14 @@ public class FrameController extends AnimationTimer {
    * @param x x position of the new card
    * @param y y position of the new card
    */
-  public void addCard(Card card, double x, double y) {
+  public void addCardToMap(Card card, double x, double y) {
     if (card.getCardGroup().equals(CardGroups.TROOP))
       activeTroops.add((Troop) card);
     else if (card.getCardGroup().equals(CardGroups.SPELL))
       activeSpells.add((Spell) card);
     else
       activeBuildings.add((Building) card);
-    ImageView newImageView = new ImageView(card.getImageKey());
+    ImageView newImageView = new ImageView(Config.retrieveProperty(card.getImageKey()));
     newImageView.setX(x);
     newImageView.setY(y);
     cardImage.put(card, newImageView);

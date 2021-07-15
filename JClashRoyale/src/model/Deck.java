@@ -42,12 +42,13 @@ public class Deck {
   public void pickChosenCard() {
     if (chosenCard == null || !activeCards.contains(chosenCard))
       return;
-    activeCards.remove(chosenCard);
-    cards.add(chosenCard);
-    chosenCard = null;
     Card newCard = cards.get(0);
     cards.remove(0);
-    activeCards.add(newCard);
+    cards.add(chosenCard);
+    Card tmp = newCard;
+    newCard = chosenCard;
+    chosenCard = tmp;
+    chosenCard = null;
   }
 
   /**
@@ -73,5 +74,33 @@ public class Deck {
    */
   public void setChosenCard(Card chosenCard) {
     this.chosenCard = chosenCard;
+  }
+
+  /**
+   * return the active card with the given index
+   * @param index the given index
+   * @return result card
+   */
+  public Card getActiveCard(int index) {
+    if (index >= activeCards.size())
+      return null;
+    return activeCards.get(index);
+  }
+
+  /**
+   * clear the current deck
+   */
+  public void clear() {
+    cards.clear();
+    activeCards.clear();
+    chosenCard = null;
+  }
+
+  /**
+   * return the number of total cards
+   * @return total cards' count
+   */
+  public int size() {
+    return cards.size() + activeCards.size();
   }
 }

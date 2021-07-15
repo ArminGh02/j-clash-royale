@@ -11,4 +11,9 @@ public class MiniPekka extends Troop {
   public static Image getDeckImage() {
     return new Image(Config.retrieveProperty("MINI_PEKKA_DECK_IMAGE"));
   }
+
+  @Override
+  public String getImageKey() {
+    return "MINI_PEKKA";
+  }
 }

@@ -11,4 +11,9 @@ public class Giant extends Troop {
   public static Image getDeckImage() {
     return new Image(Config.retrieveProperty("GIANT_DECK_IMAGE"));
   }
+
+  @Override
+  public String getImageKey() {
+    return "GIANT";
+  }
 }

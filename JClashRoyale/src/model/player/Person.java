@@ -14,7 +14,6 @@ import model.player.Player;
 public class Person extends Player {
     private String username;
     private Password password;
-    private List<Card> deck;
     private int chosenSlotIndex = -1;
 
     /**
@@ -25,16 +24,6 @@ public class Person extends Player {
     public Person(String username, String password) {
         this.username = username;
         this.password = new Password(password);
-    }
-
-    /**
-     * check if the player can deploy chosen card
-     * @return boolean result
-     */
-    public boolean canDeployCard() {
-        if (false) // FIXME chosenCard == null
-            return false;
-        return true; // FIXME
     }
 
     /**
@@ -62,16 +51,9 @@ public class Person extends Player {
         this.password.setHashedPassword(password);
     }
 
-    public void setDeck(List<Card> deck) {
-        this.deck = deck;
-    }
-
-    public List<Card> getDeck() {
-        return deck;
-    }
-
     public void setChosenSlotIndex(int i) {
-        this.chosenSlotIndex = i;
+//        this.chosenSlotIndex = i; FIXME delete this line
+        deck.setChosenCard(deck.getActiveCard(i));
     }
 
     public int getChosenSlotIndex() {
