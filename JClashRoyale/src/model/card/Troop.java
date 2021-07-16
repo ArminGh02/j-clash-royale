@@ -12,7 +12,6 @@ abstract public class Troop extends Card {
     private Speed speed;
     private Range range;
     private Target target;
-    private Point2D velocity;
 
     public Troop(int elixirCost, String deckElixirImageKey) {
         super(elixirCost, deckElixirImageKey);
@@ -87,11 +86,4 @@ abstract public class Troop extends Card {
         return target;
     }
 
-    /**
-     * velocity getter
-     * @return velocity
-     */
-    public Point2D getVelocity() {
-        return velocity;
-    }
 }
