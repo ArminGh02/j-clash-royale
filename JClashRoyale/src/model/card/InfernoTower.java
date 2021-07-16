@@ -1,6 +1,7 @@
 package model.card;
 
 import javafx.scene.image.Image;
+import model.Settings;
 import util.Config;
 
 public class InfernoTower extends Building {
@@ -15,5 +16,15 @@ public class InfernoTower extends Building {
   @Override
   public String getImageKey() {
     return "INFERNO_TOWER";
+  }
+
+  /**
+   * get euclidean range in double
+   *
+   * @return range distance
+   */
+  @Override
+  public double getRangeDistance() {
+    return Settings.INFERNO_TOWER_ATTACK_RANGE;
   }
 }

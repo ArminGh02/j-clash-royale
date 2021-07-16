@@ -1,5 +1,7 @@
 package model.card;
 
+import model.Settings;
+
 /**
  * PrinceTower class, implements prince tower behaviours
  * @author Adibov & Armin Gh
@@ -20,5 +22,15 @@ public class PrinceTower extends Tower {
     @Override
     public String getImageKey() {
         return "PRINCE_TOWER";
+    }
+
+    /**
+     * get euclidean range in double
+     *
+     * @return range distance
+     */
+    @Override
+    public double getRangeDistance() {
+        return Settings.PRINCE_TOWER_ATTACK_RANGE;
     }
 }

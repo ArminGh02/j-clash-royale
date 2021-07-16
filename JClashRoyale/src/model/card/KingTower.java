@@ -1,5 +1,7 @@
 package model.card;
 
+import model.Settings;
+
 /**
  * KingTower class, implements king tower behaviours
  * @author Adibov & Armin Gh
@@ -20,5 +22,15 @@ public class KingTower extends Tower {
     @Override
     public String getImageKey() {
         return "KING_TOWER";
+    }
+
+    /**
+     * get euclidean range in double
+     *
+     * @return range distance
+     */
+    @Override
+    public double getRangeDistance() {
+        return Settings.KING_TOWER_ATTACK_RANGE;
     }
 }

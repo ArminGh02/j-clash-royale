@@ -1,6 +1,7 @@
 package model.card;
 
 import javafx.scene.image.Image;
+import model.Settings;
 import util.Config;
 
 public class Archer extends Troop {
@@ -15,5 +16,15 @@ public class Archer extends Troop {
   @Override
   public String getImageKey() {
     return "ARCHER";
+  }
+
+  /**
+   * get euclidean range in double
+   *
+   * @return range distance
+   */
+  @Override
+  public double getRangeDistance() {
+    return Settings.ARCHER_ATTACK_RANGE;
   }
 }

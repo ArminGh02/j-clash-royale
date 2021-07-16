@@ -1,5 +1,7 @@
 package model.card;
 
+import model.Settings;
+
 import java.awt.geom.Point2D;
 
 /**
@@ -76,6 +78,16 @@ abstract public class Troop extends Card {
      */
     public Range getRange() {
         return range;
+    }
+
+    /**
+     * get euclidean range in double
+     * @return range distance
+     */
+    public double getRangeDistance() {
+        if (range.equals(Range.MELEE))
+            return Settings.MELEE_ATTACK_RANGE;
+        return 0;
     }
 
     /**

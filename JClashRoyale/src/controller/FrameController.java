@@ -127,26 +127,47 @@ public class FrameController extends AnimationTimer {
    */
   private void updateTargets() {
     for (Troop troop : activeTroops)
-      updateTroopTarget(troop);
+      updateTarget(troop);
     for (Building building : activeBuildings)
-      updateBuildingTarget(building);
+      updateTarget(building);
   }
 
   /**
-   * update target for the given troop
-   * @param troop the given troop
+   * update troops' velocity
    */
-  private void updateTroopTarget(Troop troop) {
+  private void updateVelocities() {
+
+  }
+
+  /**
+   * update target for the given attackingCard
+   * @param attackingCard the given attackingCard
+   */
+  private void updateTarget(Card attackingCard) {
     double minimumDistance = 1000;
-    for ()
-  }
+    for (Card card : activeTroops) {
+      double distance = getDistance(attackingCard, card);
+      if (distance < minimumDistance) {
+        minimumDistance = distance;
+        attackingCard.setCurrentTarget(card);
+      }
+    }
 
-  /**
-   * update target for the given building
-   * @param building the given building
-   */
-  private void updateBuildingTarget(Building building) {
+    for (Card card : activeBuildings) {
+      double distance = getDistance(attackingCard, card);
+      if (distance < minimumDistance) {
+        minimumDistance = distance;
+        attackingCard.setCurrentTarget(card);
+      }
+    }
 
+    if (attackingCard.getCardGroup().equals(CardGroups.TROOP)) {
+      Troop attackingTroop = (Troop) attackingCard;
+//      if (getDistance(attackingTroop, attackingTroop.getCurrentTarget()) <= )
+    }
+    else if (attackingCard.getCardGroup().equals(CardGroups.BUILDING)) {
+
+    }
   }
 
   /**

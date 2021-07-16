@@ -1,6 +1,7 @@
 package model.card;
 
 import javafx.scene.image.Image;
+import model.Settings;
 import util.Config;
 
 public class Wizard extends Troop {
@@ -15,5 +16,15 @@ public class Wizard extends Troop {
   @Override
   public String getImageKey() {
     return "WIZARD";
+  }
+
+  /**
+   * get euclidean range in double
+   *
+   * @return range distance
+   */
+  @Override
+  public double getRangeDistance() {
+    return Settings.WIZARD_ATTACK_RANGE;
   }
 }

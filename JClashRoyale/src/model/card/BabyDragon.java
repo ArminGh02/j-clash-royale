@@ -1,6 +1,7 @@
 package model.card;
 
 import javafx.scene.image.Image;
+import model.Settings;
 import util.Config;
 
 public class BabyDragon extends Troop {
@@ -15,5 +16,15 @@ public class BabyDragon extends Troop {
   @Override
   public String getImageKey() {
     return "BABY_DRAGON";
+  }
+
+  /**
+   * get euclidean range in double
+   *
+   * @return range distance
+   */
+  @Override
+  public double getRangeDistance() {
+    return Settings.BABY_DRAGON_ATTACK_RANGE;
   }
 }
