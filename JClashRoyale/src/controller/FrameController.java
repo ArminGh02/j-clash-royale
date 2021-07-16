@@ -21,7 +21,7 @@ public class FrameController extends AnimationTimer {
   private List<Troop> activeTroops = new ArrayList<>();
   private List<Spell> activeSpells = new ArrayList<>();
   private List<Building> activeBuildings = new ArrayList<>();
-  private Map<Card, ImageView> cardImage = new HashMap<>();
+  private Map<Card, ImageView> cardsImage = new HashMap<>();
 
   private KingTower friendlyKingTower;
   private PrinceTower friendlyPrinceTowerL, friendlyPrinceTowerR;
@@ -72,12 +72,12 @@ public class FrameController extends AnimationTimer {
     ImageView enemyPrinceTowerLImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
     ImageView enemyPrinceTowerRImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
 
-    cardImage.put(friendlyKingTower, friendlyKingTowerImage);
-    cardImage.put(friendlyPrinceTowerL, friendlyPrinceTowerLImage);
-    cardImage.put(friendlyPrinceTowerR, friendlyPrinceTowerRImage);
-    cardImage.put(enemyKingTower, enemyKingTowerImage);
-    cardImage.put(enemyPrinceTowerL, enemyPrinceTowerLImage);
-    cardImage.put(enemyPrinceTowerR, enemyPrinceTowerRImage);
+    cardsImage.put(friendlyKingTower, friendlyKingTowerImage);
+    cardsImage.put(friendlyPrinceTowerL, friendlyPrinceTowerLImage);
+    cardsImage.put(friendlyPrinceTowerR, friendlyPrinceTowerRImage);
+    cardsImage.put(enemyKingTower, enemyKingTowerImage);
+    cardsImage.put(enemyPrinceTowerL, enemyPrinceTowerLImage);
+    cardsImage.put(enemyPrinceTowerR, enemyPrinceTowerRImage);
 
     int middleColumn = Settings.MAP_COLUMN_COUNT / 2;
     mapViewController.addMapGrid(friendlyKingTowerImage, middleColumn, Settings.MAP_ROW_COUNT - 1);
@@ -104,7 +104,7 @@ public class FrameController extends AnimationTimer {
     ImageView newImageView = new ImageView(Config.retrieveProperty(card.getImageKey()));
     newImageView.setX(x);
     newImageView.setY(y);
-    cardImage.put(card, newImageView);
+    cardsImage.put(card, newImageView);
     mapViewController.addImageView(newImageView);
   }
 
@@ -137,7 +137,8 @@ public class FrameController extends AnimationTimer {
    * @param troop the given troop
    */
   private void updateTroopTarget(Troop troop) {
-
+    double minimumDistance = 1000;
+    for ()
   }
 
   /**
@@ -146,6 +147,71 @@ public class FrameController extends AnimationTimer {
    */
   private void updateBuildingTarget(Building building) {
 
+  }
+
+  /**
+   * get minimum distance between two given card
+   * @param source source card (attacker)
+   * @param destination destination card
+   * @return distance value
+   */
+  private double getDistance(Card source, Card destination) {
+    int sourceRegion = getRegionNumber(source);
+    int destinationRegion = getRegionNumber(destination);
+
+    ImageView sourceImage = cardsImage.get(source);
+    ImageView destinationImage = cardsImage.get(destination);
+    if (sourceImage == null || destinationImage == null)
+      return 100;
+
+    boolean euclideanDistance = false;
+    if (source.getCardGroup().equals(CardGroups.TROOP)) {
+      Troop tempTroop = (Troop) source;
+      euclideanDistance |= tempTroop.getTarget().equals(Target.AIR);
+      euclideanDistance |= tempTroop.getTarget().equals(Target.ALL);
+    }
+    if (sourceRegion == destinationRegion || sourceRegion == 0 || destinationRegion == 0)
+      euclideanDistance = true;
+    if (euclideanDistance)
+      return getEuclideanDistance(sourceImage.getX(), sourceImage.getY(), destinationImage.getX(), destinationImage.getY());
+
+    double firstPath = getEuclideanDistance(sourceImage.getX(), sourceImage.getY(), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y) +
+            getEuclideanDistance(Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y, destinationImage.getX(), destinationImage.getY());
+    double secondPath = getEuclideanDistance(sourceImage.getX(), sourceImage.getY(), Settings.RIGHT_BRIDGE_X, Settings.RIGHT_BRIDGE_Y) +
+            getEuclideanDistance(Settings.RIGHT_BRIDGE_X, Settings.RIGHT_BRIDGE_Y, destinationImage.getX(), destinationImage.getY());
+    return Math.min(firstPath, secondPath);
+  }
+
+  /**
+   * calculate the euclidean distance between two given points
+   * @param x1 x position of the first point
+   * @param y1 y position of the first point
+   * @param x2 x position of the second point
+   * @param y2 y position of the second point
+   * @return euclidean distance
+   */
+  private double getEuclideanDistance(double x1, double y1, double x2, double y2) {
+    return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+  }
+
+  /**
+   * calculate region number of the given card
+   * @param card the given card
+   * @return 0 for bridges and 1 for friendly half and 2 for enemy's half
+   */
+  private int getRegionNumber(Card card) {
+    ImageView cardImage = cardsImage.get(card);
+    if (cardImage == null)
+      return 3;
+
+    int middleRow = Settings.MAP_ROW_COUNT / 2;
+    int cellRow = (int) (cardImage.getY() / Settings.CELL_HEIGHT);
+    if (cellRow == middleRow)
+      return 0;
+    else if (cellRow > middleRow)
+      return 1;
+    else
+      return 2;
   }
 
   /**

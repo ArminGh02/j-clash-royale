@@ -9,4 +9,9 @@ public class Settings {
   public static final int DECK_SIZE = 8;
   public static final int MAP_ROW_COUNT = 13;
   public static final int MAP_COLUMN_COUNT = 7;
+  public static final int CELL_HEIGHT = 64;
+  public static final double LEFT_BRIDGE_X = 246;
+  public static final double LEFT_BRIDGE_Y = 352;
+  public static final double RIGHT_BRIDGE_X = 502;
+  public static final double RIGHT_BRIDGE_Y = 352;
 }
