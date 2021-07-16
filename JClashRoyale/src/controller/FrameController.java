@@ -7,6 +7,8 @@ import util.Config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * FrameController class, handles each frame's update
@@ -15,10 +17,10 @@ import java.util.HashMap;
  */
 public class FrameController extends AnimationTimer {
   private MapViewController mapViewController;
-  private ArrayList<Troop> activeTroops = new ArrayList<>();
-  private ArrayList<Spell> activeSpells = new ArrayList<>();
-  private ArrayList<Building> activeBuildings = new ArrayList<>();
-  private HashMap<Card, ImageView> cardImage = new HashMap<>();
+  private List<Troop> activeTroops = new ArrayList<>();
+  private List<Spell> activeSpells = new ArrayList<>();
+  private List<Building> activeBuildings = new ArrayList<>();
+  private Map<Card, ImageView> cardImage = new HashMap<>();
 
   /**
    * class constructor
