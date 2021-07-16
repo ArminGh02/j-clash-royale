@@ -2,6 +2,7 @@ package controller;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.ImageView;
+import model.Settings;
 import model.card.*;
 import util.Config;
 
@@ -22,12 +23,69 @@ public class FrameController extends AnimationTimer {
   private List<Building> activeBuildings = new ArrayList<>();
   private Map<Card, ImageView> cardImage = new HashMap<>();
 
+  private KingTower friendlyKingTower;
+  private PrinceTower friendlyPrinceTowerL, friendlyPrinceTowerR;
+  private KingTower enemyKingTower;
+  private PrinceTower enemyPrinceTowerL, enemyPrinceTowerR;
+
   /**
    * class constructor
    * @param mapViewController mapViewController field value
    */
   public FrameController(MapViewController mapViewController) {
     this.mapViewController = mapViewController;
+  }
+
+  public void initialize() {
+    addTowersToMap();
+  }
+
+  /**
+   * add tower images to map
+   */
+  private void addTowersToMap() {
+    friendlyKingTower = new KingTower();
+    friendlyPrinceTowerL = new PrinceTower();
+    friendlyPrinceTowerR = new PrinceTower();
+    enemyKingTower = new KingTower();
+    enemyPrinceTowerL = new PrinceTower();
+    enemyPrinceTowerR = new PrinceTower();
+
+    friendlyKingTower.setTeamNumber(0);
+    friendlyPrinceTowerL.setTeamNumber(0);
+    friendlyPrinceTowerR.setTeamNumber(0);
+    enemyKingTower.setTeamNumber(1);
+    enemyPrinceTowerL.setTeamNumber(1);
+    enemyPrinceTowerR.setTeamNumber(1);
+
+    activeBuildings.add(friendlyKingTower);
+    activeBuildings.add(friendlyPrinceTowerL);
+    activeBuildings.add(friendlyPrinceTowerR);
+    activeBuildings.add(enemyKingTower);
+    activeBuildings.add(enemyPrinceTowerL);
+    activeBuildings.add(enemyPrinceTowerR);
+
+    ImageView friendlyKingTowerImage = new ImageView(Config.retrieveProperty("KING_TOWER_FRIENDLY"));
+    ImageView friendlyPrinceTowerLImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
+    ImageView friendlyPrinceTowerRImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
+    ImageView enemyKingTowerImage = new ImageView(Config.retrieveProperty("KING_TOWER_ENEMY"));
+    ImageView enemyPrinceTowerLImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
+    ImageView enemyPrinceTowerRImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
+
+    cardImage.put(friendlyKingTower, friendlyKingTowerImage);
+    cardImage.put(friendlyPrinceTowerL, friendlyPrinceTowerLImage);
+    cardImage.put(friendlyPrinceTowerR, friendlyPrinceTowerRImage);
+    cardImage.put(enemyKingTower, enemyKingTowerImage);
+    cardImage.put(enemyPrinceTowerL, enemyPrinceTowerLImage);
+    cardImage.put(enemyPrinceTowerR, enemyPrinceTowerRImage);
+
+    int middleColumn = Settings.MAP_COLUMN_COUNT / 2;
+    mapViewController.addMapGrid(friendlyKingTowerImage, middleColumn, Settings.MAP_ROW_COUNT - 1);
+    mapViewController.addMapGrid(friendlyPrinceTowerLImage, 1, Settings.MAP_ROW_COUNT - 3);
+    mapViewController.addMapGrid(friendlyPrinceTowerRImage, Settings.MAP_COLUMN_COUNT - 2, Settings.MAP_ROW_COUNT - 3);
+    mapViewController.addMapGrid(enemyKingTowerImage, middleColumn, 0);
+    mapViewController.addMapGrid(enemyPrinceTowerLImage, 1, 1);
+    mapViewController.addMapGrid(enemyPrinceTowerRImage, Settings.MAP_COLUMN_COUNT - 2, 1);
   }
 
   /**

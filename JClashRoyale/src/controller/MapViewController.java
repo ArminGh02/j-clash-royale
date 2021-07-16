@@ -2,6 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -19,16 +20,10 @@ public class MapViewController {
   private GridPane mapGrid;
   @FXML
   private AnchorPane basePane;
-  private ImageView friendlyKingTower;
-  private ImageView friendlyPrinceTowerL, friendlyPrinceTowerR;
-  private ImageView enemyKingTower;
-  private ImageView enemyPrinceTowerL, enemyPrinceTowerR;
-
   @FXML
   private Label elixirLabel;
   @FXML
   private Label timerLabel;
-
   @FXML
   private VBox deckSlotsView;
 
@@ -41,7 +36,6 @@ public class MapViewController {
   public void initialize() {
     initializeDeckSlots();
     makeMapBaseField();
-    addTowersToMap();
     startElixirControllers();
     startTimer();
     startGameLoop();
@@ -86,6 +80,7 @@ public class MapViewController {
   }
 
   private void startGameLoop() {
+    gameLoop.initialize();
     gameLoop.start();
   }
 
@@ -131,26 +126,6 @@ public class MapViewController {
   }
 
   /**
-   * add tower images to the grid pane
-   */
-  private void addTowersToMap() {
-    friendlyKingTower = new ImageView(Config.retrieveProperty("KING_TOWER_FRIENDLY"));
-    friendlyPrinceTowerL = new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
-    friendlyPrinceTowerR = new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
-    enemyKingTower = new ImageView(Config.retrieveProperty("KING_TOWER_ENEMY"));
-    enemyPrinceTowerL = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
-    enemyPrinceTowerR = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
-
-    int middleColumn = mapColumnCount / 2;
-    mapGrid.add(friendlyKingTower, middleColumn, mapRowCount - 1);
-    mapGrid.add(friendlyPrinceTowerL, 1, mapRowCount - 3);
-    mapGrid.add(friendlyPrinceTowerR, mapColumnCount - 2, mapRowCount - 3);
-    mapGrid.add(enemyKingTower, middleColumn, 0);
-    mapGrid.add(enemyPrinceTowerL, 1, 1);
-    mapGrid.add(enemyPrinceTowerR, mapColumnCount - 2, 1);
-  }
-
-  /**
    * player clicked on map and wants to deploy card
    *
    * @param event happened event
@@ -170,5 +145,15 @@ public class MapViewController {
    */
   public void addImageView(ImageView imageView) {
     basePane.getChildren().add(imageView);
+  }
+
+  /**
+   * add the given image view to the map grid
+   * @param imageView the given image view
+   * @param j column index
+   * @param i row index
+   */
+  public void addMapGrid(ImageView imageView, int j, int i) {
+    mapGrid.add(imageView, j, i);
   }
 }

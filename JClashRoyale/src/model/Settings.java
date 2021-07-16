@@ -7,4 +7,6 @@ public class Settings {
   public static final int INITIAL_ELIXIR = 4;
   public static final int ELIXIR_INCREASE = 1;
   public static final int DECK_SIZE = 8;
+  public static final int MAP_ROW_COUNT = 13;
+  public static final int MAP_COLUMN_COUNT = 7;
 }
