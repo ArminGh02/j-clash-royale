@@ -9,13 +9,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import model.Deck;
+import model.Settings;
 import model.card.Card;
 import util.Config;
 
 public class MapViewController {
-  public final int mapRowCount = 13;
-  public final int mapColumnCount = 7;
-
   @FXML
   private GridPane mapGrid;
   @FXML
@@ -88,6 +86,7 @@ public class MapViewController {
    * add map base images to the grid pane
    */
   private void makeMapBaseField() {
+    final int mapRowCount = Settings.MAP_ROW_COUNT, mapColumnCount = Settings.MAP_COLUMN_COUNT;
     for (int i = 0; i < mapRowCount; i++) {
       for (int j = 0; j < mapColumnCount; j++) {
         if (i == 0 && j == 0) {
