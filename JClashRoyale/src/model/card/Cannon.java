@@ -7,6 +7,7 @@ import util.Config;
 public class Cannon extends Building {
   public Cannon() {
     super(3, "CANNON_DECK_ELIXIR_IMAGE");
+    range = Range.RANGED;
   }
 
   public static Image getDeckImage() {

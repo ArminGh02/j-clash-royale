@@ -9,12 +9,13 @@ import model.Settings;
  * @version 1.0
  */
 abstract public class Attacker extends Card {
-    private int hp;
-    private int damage;
-    private int hitSpeed;
-    private Range range;
-    private Target target;
-    private javafx.geometry.Point2D velocity;
+    protected int level = 1;
+    protected int hp;
+    protected int damage;
+    protected int hitSpeed;
+    protected Range range;
+    protected Target target;
+    private Point2D velocity;
     private Card currentTarget;
     private boolean isAttacking;
 
@@ -88,10 +89,11 @@ abstract public class Attacker extends Card {
      * @param y y velocity new value
      */
     public void setVelocity(double x, double y) {
-        if (velocity == null)
-            velocity = new javafx.geometry.Point2D(0, 0);
-        velocity.subtract(velocity.getX(), velocity.getY());
-        velocity.add(x, y);
+//        if (velocity == null) FIXME How to set new velocity?
+//            velocity = new Point2D(0, 0);
+//        velocity.subtract(velocity.getX(), velocity.getY());
+//        velocity.add(x, y);
+        velocity = new Point2D(x, y);
     }
 
     /**

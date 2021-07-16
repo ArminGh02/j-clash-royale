@@ -131,7 +131,7 @@ public class MapViewController {
    */
   @FXML
   void gridPaneMouseClicked(MouseEvent event) {
-    double x = event.getSceneX() - 32, y = event.getSceneY() - 32;
+    double x = event.getSceneX() - Settings.CELL_WIDTH_SHIFT, y = event.getSceneY() - Settings.CELL_HEIGHT_SHIFT;
     Card deployedCard = gameController.deployCard(gameController.getPersonPlayer());
     if (deployedCard == null)
       return;
@@ -154,5 +154,7 @@ public class MapViewController {
    */
   public void addMapGrid(ImageView imageView, int j, int i) {
     mapGrid.add(imageView, j, i);
+    imageView.setX(Settings.LEFT_VBOX_WIDTH + j * Settings.CELL_WIDTH + Settings.CELL_WIDTH_SHIFT);
+    imageView.setY(i * Settings.CELL_HEIGHT + Settings.CELL_HEIGHT_SHIFT);
   }
 }

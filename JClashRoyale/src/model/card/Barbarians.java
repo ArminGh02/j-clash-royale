@@ -6,6 +6,7 @@ import util.Config;
 public class Barbarians extends Troop {
   public Barbarians() {
     super(5, "BARBARIANS_DECK_ELIXIR_IMAGE");
+    range = Range.MELEE;
   }
 
   public static Image getDeckImage() {

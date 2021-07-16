@@ -6,6 +6,7 @@ import util.Config;
 public class Giant extends Troop {
   public Giant() {
     super(5, "GIANT_DECK_ELIXIR_IMAGE");
+    range = Range.MELEE;
   }
 
   public static Image getDeckImage() {

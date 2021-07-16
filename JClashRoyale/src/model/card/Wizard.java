@@ -7,6 +7,7 @@ import util.Config;
 public class Wizard extends Troop {
   public Wizard() {
     super(5, "WIZARD_DECK_ELIXIR_IMAGE");
+    range = Range.RANGED;
   }
 
   public static Image getDeckImage() {

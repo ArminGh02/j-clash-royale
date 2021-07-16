@@ -11,6 +11,11 @@ public class Settings {
   public static final int MAP_ROW_COUNT = 13;
   public static final int MAP_COLUMN_COUNT = 7;
   public static final int CELL_HEIGHT = 64;
+  public static final int CELL_WIDTH = 64;
+  public static final int CELL_HEIGHT_SHIFT = CELL_HEIGHT / 2;
+  public static final int CELL_WIDTH_SHIFT = CELL_WIDTH / 2;
+  public static final int LEFT_VBOX_WIDTH = 150;
+
   public static final double LEFT_BRIDGE_X = 246;
   public static final double LEFT_BRIDGE_Y = 352;
   public static final double RIGHT_BRIDGE_X = 502;

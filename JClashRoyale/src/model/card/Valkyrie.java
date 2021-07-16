@@ -6,6 +6,7 @@ import util.Config;
 public class Valkyrie extends Troop {
   public Valkyrie() {
     super(4, "VALKYRIE_DECK_ELIXIR_IMAGE");
+    range = Range.MELEE;
   }
 
   public static Image getDeckImage() {

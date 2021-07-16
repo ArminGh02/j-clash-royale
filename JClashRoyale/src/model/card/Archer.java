@@ -7,6 +7,7 @@ import util.Config;
 public class Archer extends Troop {
   public Archer() {
     super(3, "ARCHER_DECK_ELIXIR_IMAGE");
+    range = Range.RANGED;
   }
 
   public static Image getDeckImage() {
