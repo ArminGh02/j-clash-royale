@@ -6,7 +6,7 @@ public abstract class Building extends Card {
   }
 
   @Override
-  public CardGroups getCardGroup() {
-    return CardGroups.BUILDING;
+  public CardType getCardGroup() {
+    return CardType.BUILDING;
   }
 }

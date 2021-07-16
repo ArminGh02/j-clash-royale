@@ -19,8 +19,8 @@ abstract public class Troop extends Card {
     }
 
     @Override
-    public CardGroups getCardGroup() {
-        return CardGroups.TROOP;
+    public CardType getCardGroup() {
+        return CardType.TROOP;
     }
 
     /**

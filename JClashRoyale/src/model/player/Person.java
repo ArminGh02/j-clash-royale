@@ -1,10 +1,6 @@
 package model.player;
 
-import java.util.List;
-import javafx.scene.image.ImageView;
 import model.Password;
-import model.card.Card;
-import model.player.Player;
 
 /**
  * Person class, implements real player
@@ -49,14 +45,5 @@ public class Person extends Player {
     public void setPassword(String  password) {
         this.password = new Password(password);
         this.password.setHashedPassword(password);
-    }
-
-    public void setChosenSlotIndex(int i) {
-//        this.chosenSlotIndex = i; FIXME delete this line
-        deck.setChosenCard(deck.getActiveCard(i));
-    }
-
-    public int getChosenSlotIndex() {
-        return chosenSlotIndex;
     }
 }

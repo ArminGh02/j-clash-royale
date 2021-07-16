@@ -7,7 +7,7 @@ public abstract class Spell extends Card {
   }
 
   @Override
-  public CardGroups getCardGroup() {
-    return CardGroups.SPELL;
+  public CardType getCardGroup() {
+    return CardType.SPELL;
   }
 }

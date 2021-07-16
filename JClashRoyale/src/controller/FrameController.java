@@ -31,21 +31,18 @@ public class FrameController extends AnimationTimer {
   /**
    * add the given card to the list of active cards
    * @param card the given card
-   * @param x x position of the new card
-   * @param y y position of the new card
    */
-  public void addCardToMap(Card card, double x, double y) {
-    if (card.getCardGroup().equals(CardGroups.TROOP))
+  public void addToActiveCards(Card card) {
+    if (card.getCardGroup().equals(CardType.TROOP))
       activeTroops.add((Troop) card);
-    else if (card.getCardGroup().equals(CardGroups.SPELL))
+    else if (card.getCardGroup().equals(CardType.SPELL))
       activeSpells.add((Spell) card);
     else
       activeBuildings.add((Building) card);
-    ImageView newImageView = new ImageView(Config.retrieveProperty(card.getImageKey()));
-    newImageView.setX(x);
-    newImageView.setY(y);
+  }
+
+  public void addImageOfCard(Card card, ImageView newImageView) {
     cardImage.put(card, newImageView);
-    mapViewController.addImageView(newImageView);
   }
 
   /**

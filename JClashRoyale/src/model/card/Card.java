@@ -9,7 +9,7 @@ import util.Config;
  * @version 1.0
  */
 abstract public class Card {
-  protected final int ELIXIR_COST;
+  private final int ELIXIR_COST;
   private int level, teamNumber;
   private final Image deckElixirImage;
 
@@ -42,11 +42,11 @@ abstract public class Card {
     return ELIXIR_COST;
   }
 
-  public Image getDeckElixirImage() {
+  public Image getDeckSlotImage() {
     return deckElixirImage;
   }
 
-  abstract public CardGroups getCardGroup();
+  abstract public CardType getCardGroup();
 
   abstract public String getImageKey();
 }

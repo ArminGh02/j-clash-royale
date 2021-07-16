@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -7,32 +8,28 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import model.Deck;
 import model.card.Card;
+import model.player.Person;
 import util.Config;
 
 public class MapViewController {
   public final int mapRowCount = 13;
   public final int mapColumnCount = 7;
 
-  @FXML
-  private GridPane mapGrid;
-  @FXML
-  private AnchorPane basePane;
+  @FXML private GridPane mapGrid;
+  @FXML private AnchorPane basePane;
   private ImageView friendlyKingTower;
   private ImageView friendlyPrinceTowerL, friendlyPrinceTowerR;
   private ImageView enemyKingTower;
   private ImageView enemyPrinceTowerL, enemyPrinceTowerR;
 
-  @FXML
-  private Label elixirLabel;
-  @FXML
-  private Label timerLabel;
+  @FXML private Label elixirLabel;
+  @FXML private Label timerLabel;
 
-  @FXML
-  private VBox deckSlotsView;
+  @FXML private VBox deckSlotsView;
 
   private ImageView[] deckSlots;
+  private int chosenSlot;
 
   private SoloGameController gameController = SoloGameController.getInstance();
   private FrameController gameLoop = new FrameController(this);
@@ -49,22 +46,22 @@ public class MapViewController {
 
   private void initializeDeckSlots() {
     deckSlots = new ImageView[4];
-    Deck deck = gameController.getPersonPlayer().getDeck();
+    List<Card> personActiveCards = gameController.getPersonPlayer().getDeck().getActiveCards();
 
-    deckSlots[0] = new ImageView(deck.getCard().getDeckElixirImage());
-    deckSlots[1] = new ImageView(deck.getCard().getDeckElixirImage());
-    deckSlots[2] = new ImageView(deck.getCard().getDeckElixirImage());
-    deckSlots[3] = new ImageView(deck.getCard().getDeckElixirImage());
+    deckSlots[0] = new ImageView(personActiveCards.get(0).getDeckSlotImage());
+    deckSlots[1] = new ImageView(personActiveCards.get(1).getDeckSlotImage());
+    deckSlots[2] = new ImageView(personActiveCards.get(2).getDeckSlotImage());
+    deckSlots[3] = new ImageView(personActiveCards.get(3).getDeckSlotImage());
 
-    deckSlots[0].setUserData(deck.getActiveCard(0));
-    deckSlots[1].setUserData(deck.getActiveCard(1));
-    deckSlots[2].setUserData(deck.getActiveCard(2));
-    deckSlots[3].setUserData(deck.getActiveCard(3));
+    deckSlots[0].setUserData(personActiveCards.get(0));
+    deckSlots[1].setUserData(personActiveCards.get(1));
+    deckSlots[2].setUserData(personActiveCards.get(2));
+    deckSlots[3].setUserData(personActiveCards.get(3));
 
-    deckSlots[0].setOnMouseClicked(event -> gameController.getPersonPlayer().setChosenSlotIndex(0));
-    deckSlots[1].setOnMouseClicked(event -> gameController.getPersonPlayer().setChosenSlotIndex(1));
-    deckSlots[2].setOnMouseClicked(event -> gameController.getPersonPlayer().setChosenSlotIndex(2));
-    deckSlots[3].setOnMouseClicked(event -> gameController.getPersonPlayer().setChosenSlotIndex(3));
+    deckSlots[0].setOnMouseClicked(event -> chosenSlot = 0);
+    deckSlots[1].setOnMouseClicked(event -> chosenSlot = 1);
+    deckSlots[2].setOnMouseClicked(event -> chosenSlot = 2);
+    deckSlots[3].setOnMouseClicked(event -> chosenSlot = 3);
 
     deckSlots[0].idProperty().setValue("deck-slot");
     deckSlots[1].idProperty().setValue("deck-slot");
@@ -89,9 +86,7 @@ public class MapViewController {
     gameLoop.start();
   }
 
-  /**
-   * add map base images to the grid pane
-   */
+  /** add map base images to the grid pane */
   private void makeMapBaseField() {
     for (int i = 0; i < mapRowCount; i++) {
       for (int j = 0; j < mapColumnCount; j++) {
@@ -119,20 +114,18 @@ public class MapViewController {
 
     int waterRow = mapRowCount / 2;
     mapGrid.add(new ImageView(Config.retrieveProperty("LEFT_WATER_IMAGE")), 0, waterRow);
-    mapGrid.add(new ImageView(Config.retrieveProperty("RIGHT_WATER_IMAGE")), mapColumnCount - 1,
-        waterRow);
+    mapGrid.add(
+        new ImageView(Config.retrieveProperty("RIGHT_WATER_IMAGE")), mapColumnCount - 1, waterRow);
     for (int j = 1; j < mapColumnCount - 1; j++) {
       mapGrid.add(new ImageView(Config.retrieveProperty("FULL_WATER_IMAGE")), j, waterRow);
     }
 
     mapGrid.add(new ImageView(Config.retrieveProperty("BRIDGE_IMAGE")), 1, waterRow);
-    mapGrid
-        .add(new ImageView(Config.retrieveProperty("BRIDGE_IMAGE")), mapColumnCount - 2, waterRow);
+    mapGrid.add(
+        new ImageView(Config.retrieveProperty("BRIDGE_IMAGE")), mapColumnCount - 2, waterRow);
   }
 
-  /**
-   * add tower images to the grid pane
-   */
+  /** add tower images to the grid pane */
   private void addTowersToMap() {
     friendlyKingTower = new ImageView(Config.retrieveProperty("FRIENDLY_KING_TOWER_IMAGE"));
     friendlyPrinceTowerL = new ImageView(Config.retrieveProperty("FRIENDLY_PRINCE_TOWER_IMAGE"));
@@ -156,16 +149,35 @@ public class MapViewController {
    * @param event happened event
    */
   @FXML
-  void gridPaneMouseClicked(MouseEvent event) {
-    double x = event.getSceneX() - 32, y = event.getSceneY() - 32;
-    Card deployedCard = gameController.deployCard(gameController.getPersonPlayer());
-    if (deployedCard == null)
-      return;
-    gameLoop.addCardToMap(deployedCard, x, y);
+  void deployCard(MouseEvent event) {
+    if (chosenSlot != -1) { // player has pressed a deck slot
+      Card toDeploy = (Card) deckSlots[chosenSlot].getUserData();
+      Person person = gameController.getPersonPlayer();
+      if (person.deploy(toDeploy)) {
+        toDeploy.setTeamNumber(0);
+        gameLoop.addToActiveCards(toDeploy);
+        addImageOfCard(toDeploy, event.getSceneX() - 32, event.getSceneY() - 32);
+
+        Card nextCard = person.getDeck().nextCard(toDeploy);
+        deckSlots[chosenSlot].setUserData(nextCard);
+        deckSlots[chosenSlot].setImage(nextCard.getDeckSlotImage());
+
+        chosenSlot = -1; // reset
+      }
+    }
+  }
+
+  private void addImageOfCard(Card toDeploy, double x, double y) {
+    ImageView imageToAdd = new ImageView(Config.retrieveProperty(toDeploy.getImageKey()));
+    imageToAdd.setX(x);
+    imageToAdd.setY(y);
+    gameLoop.addImageOfCard(toDeploy, imageToAdd);
+    basePane.getChildren().add(imageToAdd);
   }
 
   /**
    * add the given imageView to the base pane
+   *
    * @param imageView the given image view
    */
   public void addImageView(ImageView imageView) {
