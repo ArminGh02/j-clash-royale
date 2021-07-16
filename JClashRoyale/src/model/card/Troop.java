@@ -14,13 +14,8 @@ abstract public class Troop extends Card {
     private Target target;
     private Point2D velocity;
 
-    public Troop(int elixirCost, String deckElixirImageKey) {
-        super(elixirCost, deckElixirImageKey);
-    }
-
-    @Override
-    public CardType getCardGroup() {
-        return CardType.TROOP;
+    public Troop(int elixirCost, String imageKey) {
+        super(elixirCost, imageKey, CardType.TROOP);
     }
 
     /**

@@ -41,7 +41,7 @@ public class MapViewController {
     addTowersToMap();
     startElixirControllers();
     startTimer();
-    startGameLoop();
+    gameLoop.start();
   }
 
   private void initializeDeckSlots() {
@@ -80,10 +80,6 @@ public class MapViewController {
     GameTimerController timer = new GameTimerController(timerLabel);
     timer.start();
     gameController.setTimer(timer);
-  }
-
-  private void startGameLoop() {
-    gameLoop.start();
   }
 
   /** add map base images to the grid pane */
@@ -168,19 +164,10 @@ public class MapViewController {
   }
 
   private void addImageOfCard(Card toDeploy, double x, double y) {
-    ImageView imageToAdd = new ImageView(Config.retrieveProperty(toDeploy.getImageKey()));
+    ImageView imageToAdd = new ImageView(toDeploy.getDeployedImage());
     imageToAdd.setX(x);
     imageToAdd.setY(y);
     gameLoop.addImageOfCard(toDeploy, imageToAdd);
     basePane.getChildren().add(imageToAdd);
-  }
-
-  /**
-   * add the given imageView to the base pane
-   *
-   * @param imageView the given image view
-   */
-  public void addImageView(ImageView imageView) {
-    basePane.getChildren().add(imageView);
   }
 }

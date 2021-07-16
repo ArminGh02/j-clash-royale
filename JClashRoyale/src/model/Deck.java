@@ -13,10 +13,10 @@ import model.card.Card;
  * @version 1.0
  */
 public class Deck {
-  private List<Card> deck;
+  private final List<Card> deck;
 
-  private List<Card> activeCards;
-  private Queue<Card> inactiveCards;
+  private final List<Card> activeCards;
+  private final Queue<Card> inactiveCards;
 
   public Deck(List<Card> deck) {
     this.deck = deck;

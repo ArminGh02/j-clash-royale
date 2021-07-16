@@ -4,16 +4,15 @@ import javafx.scene.image.Image;
 import util.Config;
 
 public class Giant extends Troop {
+
+  private static final Image deckImage = new Image(
+      Config.retrieveProperty("GIANT_DECK_IMAGE"));
+
   public Giant() {
-    super(5, "GIANT_DECK_ELIXIR_IMAGE");
+    super(5, "GIANT");
   }
 
   public static Image getDeckImage() {
-    return new Image(Config.retrieveProperty("GIANT_DECK_IMAGE"));
-  }
-
-  @Override
-  public String getImageKey() {
-    return "GIANT";
+    return deckImage;
   }
 }

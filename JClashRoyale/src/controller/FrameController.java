@@ -1,12 +1,16 @@
 package controller;
 
+import java.util.List;
+import java.util.Map;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.ImageView;
-import model.card.*;
-import util.Config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import model.card.Building;
+import model.card.Card;
+import model.card.Spell;
+import model.card.Troop;
 
 /**
  * FrameController class, handles each frame's update
@@ -15,10 +19,10 @@ import java.util.HashMap;
  */
 public class FrameController extends AnimationTimer {
   private MapViewController mapViewController;
-  private ArrayList<Troop> activeTroops = new ArrayList<>();
-  private ArrayList<Spell> activeSpells = new ArrayList<>();
-  private ArrayList<Building> activeBuildings = new ArrayList<>();
-  private HashMap<Card, ImageView> cardImage = new HashMap<>();
+  private List<Troop> activeTroops = new ArrayList<>();
+  private List<Spell> activeSpells = new ArrayList<>();
+  private List<Building> activeBuildings = new ArrayList<>();
+  private Map<Card, ImageView> cardImage = new HashMap<>();
 
   /**
    * class constructor
@@ -33,12 +37,17 @@ public class FrameController extends AnimationTimer {
    * @param card the given card
    */
   public void addToActiveCards(Card card) {
-    if (card.getCardGroup().equals(CardType.TROOP))
-      activeTroops.add((Troop) card);
-    else if (card.getCardGroup().equals(CardType.SPELL))
-      activeSpells.add((Spell) card);
-    else
-      activeBuildings.add((Building) card);
+    switch (card.getType()) {
+      case BUILDING:
+        activeBuildings.add((Building) card);
+        break;
+      case TROOP:
+        activeTroops.add((Troop) card);
+        break;
+      case SPELL:
+        activeSpells.add((Spell) card);
+        break;
+    }
   }
 
   public void addImageOfCard(Card card, ImageView newImageView) {

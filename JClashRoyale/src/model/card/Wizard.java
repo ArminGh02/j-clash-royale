@@ -4,16 +4,15 @@ import javafx.scene.image.Image;
 import util.Config;
 
 public class Wizard extends Troop {
+
+  private static final Image deckImage = new Image(
+      Config.retrieveProperty("WIZARD_DECK_IMAGE"));
+
   public Wizard() {
-    super(5, "WIZARD_DECK_ELIXIR_IMAGE");
+    super(5, "WIZARD");
   }
 
   public static Image getDeckImage() {
-    return new Image(Config.retrieveProperty("WIZARD_DECK_IMAGE"));
-  }
-
-  @Override
-  public String getImageKey() {
-    return "WIZARD";
+    return deckImage;
   }
 }
