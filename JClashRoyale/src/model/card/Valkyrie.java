@@ -16,4 +16,14 @@ public class Valkyrie extends Troop {
   public String getImageKey() {
     return "VALKYRIE";
   }
+
+  /**
+   * movement getter
+   *
+   * @return movement
+   */
+  @Override
+  public MOVEMENT getMovement() {
+    return MOVEMENT.GROUND;
+  }
 }

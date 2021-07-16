@@ -16,4 +16,14 @@ public class MiniPekka extends Troop {
   public String getImageKey() {
     return "MINI_PEKKA";
   }
+
+  /**
+   * movement getter
+   *
+   * @return movement
+   */
+  @Override
+  public MOVEMENT getMovement() {
+    return MOVEMENT.GROUND;
+  }
 }

@@ -16,4 +16,14 @@ public class Giant extends Troop {
   public String getImageKey() {
     return "GIANT";
   }
+
+  /**
+   * movement getter
+   *
+   * @return movement
+   */
+  @Override
+  public MOVEMENT getMovement() {
+    return MOVEMENT.GROUND;
+  }
 }

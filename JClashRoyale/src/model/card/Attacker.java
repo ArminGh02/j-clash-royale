@@ -1,8 +1,7 @@
 package model.card;
 
+import javafx.geometry.Point2D;
 import model.Settings;
-
-import java.awt.geom.Point2D;
 
 /**
  * Attacker class, is used by Troop and Building classes, so it prevents from code duplication
@@ -15,7 +14,7 @@ abstract public class Attacker extends Card {
     private int hitSpeed;
     private Range range;
     private Target target;
-    private Point2D velocity;
+    private javafx.geometry.Point2D velocity;
     private Card currentTarget;
     private boolean isAttacking;
 
@@ -85,10 +84,14 @@ abstract public class Attacker extends Card {
 
     /**
      * velocity setter
-     * @param velocity velocity new value
+     * @param x x velocity new value
+     * @param y y velocity new value
      */
-    public void setVelocity(Point2D velocity) {
-      this.velocity = velocity;
+    public void setVelocity(double x, double y) {
+        if (velocity == null)
+            velocity = new javafx.geometry.Point2D(0, 0);
+        velocity.subtract(velocity.getX(), velocity.getY());
+        velocity.add(x, y);
     }
 
     /**

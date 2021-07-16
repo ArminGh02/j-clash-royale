@@ -136,7 +136,44 @@ public class FrameController extends AnimationTimer {
    * update troops' velocity
    */
   private void updateVelocities() {
+    for (Troop troop : activeTroops) {
+      updateVelocity(troop);
+      double x = troop.getVelocity().getX(), y = troop.getVelocity().getY();
+      double length = Math.sqrt(x * x + y * y);
+      if (length > 0)
+        troop.setVelocity(x / length, y / length);
+    }
+  }
 
+  /**
+   * update velocity for the given troop
+   * @param troop the given troop
+   */
+  private void updateVelocity(Troop troop) {
+    if (troop.isAttacking() || troop.getCurrentTarget() == null) {
+      troop.setVelocity(0, 0);
+      return;
+    }
+
+    ImageView source = cardsImage.get(troop), destination = cardsImage.get(troop.getCurrentTarget());
+    if (troop.getMovement().equals(MOVEMENT.AIR) ||
+            getRegionNumber(troop) == 0 ||
+            getRegionNumber(troop.getCurrentTarget()) == 0 ||
+            getRegionNumber(troop) == getRegionNumber(troop.getCurrentTarget())
+    ) { // straight line
+      troop.setVelocity(destination.getX() - source.getX(), destination.getY() - source.getY());
+      return;
+    }
+
+    double leftBridge = getEuclideanDistance(source.getX(), source.getY(), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y) +
+            getEuclideanDistance(Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y, destination.getX(), destination.getY());
+    double rightBridge = getEuclideanDistance(source.getX(), source.getY(), Settings.RIGHT_BRIDGE_X, Settings.RIGHT_BRIDGE_Y) +
+            getEuclideanDistance(Settings.RIGHT_BRIDGE_X, Settings.RIGHT_BRIDGE_Y, destination.getX(), destination.getY());
+
+    if (getDistance(troop, troop.getCurrentTarget()) == leftBridge)
+      troop.setVelocity(Settings.LEFT_BRIDGE_X - source.getX(), Settings.LEFT_BRIDGE_Y - source.getY());
+    else
+      troop.setVelocity(Settings.RIGHT_BRIDGE_X - source.getX(), Settings.RIGHT_BRIDGE_Y - source.getY());
   }
 
   /**
@@ -168,6 +205,13 @@ public class FrameController extends AnimationTimer {
   }
 
   /**
+   * move troops by their velocities
+   */
+  private void moveTroops() {
+
+  }
+
+  /**
    * get minimum distance between two given card
    * @param source source card (attacker)
    * @param destination destination card
@@ -185,8 +229,7 @@ public class FrameController extends AnimationTimer {
     boolean euclideanDistance = false;
     if (source.getCardGroup().equals(CardGroups.TROOP)) {
       Troop tempTroop = (Troop) source;
-      euclideanDistance |= tempTroop.getTarget().equals(Target.AIR);
-      euclideanDistance |= tempTroop.getTarget().equals(Target.ALL);
+      euclideanDistance |= tempTroop.getMovement().equals(MOVEMENT.AIR);
     }
     if (sourceRegion == destinationRegion || sourceRegion == 0 || destinationRegion == 0)
       euclideanDistance = true;
@@ -241,5 +284,7 @@ public class FrameController extends AnimationTimer {
     updateHp();
     updateSpells();
     updateTargets();
+    updateVelocities();
+    moveTroops();
   }
 }

@@ -27,4 +27,14 @@ public class Wizard extends Troop {
   public double getRangeDistance() {
     return Settings.WIZARD_ATTACK_RANGE;
   }
+
+  /**
+   * movement getter
+   *
+   * @return movement
+   */
+  @Override
+  public MOVEMENT getMovement() {
+    return MOVEMENT.GROUND;
+  }
 }

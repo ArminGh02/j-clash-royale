@@ -27,4 +27,14 @@ public class Archer extends Troop {
   public double getRangeDistance() {
     return Settings.ARCHER_ATTACK_RANGE;
   }
+
+  /**
+   * movement getter
+   *
+   * @return movement
+   */
+  @Override
+  public MOVEMENT getMovement() {
+    return MOVEMENT.GROUND;
+  }
 }

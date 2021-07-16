@@ -51,4 +51,9 @@ public abstract class Troop extends Attacker {
     return speed;
   }
 
+  /**
+   * movement getter
+   * @return movement
+   */
+  abstract public MOVEMENT getMovement();
 }

@@ -16,4 +16,14 @@ public class Barbarians extends Troop {
   public String getImageKey() {
     return "BARBARIAN";
   }
+
+  /**
+   * movement getter
+   *
+   * @return movement
+   */
+  @Override
+  public MOVEMENT getMovement() {
+    return MOVEMENT.GROUND;
+  }
 }

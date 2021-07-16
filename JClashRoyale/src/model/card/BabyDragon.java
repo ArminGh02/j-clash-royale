@@ -27,4 +27,14 @@ public class BabyDragon extends Troop {
   public double getRangeDistance() {
     return Settings.BABY_DRAGON_ATTACK_RANGE;
   }
+
+  /**
+   * movement getter
+   *
+   * @return movement
+   */
+  @Override
+  public MOVEMENT getMovement() {
+    return MOVEMENT.AIR;
+  }
 }
