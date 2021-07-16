@@ -6,96 +6,49 @@ import java.awt.geom.Point2D;
 
 /**
  * Troop class, saves
+ *
  * @author Adibov & Armin Gh
  * @version 1.0
  */
-abstract public class Troop extends Card {
-    private int hp, damage, hitSpeed, areaSplash, count;
-    private Speed speed;
-    private Range range;
-    private Target target;
+public abstract class Troop extends Attacker {
+  private int areaSplash;
+  private int count;
+  private Speed speed;
 
-    public Troop(int elixirCost, String deckElixirImageKey) {
-        super(elixirCost, deckElixirImageKey);
-    }
+  public Troop(int elixirCost, String deckElixirImageKey) {
+    super(elixirCost, deckElixirImageKey);
+  }
 
-    @Override
-    public CardGroups getCardGroup() {
-        return CardGroups.TROOP;
-    }
+  @Override
+  public CardGroups getCardGroup() {
+    return CardGroups.TROOP;
+  }
 
-    /**
-     * hp getter
-     * @return hp
-     */
-    public int getHp() {
-        return hp;
-    }
+  /**
+   * areaSplash getter
+   *
+   * @return areaSplash
+   */
+  public int getAreaSplash() {
+    return areaSplash;
+  }
 
-    /**
-     * damage getter
-     * @return damage
-     */
-    public int getDamage() {
-        return damage;
-    }
+  /**
+   * count getter
+   *
+   * @return count
+   */
+  public int getCount() {
+    return count;
+  }
 
-    /**
-     * hitSpeed getter
-     * @return hitSpeed
-     */
-    public int getHitSpeed() {
-        return hitSpeed;
-    }
-
-    /**
-     * areaSplash getter
-     * @return areaSplash
-     */
-    public int getAreaSplash() {
-        return areaSplash;
-    }
-
-    /**
-     * count getter
-     * @return count
-     */
-    public int getCount() {
-        return count;
-    }
-
-    /**
-     * speed getter
-     * @return speed
-     */
-    public Speed getSpeed() {
-        return speed;
-    }
-
-    /**
-     * range getter
-     * @return range
-     */
-    public Range getRange() {
-        return range;
-    }
-
-    /**
-     * get euclidean range in double
-     * @return range distance
-     */
-    public double getRangeDistance() {
-        if (range.equals(Range.MELEE))
-            return Settings.MELEE_ATTACK_RANGE;
-        return 0;
-    }
-
-    /**
-     * target getter
-     * @return target
-     */
-    public Target getTarget() {
-        return target;
-    }
+  /**
+   * speed getter
+   *
+   * @return speed
+   */
+  public Speed getSpeed() {
+    return speed;
+  }
 
 }

@@ -143,7 +143,7 @@ public class FrameController extends AnimationTimer {
    * update target for the given attackingCard
    * @param attackingCard the given attackingCard
    */
-  private void updateTarget(Card attackingCard) {
+  private void updateTarget(Attacker attackingCard) {
     double minimumDistance = 1000;
     for (Card card : activeTroops) {
       double distance = getDistance(attackingCard, card);
@@ -161,13 +161,10 @@ public class FrameController extends AnimationTimer {
       }
     }
 
-    if (attackingCard.getCardGroup().equals(CardGroups.TROOP)) {
-      Troop attackingTroop = (Troop) attackingCard;
-//      if (getDistance(attackingTroop, attackingTroop.getCurrentTarget()) <= )
-    }
-    else if (attackingCard.getCardGroup().equals(CardGroups.BUILDING)) {
-
-    }
+    if (getDistance(attackingCard, attackingCard.getCurrentTarget()) <= attackingCard.getRangeDistance())
+      attackingCard.setAttacking(true);
+    else
+      attackingCard.setAttacking(false);
   }
 
   /**
