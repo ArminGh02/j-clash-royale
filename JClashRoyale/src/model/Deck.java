@@ -26,7 +26,7 @@ public class Deck {
 
   public Card nextCard(Card toDeploy) {
     Card nextCard = inactiveCards.remove();
-    inactiveCards.add(toDeploy);
+    inactiveCards.add(toDeploy.newInstance());
     activeCards.set(activeCards.indexOf(toDeploy), nextCard);
     return nextCard;
   }

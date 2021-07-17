@@ -16,15 +16,6 @@ public class KingTower extends Tower {
     }
 
     /**
-     * get image key
-     * @return image key
-     */
-    @Override
-    public String getImageKey() {
-        return "KING_TOWER";
-    }
-
-    /**
      * get euclidean range in double
      *
      * @return range distance

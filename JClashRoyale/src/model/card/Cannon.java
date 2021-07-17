@@ -27,4 +27,9 @@ public class Cannon extends Building {
   public double getRangeDistance() {
     return Settings.CANNON_ATTACK_RANGE;
   }
+
+  @Override
+  public Card newInstance() {
+    return new Cannon();
+  }
 }

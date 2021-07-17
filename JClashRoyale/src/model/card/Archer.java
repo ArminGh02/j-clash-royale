@@ -34,7 +34,12 @@ public class Archer extends Troop {
    * @return movement
    */
   @Override
-  public MOVEMENT getMovement() {
-    return MOVEMENT.GROUND;
+  public Movement getMovement() {
+    return Movement.GROUND;
+  }
+
+  @Override
+  public Card newInstance() {
+    return new Archer();
   }
 }

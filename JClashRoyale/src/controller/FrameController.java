@@ -10,8 +10,6 @@ import model.card.*;
 import util.Config;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import model.card.Building;
 import model.card.Card;
 import model.card.Spell;
@@ -186,7 +184,7 @@ public class FrameController extends AnimationTimer {
 
     ImageView source = cardsImage.get(troop);
     ImageView destination = cardsImage.get(troop.getCurrentTarget());
-    if (troop.getMovement().equals(MOVEMENT.AIR)
+    if (troop.getMovement().equals(Movement.AIR)
         || getRegionNumber(troop) == 0
         || getRegionNumber(troop.getCurrentTarget()) == 0
         || getRegionNumber(troop) == getRegionNumber(troop.getCurrentTarget())) { // straight line
@@ -246,7 +244,7 @@ public class FrameController extends AnimationTimer {
     boolean euclideanDistance = false;
     if (source.getType().equals(CardType.TROOP)) {
       Troop tempTroop = (Troop) source;
-      euclideanDistance |= tempTroop.getMovement().equals(MOVEMENT.AIR);
+      euclideanDistance |= tempTroop.getMovement().equals(Movement.AIR);
     }
     if (sourceRegion == destinationRegion || sourceRegion == 0 || destinationRegion == 0)
       euclideanDistance = true;

@@ -131,12 +131,12 @@ public class MapViewController {
 
   /** add tower images to the grid pane */
   private void addTowersToMap() {
-    friendlyKingTower = new ImageView(Config.retrieveProperty("FRIENDLY_KING_TOWER_IMAGE"));
-    friendlyPrinceTowerL = new ImageView(Config.retrieveProperty("FRIENDLY_PRINCE_TOWER_IMAGE"));
-    friendlyPrinceTowerR = new ImageView(Config.retrieveProperty("FRIENDLY_PRINCE_TOWER_IMAGE"));
-    enemyKingTower = new ImageView(Config.retrieveProperty("ENEMY_KING_TOWER_IMAGE"));
-    enemyPrinceTowerL = new ImageView(Config.retrieveProperty("ENEMY_PRINCE_TOWER_IMAGE"));
-    enemyPrinceTowerR = new ImageView(Config.retrieveProperty("ENEMY_PRINCE_TOWER_IMAGE"));
+    friendlyKingTower = new ImageView(Config.retrieveProperty("KING_TOWER_FRIENDLY"));
+    friendlyPrinceTowerL = new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
+    friendlyPrinceTowerR = new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
+    enemyKingTower = new ImageView(Config.retrieveProperty("KING_TOWER_ENEMY"));
+    enemyPrinceTowerL = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
+    enemyPrinceTowerR = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
 
     int middleColumn = mapColumnCount / 2;
     mapGrid.add(friendlyKingTower, middleColumn, mapRowCount - 1);

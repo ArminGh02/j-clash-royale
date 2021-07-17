@@ -15,4 +15,9 @@ public class Fireball extends Spell {
   public static Image getDeckImage() {
     return deckImage;
   }
+
+  @Override
+  public Card newInstance() {
+    return new Fireball();
+  }
 }

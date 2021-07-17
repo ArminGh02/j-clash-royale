@@ -64,4 +64,8 @@ public abstract class Card {
   public Image getDeployedImage() {
     return deployedImage;
   }
+
+  public Card newInstance() {
+    throw new AbstractMethodError();
+  }
 }

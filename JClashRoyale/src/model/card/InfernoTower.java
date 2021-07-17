@@ -27,4 +27,9 @@ public class InfernoTower extends Building {
   public double getRangeDistance() {
     return Settings.INFERNO_TOWER_ATTACK_RANGE;
   }
+
+  @Override
+  public Card newInstance() {
+    return new InfernoTower();
+  }
 }

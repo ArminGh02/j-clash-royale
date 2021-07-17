@@ -1,5 +1,5 @@
 package model.card;
 
-public enum MOVEMENT {
+public enum Movement {
     GROUND, AIR
 }

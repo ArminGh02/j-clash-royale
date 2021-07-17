@@ -15,4 +15,9 @@ public class Arrows extends Spell {
   public static Image getDeckImage() {
     return deckImage;
   }
+
+  @Override
+  public Card newInstance() {
+    return new Arrows();
+  }
 }

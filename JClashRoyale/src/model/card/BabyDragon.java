@@ -34,7 +34,12 @@ public class BabyDragon extends Troop {
    * @return movement
    */
   @Override
-  public MOVEMENT getMovement() {
-    return MOVEMENT.AIR;
+  public Movement getMovement() {
+    return Movement.AIR;
+  }
+
+  @Override
+  public Card newInstance() {
+    return new BabyDragon();
   }
 }
