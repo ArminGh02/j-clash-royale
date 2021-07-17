@@ -28,7 +28,6 @@ public class MapViewController {
   @FXML private Label timerLabel;
 
   @FXML private VBox deckSlotsView;
-
   private ImageView[] deckSlots;
   private int chosenSlot;
 

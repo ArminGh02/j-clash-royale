@@ -1,16 +1,23 @@
-package model.card;
+package model.card.troop;
 
 import javafx.scene.image.Image;
 import model.Settings;
+import model.card.Card;
+import model.card.Movement;
+import model.card.Range;
 import util.Config;
 
-public class Archer extends Troop {
+public class Wizard extends Troop {
 
-  private static final Image deckImage = new Image(
-      Config.retrieveProperty("ARCHER_DECK_IMAGE"));
+  private static final Image deckImage = new Image(Config.retrieveProperty("WIZARD_DECK_IMAGE"));
 
-  public Archer() {
-    super(3, "ARCHER");
+  public Wizard() {
+    super(
+        5,
+        "WIZARD",
+        new int[] {340, 374, 411, 452, 496},
+        new int[] {130, 143, 157, 172, 189},
+        1700);
     range = Range.RANGED;
   }
 
@@ -25,7 +32,7 @@ public class Archer extends Troop {
    */
   @Override
   public double getRangeDistance() {
-    return Settings.ARCHER_ATTACK_RANGE;
+    return Settings.WIZARD_ATTACK_RANGE;
   }
 
   /**
@@ -40,6 +47,6 @@ public class Archer extends Troop {
 
   @Override
   public Card newInstance() {
-    return new Archer();
+    return new Wizard();
   }
 }

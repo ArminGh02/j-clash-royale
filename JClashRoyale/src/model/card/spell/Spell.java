@@ -1,6 +1,8 @@
-package model.card;
+package model.card.spell;
 
 import java.awt.geom.Point2D;
+import model.card.Card;
+import model.card.CardType;
 
 public abstract class Spell extends Card {
 

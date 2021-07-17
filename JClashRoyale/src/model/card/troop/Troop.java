@@ -1,7 +1,13 @@
-package model.card;
+package model.card.troop;
+
+import model.card.Attacker;
+import model.card.CardType;
+import model.card.Movement;
+import model.card.Speed;
 
 /**
  * Troop class, saves
+ *
  * @author Adibov & Armin Gh
  * @version 1.0
  */
@@ -10,9 +16,10 @@ public abstract class Troop extends Attacker {
   private int count;
   private Speed speed;
 
-    public Troop(int elixirCost, String imageKey) {
-        super(elixirCost, imageKey, CardType.TROOP);
-    }
+  public Troop(
+      int elixirCost, String imageKey, int[] hpPerLevel, int[] damagePerLevel, int hitSpeed) {
+    super(elixirCost, imageKey, CardType.TROOP, hpPerLevel, damagePerLevel, hitSpeed);
+  }
 
   /**
    * areaSplash getter
@@ -43,7 +50,8 @@ public abstract class Troop extends Attacker {
 
   /**
    * movement getter
+   *
    * @return movement
    */
-  abstract public Movement getMovement();
+  public abstract Movement getMovement();
 }
