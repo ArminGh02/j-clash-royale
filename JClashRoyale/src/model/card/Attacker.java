@@ -12,13 +12,15 @@ abstract public class Attacker extends Card {
     protected int level = 1;
     protected int hp;
     protected int damage;
-    protected int hitSpeed;
+    protected long hitSpeed;
     protected Range range;
     protected Target target;
     private Point2D velocity;
     private Card currentTarget;
     private boolean isAttacking;
     private String currentImageKey;
+
+    private long lastAttackTime;
 
     /**
      * class constructor
@@ -37,8 +39,20 @@ abstract public class Attacker extends Card {
         this.currentImageKey = currentImageKey;
     }
 
-    public void decreaseHp(int decreaseAmount) {
+    /**
+     * last attack time setter
+     * @param lastAttackTime new time in millisecond
+     */
+    public void setLastAttackTime(long lastAttackTime) {
+        this.lastAttackTime = lastAttackTime;
+    }
 
+    /**
+     * decrease hp by the given amount
+     * @param amount the given amount
+     */
+    public void decreaseHp(int amount) {
+        hp -= amount;
     }
 
     /**
@@ -64,7 +78,7 @@ abstract public class Attacker extends Card {
      *
      * @return hitSpeed
      */
-    public int getHitSpeed() {
+    public long getHitSpeed() {
       return hitSpeed;
     }
 
@@ -155,5 +169,13 @@ abstract public class Attacker extends Card {
      */
     public String getCurrentImageKey() {
         return currentImageKey;
+    }
+
+    /**
+     * last attack time in millisecond
+     * @return last attack time
+     */
+    public long getLastAttackTime() {
+        return lastAttackTime;
     }
 }

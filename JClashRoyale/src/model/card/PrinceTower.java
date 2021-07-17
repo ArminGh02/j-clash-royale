@@ -13,6 +13,9 @@ public class PrinceTower extends Tower {
      */
     public PrinceTower() {
         super(0, "PRINCE_TOWER");
+        hp = 1400;
+        damage = 50;
+        hitSpeed = 800;
     }
 
     /**

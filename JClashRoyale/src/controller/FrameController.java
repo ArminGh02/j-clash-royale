@@ -28,6 +28,7 @@ public class FrameController extends AnimationTimer {
   private List<Spell> activeSpells = new ArrayList<>();
   private List<Building> activeBuildings = new ArrayList<>();
   private Map<Card, ImageView> cardsImage = new HashMap<>();
+  private long currentMilliSecond;
 
   private KingTower friendlyKingTower;
   private PrinceTower friendlyPrinceTowerL, friendlyPrinceTowerR;
@@ -122,6 +123,15 @@ public class FrameController extends AnimationTimer {
 
   /** update hp of the active troops and building */
   private void updateHps() {
+    for (Troop troop : activeTroops)
+      updateHp(troop);
+    for (Building building : activeBuildings)
+      updateHp(building);
+
+    for (Troop troop : activeTroops)
+      checkHp(troop);
+    for (Building building : activeBuildings)
+      checkHp(building);
   }
 
   /**
@@ -130,9 +140,27 @@ public class FrameController extends AnimationTimer {
    */
   private void updateHp(Attacker attacker) {
     Attacker target = (Attacker) attacker.getCurrentTarget();
-    if (target == null)
+    if (target == null || !attacker.isAttacking())
       return;
+    if (currentMilliSecond - attacker.getLastAttackTime() >= attacker.getHitSpeed()) {
+      target.decreaseHp(attacker.getDamage());
+      attacker.setLastAttackTime(currentMilliSecond);
+    }
+  }
 
+  /**
+   * check whether if the given attacker is dead or not
+   * @param attacker the given attacker
+   */
+  private void checkHp(Attacker attacker) {
+    if (attacker.getHp() > 0)
+      return;
+    if (attacker.getType().equals(CardType.TROOP))
+      Platform.runLater(() -> activeTroops.remove((Troop) attacker));
+    else
+      Platform.runLater(() -> activeBuildings.remove((Building) attacker));
+    ImageView attackerImage = cardsImage.get(attacker);
+    mapViewController.deleteNode(attackerImage);
   }
 
   /** update spells' state */
@@ -375,6 +403,7 @@ public class FrameController extends AnimationTimer {
    */
   @Override
   public void handle(long currentNanoTime) {
+    currentMilliSecond = currentNanoTime / 1000000;
     updateHps();
     updateSpells();
     updateTargets();

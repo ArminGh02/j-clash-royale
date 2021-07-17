@@ -13,6 +13,9 @@ public class KingTower extends Tower {
      */
     public KingTower() {
         super(0, "KING_TOWER");
+        hp = 2400;
+        damage = 50;
+        hitSpeed = 1000;
     }
 
     /**

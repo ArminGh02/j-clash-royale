@@ -1,7 +1,10 @@
 package controller;
 
 import java.util.List;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -155,6 +158,14 @@ public class MapViewController {
     imageToAdd.setY(y);
     gameLoop.addImageOfCard(toDeploy, imageToAdd);
     basePane.getChildren().add(imageToAdd);
+  }
+
+  /**
+   * delete the given node from the base pane
+   * @param node the given node
+   */
+  public void deleteNode(Node node) {
+    Platform.runLater(() -> basePane.getChildren().remove(node));
   }
 
   /**

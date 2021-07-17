@@ -11,6 +11,9 @@ public class Barbarians extends Troop {
   public Barbarians() {
     super(5, "BARBARIANS");
     range = Range.MELEE;
+    hp = 300; // TODO make it dependent to level
+    damage = 75;
+    hitSpeed = 1500;
   }
 
   public static Image getDeckImage() {
