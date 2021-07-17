@@ -1,6 +1,7 @@
 package model.card;
 
 import javafx.scene.image.Image;
+import model.card.troop.Barbarians;
 import util.Config;
 
 /**

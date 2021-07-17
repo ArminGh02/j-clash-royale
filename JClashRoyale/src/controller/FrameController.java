@@ -8,13 +8,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.Settings;
 import model.card.*;
+import model.card.builiding.KingTower;
+import model.card.builiding.PrinceTower;
 import util.Config;
 import java.util.ArrayList;
 import java.util.HashMap;
-import model.card.Building;
+import model.card.builiding.Building;
 import model.card.Card;
-import model.card.Spell;
-import model.card.Troop;
+import model.card.spell.Spell;
+import model.card.troop.Troop;
 
 /**
  * FrameController class, handles each frame's update

@@ -12,10 +12,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import model.Settings;
-import model.card.Attacker;
 import model.card.Card;
 import model.card.CardType;
-import model.card.Troop;
+import model.card.troop.Troop;
 import model.player.Person;
 import util.Config;
 
@@ -30,7 +29,6 @@ public class MapViewController {
   @FXML private Label timerLabel;
 
   @FXML private VBox deckSlotsView;
-
   private ImageView[] deckSlots;
   private int chosenSlot;
 

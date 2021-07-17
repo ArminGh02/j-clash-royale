@@ -1,6 +1,7 @@
-package model.card;
+package model.card.spell;
 
 import javafx.scene.image.Image;
+import model.card.Card;
 import util.Config;
 
 public class Fireball extends Spell {
