@@ -19,10 +19,6 @@ public class MapViewController {
 
   @FXML private GridPane mapGrid;
   @FXML private AnchorPane basePane;
-  private ImageView friendlyKingTower;
-  private ImageView friendlyPrinceTowerL, friendlyPrinceTowerR;
-  private ImageView enemyKingTower;
-  private ImageView enemyPrinceTowerL, enemyPrinceTowerR;
 
   @FXML private Label elixirLabel;
   @FXML private Label timerLabel;
