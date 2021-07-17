@@ -19,6 +19,7 @@ public class Barbarians extends Troop {
         new int[] {75, 82, 90, 99, 109},
         1500);
     range = Range.MELEE;
+    count = 5;
   }
 
   public static Image getDeckImage() {

@@ -1,7 +1,10 @@
 package controller;
 
 import java.util.List;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -10,6 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import model.Settings;
 import model.card.Card;
+import model.card.CardType;
+import model.card.troop.Troop;
 import model.player.Person;
 import util.Config;
 
@@ -135,7 +140,8 @@ public class MapViewController {
       if (person.deploy(toDeploy)) {
         toDeploy.setTeamNumber(0);
         gameLoop.addToActiveCards(toDeploy);
-        addImageOfCard(toDeploy, event.getSceneX() - 32, event.getSceneY() - 32);
+        deployCard(toDeploy, event.getSceneX() - Settings.CELL_WIDTH_SHIFT,
+            event.getSceneY() - Settings.CELL_HEIGHT_SHIFT);
 
         Card nextCard = person.getDeck().nextCard(toDeploy);
         deckSlots[chosenSlot].setUserData(nextCard);
@@ -146,12 +152,46 @@ public class MapViewController {
     }
   }
 
-  public void addImageOfCard(Card toDeploy, double x, double y) {
+  /**
+   * deploy the given card by the number of card's count
+   * @param card the given card
+   */
+  private void deployCard(Card card, double x, double y) {
+    int count = 1;
+    if (card.getType().equals(CardType.TROOP)) {
+      Troop temp = (Troop) card;
+      count = temp.getCount();
+    }
+
+    int coefficient = 1;
+    if (x > (Settings.MAP_COLUMN_COUNT / 2) * Settings.CELL_WIDTH + Settings.LEFT_VBOX_WIDTH)
+      coefficient = -1;
+    for (int i = 0; i < count; i++) {
+      Card newCard;
+      if (i == count - 1)
+        newCard = card;
+      else
+        newCard = card.newInstance();
+      newCard.setTeamNumber(0);
+      gameLoop.addToActiveCards(newCard);
+      addImageOfCard(newCard, x + coefficient * i * Settings.CELL_WIDTH_SHIFT, y);
+    }
+  }
+
+  private void addImageOfCard(Card toDeploy, double x, double y) {
     ImageView imageToAdd = new ImageView(toDeploy.getDeployedImage());
     imageToAdd.setX(x);
     imageToAdd.setY(y);
     gameLoop.addImageOfCard(toDeploy, imageToAdd);
     basePane.getChildren().add(imageToAdd);
+  }
+
+  /**
+   * delete the given node from the base pane
+   * @param node the given node
+   */
+  public void deleteNode(Node node) {
+    Platform.runLater(() -> basePane.getChildren().remove(node));
   }
 
   /**

@@ -20,6 +20,7 @@ public abstract class Attacker extends Card {
   private Card currentTarget;
   private boolean isAttacking;
   private String currentImageKey;
+  private long lastAttackTime = 0;
 
   /**
    * class constructor
@@ -44,6 +45,14 @@ public abstract class Attacker extends Card {
    */
   public void setCurrentImageKey(String currentImageKey) {
     this.currentImageKey = currentImageKey;
+  }
+
+  /**
+   * lastAttackTime setter
+   * @param lastAttackTime lastAttackTime new value
+   */
+  public void setLastAttackTime(long lastAttackTime) {
+    this.lastAttackTime = lastAttackTime;
   }
 
   public void decreaseHp(int decreaseAmount) {
@@ -171,5 +180,13 @@ public abstract class Attacker extends Card {
    */
   public String getCurrentImageKey() {
     return currentImageKey;
+  }
+
+  /**
+   * lastAttackTime getter
+   * @return lastAttackTime
+   */
+  public long getLastAttackTime() {
+    return lastAttackTime;
   }
 }
