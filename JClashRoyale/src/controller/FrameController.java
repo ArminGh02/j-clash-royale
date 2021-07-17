@@ -191,16 +191,7 @@ public class FrameController extends AnimationTimer {
                 Settings.LEFT_BRIDGE_Y,
                 destination.getX(),
                 destination.getY());
-    double rightBridge =
-        getEuclideanDistance(
-                source.getX(), source.getY(), Settings.RIGHT_BRIDGE_X, Settings.RIGHT_BRIDGE_Y)
-            + getEuclideanDistance(
-                Settings.RIGHT_BRIDGE_X,
-                Settings.RIGHT_BRIDGE_Y,
-                destination.getX(),
-                destination.getY());
-
-    if (getDistance(troop, troop.getCurrentTarget()) == leftBridge)
+    if (Math.abs(getDistance(troop, troop.getCurrentTarget()) - leftBridge) <= Settings.EPSILON)
       troop.setVelocity(Settings.LEFT_BRIDGE_X - source.getX(), Settings.LEFT_BRIDGE_Y - source.getY());
     else
       troop.setVelocity(Settings.RIGHT_BRIDGE_X - source.getX(), Settings.RIGHT_BRIDGE_Y - source.getY());
@@ -210,11 +201,9 @@ public class FrameController extends AnimationTimer {
   private void moveTroops() {
     for (Troop troop : activeTroops) {
       ImageView troopImage = cardsImage.get(troop);
-      System.out.println(troop.getCardGroup() + " " + troop.getVelocity().getX() + " " + troop.getVelocity().getY());
       Platform.runLater(() -> troopImage.setX(troopImage.getX() + troop.getVelocity().getX()));
       Platform.runLater(() -> troopImage.setY(troopImage.getY() + troop.getVelocity().getY()));
     }
-    System.out.println();
   }
 
   /**
@@ -292,7 +281,7 @@ public class FrameController extends AnimationTimer {
     if (cardImage == null) return 3;
 
     int middleRow = Settings.MAP_ROW_COUNT / 2;
-    int cellRow = (int) (cardImage.getY() / Settings.CELL_HEIGHT);
+    int cellRow = (int) ((cardImage.getY() + Settings.CELL_HEIGHT_SHIFT) / Settings.CELL_HEIGHT);
     if (cellRow == middleRow) return 0;
     else if (cellRow > middleRow) return 1;
     else return 2;
