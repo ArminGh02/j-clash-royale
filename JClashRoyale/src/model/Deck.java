@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 import model.card.Card;
 
 /**
@@ -33,5 +34,25 @@ public class Deck {
 
   public List<Card> getActiveCards() {
     return activeCards;
+  }
+
+  public Card deployRandomCard(int elixir, Random rand) {
+    List<Card> legalCards = findLegalCards(elixir);
+    if (legalCards.size() > 0) {
+      Card result = legalCards.get(rand.nextInt(legalCards.size()));
+      nextCard(result);
+      return result;
+    }
+    return null;
+  }
+
+  private List<Card> findLegalCards(int elixir) {
+    List<Card> result = new ArrayList<>();
+    for (Card activeCard : activeCards) {
+      if (activeCard.getElixirCost() <= elixir) {
+        result.add(activeCard);
+      }
+    }
+    return result;
   }
 }

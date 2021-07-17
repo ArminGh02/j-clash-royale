@@ -15,6 +15,8 @@ public class Settings {
   public static final int CELL_HEIGHT_SHIFT = CELL_HEIGHT / 2;
   public static final int CELL_WIDTH_SHIFT = CELL_WIDTH / 2;
   public static final int LEFT_VBOX_WIDTH = 150;
+  public static final int MAP_UP_HALF_HEIGHT = 384;
+  public static final int MAP_WIDTH = 448;
 
   public static final double LEFT_BRIDGE_X = 214;
   public static final double LEFT_BRIDGE_Y = 320;

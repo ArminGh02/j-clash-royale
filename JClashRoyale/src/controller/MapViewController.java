@@ -14,15 +14,8 @@ import model.player.Person;
 import util.Config;
 
 public class MapViewController {
-  public final int mapRowCount = 13;
-  public final int mapColumnCount = 7;
-
   @FXML private GridPane mapGrid;
   @FXML private AnchorPane basePane;
-  private ImageView friendlyKingTower;
-  private ImageView friendlyPrinceTowerL, friendlyPrinceTowerR;
-  private ImageView enemyKingTower;
-  private ImageView enemyPrinceTowerL, enemyPrinceTowerR;
 
   @FXML private Label elixirLabel;
   @FXML private Label timerLabel;
@@ -41,6 +34,7 @@ public class MapViewController {
     startElixirControllers();
     startTimer();
     startGameLoop();
+    gameController.getRobotPlayer().play(gameController.getTimer(), this, gameLoop);
   }
 
   private void initializeDeckSlots() {
@@ -152,7 +146,7 @@ public class MapViewController {
     }
   }
 
-  private void addImageOfCard(Card toDeploy, double x, double y) {
+  public void addImageOfCard(Card toDeploy, double x, double y) {
     ImageView imageToAdd = new ImageView(toDeploy.getDeployedImage());
     imageToAdd.setX(x);
     imageToAdd.setY(y);
