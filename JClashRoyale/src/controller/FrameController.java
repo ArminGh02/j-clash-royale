@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.Settings;
 import model.card.*;
@@ -163,11 +164,11 @@ public class FrameController extends AnimationTimer {
   private void updateVelocities() {
     for (Troop troop : activeTroops) {
       updateVelocity(troop);
+      updateImage(troop);
       double x = troop.getVelocity().getX(), y = troop.getVelocity().getY();
       double length = Math.sqrt(x * x + y * y);
-      if (length > 0) {
+      if (length > 0)
         troop.setVelocity(x / length, y / length);
-      }
     }
   }
 
@@ -200,21 +201,69 @@ public class FrameController extends AnimationTimer {
                 Settings.LEFT_BRIDGE_Y,
                 destination.getX(),
                 destination.getY());
-    double rightBridge =
-        getEuclideanDistance(
-                source.getX(), source.getY(), Settings.RIGHT_BRIDGE_X, Settings.RIGHT_BRIDGE_Y)
-            + getEuclideanDistance(
-                Settings.RIGHT_BRIDGE_X,
-                Settings.RIGHT_BRIDGE_Y,
-                destination.getX(),
-                destination.getY());
-
-    if (getDistance(troop, troop.getCurrentTarget()) == leftBridge)
-      troop.setVelocity(
-          Settings.LEFT_BRIDGE_X - source.getX(), Settings.LEFT_BRIDGE_Y - source.getY());
+    
+    if (Math.abs(getDistance(troop, troop.getCurrentTarget()) - leftBridge) <= Settings.EPSILON)
+      troop.setVelocity(Settings.LEFT_BRIDGE_X - source.getX(), Settings.LEFT_BRIDGE_Y - source.getY());
     else
       troop.setVelocity(
           Settings.RIGHT_BRIDGE_X - source.getX(), Settings.RIGHT_BRIDGE_Y - source.getY());
+  }
+
+  /**
+   * update image for the given attacker
+   * @param attacker the given attacker
+   */
+  private void updateImage(Attacker attacker) {
+    ImageView attackerImage = cardsImage.get(attacker);
+    String resultImageKey = attacker.getImageKey();
+    double x = attacker.getVelocity().getX(), y = -attacker.getVelocity().getY();
+    if (attacker.isAttacking()) {
+      ImageView targetImage = cardsImage.get(attacker.getCurrentTarget());
+      x = targetImage.getX() - attackerImage.getX();
+      y = attackerImage.getY() - targetImage.getY();
+    }
+
+    if (y == 0) {
+      if (x >= 0)
+        resultImageKey += "_RIGHT";
+      else
+        resultImageKey += "_LEFT";
+    }
+    else {
+      double slope = y / x;
+      if (x >= 0) {
+        if (Settings.UP_RIGHT_SLOPE <= slope)
+          resultImageKey += "_UP";
+        else if (Settings.RIGHT_UP_SLOPE <= slope && slope <= Settings.UP_RIGHT_SLOPE)
+          resultImageKey += "_UP_RIGHT";
+        else if (Settings.RIGHT_DOWN_SLOPE <= slope && slope <= Settings.RIGHT_UP_SLOPE)
+          resultImageKey += "_RIGHT";
+        else if (Settings.DOWN_RIGHT_SLOPE <= slope && slope <= Settings.RIGHT_DOWN_SLOPE)
+          resultImageKey += "_DOWN_RIGHT";
+        else
+          resultImageKey += "_DOWN";
+      }
+      else {
+        if (slope <= Settings.UP_LEFT_SLOPE)
+          resultImageKey += "_UP";
+        else if (Settings.UP_LEFT_SLOPE <= slope && slope <= Settings.LEFT_UP_SLOPE)
+          resultImageKey += "_UP_LEFT";
+        else if (Settings.LEFT_UP_SLOPE <= slope && slope <= Settings.LEFT_DOWN_SLOPE)
+          resultImageKey += "_LEFT";
+        else if (Settings.LEFT_DOWN_SLOPE <= slope && slope <= Settings.DOWN_LEFT_SLOPE)
+          resultImageKey += "_DOWN_LEFT";
+        else
+          resultImageKey += "_DOWN";
+      }
+    }
+
+    if (attacker.getCardGroup().equals(CardGroups.TROOP) && attacker.isAttacking())
+      resultImageKey += "_ATTACKING";
+    final String finalResultImageKey = resultImageKey;
+    if (attacker.getCurrentImageKey() == null || !attacker.getCurrentImageKey().equals(resultImageKey)) {
+      Platform.runLater(() -> attackerImage.setImage(new Image(Config.retrieveProperty(finalResultImageKey))));
+      attacker.setCurrentImageKey(resultImageKey);
+    }
   }
 
   /** move troops by their velocities */
@@ -301,7 +350,7 @@ public class FrameController extends AnimationTimer {
     if (cardImage == null) return 3;
 
     int middleRow = Settings.MAP_ROW_COUNT / 2;
-    int cellRow = (int) (cardImage.getY() / Settings.CELL_HEIGHT);
+    int cellRow = (int) ((cardImage.getY() + Settings.CELL_HEIGHT_SHIFT) / Settings.CELL_HEIGHT);
     if (cellRow == middleRow) return 0;
     else if (cellRow > middleRow) return 1;
     else return 2;

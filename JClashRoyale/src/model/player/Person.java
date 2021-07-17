@@ -46,4 +46,14 @@ public class Person extends Player {
         this.password = new Password(password);
         this.password.setHashedPassword(password);
     }
+
+    /**
+     * get player group of the player
+     *
+     * @return PlayerGroup
+     */
+    @Override
+    public PlayerGroup getPlayerGroup() {
+        return PlayerGroup.PERSON;
+    }
 }

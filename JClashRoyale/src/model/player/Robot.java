@@ -7,5 +7,14 @@ import model.player.Player;
  * @author Adibov & Armin Gh
  * @version 1.0
  */
-public class Robot extends Player {
+abstract public class Robot extends Player {
+    /**
+     * get player group of the player
+     *
+     * @return PlayerGroup
+     */
+    @Override
+    public PlayerGroup getPlayerGroup() {
+        return PlayerGroup.ROBOT;
+    }
 }

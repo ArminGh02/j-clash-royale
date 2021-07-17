@@ -1,9 +1,8 @@
 package controller;
 
 import javafx.animation.AnimationTimer;
-import model.player.BeginnerRobot;
-import model.player.Person;
-import model.player.Robot;
+import model.card.Card;
+import model.player.*;
 
 /**
  * SoloGameController class, manages turns and players in a solo player game using singleton design

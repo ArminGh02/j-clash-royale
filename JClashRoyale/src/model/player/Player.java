@@ -45,6 +45,12 @@ public abstract class Player {
     return deck;
   }
 
+  /**
+   * get player group of the player
+   * @return PlayerGroup
+   */
+  abstract public PlayerGroup getPlayerGroup();
+
   public void setDeck(List<Card> deck) {
     this.deck = new Deck(deck);
   }
