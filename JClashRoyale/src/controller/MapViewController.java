@@ -42,7 +42,7 @@ public class MapViewController {
     addTowersToMap();
     startElixirControllers();
     startTimer();
-    gameLoop.start();
+    startGameLoop();
   }
 
   private void initializeDeckSlots() {
@@ -84,6 +84,7 @@ public class MapViewController {
   }
 
   private void startGameLoop() {
+    gameLoop.initialize();
     gameLoop.start();
   }
 

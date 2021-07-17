@@ -13,5 +13,6 @@ abstract public class Tower extends Building {
      */
     public Tower(int elixirCost, String deckElixirImageKey) {
         super(elixirCost, deckElixirImageKey);
+
     }
 }
