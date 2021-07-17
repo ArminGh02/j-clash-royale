@@ -59,4 +59,14 @@ public class Person extends Player {
     public int getChosenSlotIndex() {
         return chosenSlotIndex;
     }
+
+    /**
+     * get player group of the player
+     *
+     * @return PlayerGroup
+     */
+    @Override
+    public PlayerGroup getPlayerGroup() {
+        return PlayerGroup.PERSON;
+    }
 }

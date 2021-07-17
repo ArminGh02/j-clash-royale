@@ -58,4 +58,10 @@ public abstract class Player {
   public Deck getDeck() {
     return deck;
   }
+
+  /**
+   * get player group of the player
+   * @return PlayerGroup
+   */
+  abstract public PlayerGroup getPlayerGroup();
 }

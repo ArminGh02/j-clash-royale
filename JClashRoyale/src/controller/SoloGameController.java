@@ -2,10 +2,7 @@ package controller;
 
 import javafx.animation.AnimationTimer;
 import model.card.Card;
-import model.player.BeginnerRobot;
-import model.player.Person;
-import model.player.Player;
-import model.player.Robot;
+import model.player.*;
 
 /**
  * SoloGameController class, manages turns and players in a solo player game using singleton design
@@ -43,7 +40,7 @@ public class SoloGameController {
     if (!player.canDeployCard())
       return null;
     Card deployedCard = player.deployChosenCard();
-    if (player instanceof Person)
+    if (player.getPlayerGroup().equals(PlayerGroup.PERSON))
       deployedCard.setTeamNumber(0);
     else
       deployedCard.setTeamNumber(1);

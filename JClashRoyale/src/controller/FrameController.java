@@ -157,9 +157,8 @@ public class FrameController extends AnimationTimer {
       updateVelocity(troop);
       double x = troop.getVelocity().getX(), y = troop.getVelocity().getY();
       double length = Math.sqrt(x * x + y * y);
-      if (length > 0) {
+      if (length > 0)
         troop.setVelocity(x / length, y / length);
-      }
     }
   }
 
@@ -211,9 +210,11 @@ public class FrameController extends AnimationTimer {
   private void moveTroops() {
     for (Troop troop : activeTroops) {
       ImageView troopImage = cardsImage.get(troop);
+      System.out.println(troop.getCardGroup() + " " + troop.getVelocity().getX() + " " + troop.getVelocity().getY());
       Platform.runLater(() -> troopImage.setX(troopImage.getX() + troop.getVelocity().getX()));
       Platform.runLater(() -> troopImage.setY(troopImage.getY() + troop.getVelocity().getY()));
     }
+    System.out.println();
   }
 
   /**
