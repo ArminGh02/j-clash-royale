@@ -12,7 +12,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import model.Settings;
+import model.card.Attacker;
 import model.card.Card;
+import model.card.CardType;
+import model.card.Troop;
 import model.player.Person;
 import util.Config;
 
@@ -135,13 +138,11 @@ public class MapViewController {
    */
   @FXML
   void deployCard(MouseEvent event) {
-    if (chosenSlot != -1) { // player has pressed a deck slot
+    if (chosenSlot != -1) { // player hasn't pressed a deck slot
       Card toDeploy = (Card) deckSlots[chosenSlot].getUserData();
       Person person = gameController.getPersonPlayer();
       if (person.deploy(toDeploy)) {
-        toDeploy.setTeamNumber(0);
-        gameLoop.addToActiveCards(toDeploy);
-        addImageOfCard(toDeploy, event.getSceneX() - 32, event.getSceneY() - 32);
+        deployCard(toDeploy, event.getSceneX() - Settings.CELL_WIDTH_SHIFT, event.getSceneY() - Settings.CELL_HEIGHT_SHIFT);
 
         Card nextCard = person.getDeck().nextCard(toDeploy);
         deckSlots[chosenSlot].setUserData(nextCard);
@@ -149,6 +150,32 @@ public class MapViewController {
 
         chosenSlot = -1; // reset
       }
+    }
+  }
+
+  /**
+   * deploy the given card by the number of card's count
+   * @param card the given card
+   */
+  private void deployCard(Card card, double x, double y) {
+    int count = 1;
+    if (card.getType().equals(CardType.TROOP)) {
+      Troop temp = (Troop) card;
+      count = temp.getCount();
+    }
+
+    int coefficient = 1;
+    if (x > (Settings.MAP_COLUMN_COUNT / 2) * Settings.CELL_WIDTH + Settings.LEFT_VBOX_WIDTH)
+      coefficient = -1;
+    for (int i = 0; i < count; i++) {
+      Card newCard;
+      if (i == count - 1)
+        newCard = card;
+      else
+        newCard = card.newInstance();
+      newCard.setTeamNumber(0);
+      gameLoop.addToActiveCards(newCard);
+      addImageOfCard(newCard, x + coefficient * i * Settings.CELL_WIDTH_SHIFT, y);
     }
   }
 

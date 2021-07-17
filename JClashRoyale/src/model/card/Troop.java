@@ -7,7 +7,7 @@ package model.card;
  */
 public abstract class Troop extends Attacker {
   private int areaSplash;
-  private int count;
+  protected int count;
   private Speed speed;
 
     public Troop(int elixirCost, String imageKey) {

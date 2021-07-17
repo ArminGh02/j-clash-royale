@@ -164,7 +164,9 @@ public class FrameController extends AnimationTimer {
   }
 
   /** update spells' state */
-  private void updateSpells() {}
+  private void updateSpells() {
+
+  }
 
   /** update troops and buildings' target */
   private void updateTargets() {
@@ -404,8 +406,8 @@ public class FrameController extends AnimationTimer {
   @Override
   public void handle(long currentNanoTime) {
     currentMilliSecond = currentNanoTime / 1000000;
-    updateHps();
     updateSpells();
+    updateHps();
     updateTargets();
     updateVelocities();
     moveTroops();

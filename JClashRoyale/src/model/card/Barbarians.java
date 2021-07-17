@@ -14,6 +14,7 @@ public class Barbarians extends Troop {
     hp = 300; // TODO make it dependent to level
     damage = 75;
     hitSpeed = 1500;
+    count = 5;
   }
 
   public static Image getDeckImage() {
