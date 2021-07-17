@@ -257,7 +257,7 @@ public class FrameController extends AnimationTimer {
       }
     }
 
-    if (attacker.getCardGroup().equals(CardGroups.TROOP) && attacker.isAttacking())
+    if (attacker.getType().equals(CardType.TROOP) && attacker.isAttacking())
       resultImageKey += "_ATTACKING";
     final String finalResultImageKey = resultImageKey;
     if (attacker.getCurrentImageKey() == null || !attacker.getCurrentImageKey().equals(resultImageKey)) {

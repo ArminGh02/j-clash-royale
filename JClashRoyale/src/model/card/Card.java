@@ -11,15 +11,16 @@ import util.Config;
  */
 public abstract class Card {
   private final int ELIXIR_COST;
-  private final Image deckSlotImage;
+  private Image deckSlotImage;
   private Image deployedImage; // TODO: make it final
   private int level;
   private int teamNumber;
   private final CardType type;
+  private final String imageKey;
 
   protected Card(int elixirCost, String imageKey, CardType cardType) {
     this.ELIXIR_COST = elixirCost;
-    this.deckSlotImage = new Image(Config.retrieveProperty(imageKey + "_DECK_SLOT_IMAGE"));
+    this.imageKey = imageKey;
     if (this instanceof Barbarians) { // TODO: add other gifs and remove this if-condition
       this.deployedImage = new Image(Config.retrieveProperty(imageKey));
     }
@@ -54,6 +55,8 @@ public abstract class Card {
   }
 
   public Image getDeckSlotImage() {
+    if (deckSlotImage == null)
+      deckSlotImage = new Image(Config.retrieveProperty(imageKey + "_DECK_SLOT_IMAGE"));
     return deckSlotImage;
   }
 
@@ -67,5 +70,13 @@ public abstract class Card {
 
   public Card newInstance() {
     throw new AbstractMethodError();
+  }
+
+  /**
+   * imageKey getter
+   * @return imageKey
+   */
+  public String getImageKey() {
+    return imageKey;
   }
 }
