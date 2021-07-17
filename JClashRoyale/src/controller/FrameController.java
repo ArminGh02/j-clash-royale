@@ -118,7 +118,7 @@ public class FrameController extends AnimationTimer {
   }
 
   public void addImageOfCard(Card card, ImageView newImageView) {
-    cardImage.put(card, newImageView);
+    cardsImage.put(card, newImageView);
   }
 
   /** update hp of the active troops and building */
@@ -244,7 +244,7 @@ public class FrameController extends AnimationTimer {
     if (sourceImage == null || destinationImage == null) return 100;
 
     boolean euclideanDistance = false;
-    if (source.getCardGroup().equals(CardGroups.TROOP)) {
+    if (source.getType().equals(CardType.TROOP)) {
       Troop tempTroop = (Troop) source;
       euclideanDistance |= tempTroop.getMovement().equals(MOVEMENT.AIR);
     }

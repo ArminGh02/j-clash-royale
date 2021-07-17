@@ -1,9 +1,5 @@
 package model.card;
 
-import model.Settings;
-
-import java.awt.geom.Point2D;
-
 /**
  * Troop class, saves
  * @author Adibov & Armin Gh
