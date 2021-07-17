@@ -10,9 +10,20 @@ public class Valkyrie extends Troop {
 
   public Valkyrie() {
     super(4, "VALKYRIE");
+    range = Range.MELEE;
   }
 
   public static Image getDeckImage() {
     return deckImage;
+  }
+
+  /**
+   * movement getter
+   *
+   * @return movement
+   */
+  @Override
+  public MOVEMENT getMovement() {
+    return MOVEMENT.GROUND;
   }
 }

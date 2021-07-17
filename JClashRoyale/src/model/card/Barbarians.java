@@ -10,9 +10,20 @@ public class Barbarians extends Troop {
 
   public Barbarians() {
     super(5, "BARBARIANS");
+    range = Range.MELEE;
   }
 
   public static Image getDeckImage() {
     return deckImage;
+  }
+
+  /**
+   * movement getter
+   *
+   * @return movement
+   */
+  @Override
+  public MOVEMENT getMovement() {
+    return MOVEMENT.GROUND;
   }
 }

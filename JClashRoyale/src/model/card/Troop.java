@@ -1,5 +1,7 @@
 package model.card;
 
+import model.Settings;
+
 import java.awt.geom.Point2D;
 
 /**
@@ -7,86 +9,45 @@ import java.awt.geom.Point2D;
  * @author Adibov & Armin Gh
  * @version 1.0
  */
-abstract public class Troop extends Card {
-    private int hp, damage, hitSpeed, areaSplash, count;
-    private Speed speed;
-    private Range range;
-    private Target target;
-    private Point2D velocity;
+public abstract class Troop extends Attacker {
+  private int areaSplash;
+  private int count;
+  private Speed speed;
 
     public Troop(int elixirCost, String imageKey) {
         super(elixirCost, imageKey, CardType.TROOP);
     }
 
-    /**
-     * hp getter
-     * @return hp
-     */
-    public int getHp() {
-        return hp;
-    }
+  /**
+   * areaSplash getter
+   *
+   * @return areaSplash
+   */
+  public int getAreaSplash() {
+    return areaSplash;
+  }
 
-    /**
-     * damage getter
-     * @return damage
-     */
-    public int getDamage() {
-        return damage;
-    }
+  /**
+   * count getter
+   *
+   * @return count
+   */
+  public int getCount() {
+    return count;
+  }
 
-    /**
-     * hitSpeed getter
-     * @return hitSpeed
-     */
-    public int getHitSpeed() {
-        return hitSpeed;
-    }
+  /**
+   * speed getter
+   *
+   * @return speed
+   */
+  public Speed getSpeed() {
+    return speed;
+  }
 
-    /**
-     * areaSplash getter
-     * @return areaSplash
-     */
-    public int getAreaSplash() {
-        return areaSplash;
-    }
-
-    /**
-     * count getter
-     * @return count
-     */
-    public int getCount() {
-        return count;
-    }
-
-    /**
-     * speed getter
-     * @return speed
-     */
-    public Speed getSpeed() {
-        return speed;
-    }
-
-    /**
-     * range getter
-     * @return range
-     */
-    public Range getRange() {
-        return range;
-    }
-
-    /**
-     * target getter
-     * @return target
-     */
-    public Target getTarget() {
-        return target;
-    }
-
-    /**
-     * velocity getter
-     * @return velocity
-     */
-    public Point2D getVelocity() {
-        return velocity;
-    }
+  /**
+   * movement getter
+   * @return movement
+   */
+  abstract public MOVEMENT getMovement();
 }

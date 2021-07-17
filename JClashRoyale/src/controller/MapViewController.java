@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import model.Settings;
 import model.card.Card;
 import model.player.Person;
 import util.Config;
@@ -82,8 +83,15 @@ public class MapViewController {
     gameController.setTimer(timer);
   }
 
-  /** add map base images to the grid pane */
+  private void startGameLoop() {
+    gameLoop.start();
+  }
+
+  /**
+   * add map base images to the grid pane
+   */
   private void makeMapBaseField() {
+    final int mapRowCount = Settings.MAP_ROW_COUNT, mapColumnCount = Settings.MAP_COLUMN_COUNT;
     for (int i = 0; i < mapRowCount; i++) {
       for (int j = 0; j < mapColumnCount; j++) {
         if (i == 0 && j == 0) {
@@ -169,5 +177,17 @@ public class MapViewController {
     imageToAdd.setY(y);
     gameLoop.addImageOfCard(toDeploy, imageToAdd);
     basePane.getChildren().add(imageToAdd);
+  }
+
+  /**
+   * add the given image view to the map grid
+   * @param imageView the given image view
+   * @param j column index
+   * @param i row index
+   */
+  public void addMapGrid(ImageView imageView, int j, int i) {
+    mapGrid.add(imageView, j, i);
+    imageView.setX(Settings.LEFT_VBOX_WIDTH + j * Settings.CELL_WIDTH + Settings.CELL_WIDTH_SHIFT);
+    imageView.setY(i * Settings.CELL_HEIGHT + Settings.CELL_HEIGHT_SHIFT);
   }
 }

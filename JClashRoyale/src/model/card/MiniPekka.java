@@ -10,9 +10,20 @@ public class MiniPekka extends Troop {
 
   public MiniPekka() {
     super(4, "MINI_PEKKA");
+    range = Range.MELEE;
   }
 
   public static Image getDeckImage() {
     return deckImage;
+  }
+
+  /**
+   * movement getter
+   *
+   * @return movement
+   */
+  @Override
+  public MOVEMENT getMovement() {
+    return MOVEMENT.GROUND;
   }
 }

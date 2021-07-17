@@ -10,9 +10,20 @@ public class Giant extends Troop {
 
   public Giant() {
     super(5, "GIANT");
+    range = Range.MELEE;
   }
 
   public static Image getDeckImage() {
     return deckImage;
+  }
+
+  /**
+   * movement getter
+   *
+   * @return movement
+   */
+  @Override
+  public MOVEMENT getMovement() {
+    return MOVEMENT.GROUND;
   }
 }
