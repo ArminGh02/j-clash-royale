@@ -5,18 +5,17 @@ import model.Settings;
 import util.Config;
 
 public class Archer extends Troop {
+
+  private static final Image deckImage = new Image(
+      Config.retrieveProperty("ARCHER_DECK_IMAGE"));
+
   public Archer() {
-    super(3, "ARCHER_DECK_ELIXIR_IMAGE");
+    super(3, "ARCHER");
     range = Range.RANGED;
   }
 
   public static Image getDeckImage() {
-    return new Image(Config.retrieveProperty("ARCHER_DECK_IMAGE"));
-  }
-
-  @Override
-  public String getImageKey() {
-    return "ARCHER";
+    return deckImage;
   }
 
   /**
@@ -35,7 +34,12 @@ public class Archer extends Troop {
    * @return movement
    */
   @Override
-  public MOVEMENT getMovement() {
-    return MOVEMENT.GROUND;
+  public Movement getMovement() {
+    return Movement.GROUND;
+  }
+
+  @Override
+  public Card newInstance() {
+    return new Archer();
   }
 }

@@ -3,25 +3,32 @@ package model.card;
 import javafx.scene.image.Image;
 import util.Config;
 
-import java.awt.geom.Point2D;
-
 /**
  * card class, saves card details and handles card usages
+ *
  * @author Adibov & Armin Gh
  * @version 1.0
  */
-abstract public class Card {
-  protected final int ELIXIR_COST;
-  private int level, teamNumber;
-  private final Image deckElixirImage;
+public abstract class Card {
+  private final int ELIXIR_COST;
+  private final Image deckSlotImage;
+  private Image deployedImage; // TODO: make it final
+  private int level;
+  private int teamNumber;
+  private final CardType type;
 
-  protected Card(int elixirCost, String deckElixirImageKey) {
+  protected Card(int elixirCost, String imageKey, CardType cardType) {
     this.ELIXIR_COST = elixirCost;
-    this.deckElixirImage = new Image(Config.retrieveProperty(deckElixirImageKey));
+    this.deckSlotImage = new Image(Config.retrieveProperty(imageKey + "_DECK_SLOT_IMAGE"));
+    if (this instanceof Barbarians) { // TODO: add other gifs and remove this if-condition
+      this.deployedImage = new Image(Config.retrieveProperty(imageKey));
+    }
+    this.type = cardType;
   }
 
   /**
    * teamNumber setter
+   *
    * @param teamNumber teamNumber new value
    */
   public void setTeamNumber(int teamNumber) {
@@ -30,6 +37,7 @@ abstract public class Card {
 
   /**
    * teamNumber getter
+   *
    * @return teamNumber
    */
   public int getTeamNumber() {
@@ -38,18 +46,26 @@ abstract public class Card {
 
   /**
    * elixirCost getter
+   *
    * @return elixirCost
    */
   public int getElixirCost() {
     return ELIXIR_COST;
   }
 
-  public Image getDeckElixirImage() {
-    return deckElixirImage;
+  public Image getDeckSlotImage() {
+    return deckSlotImage;
   }
 
-  abstract public CardGroups getCardGroup();
+  public CardType getType() {
+    return type;
+  }
 
-  abstract public String getImageKey();
+  public Image getDeployedImage() {
+    return deployedImage;
+  }
 
+  public Card newInstance() {
+    throw new AbstractMethodError();
+  }
 }

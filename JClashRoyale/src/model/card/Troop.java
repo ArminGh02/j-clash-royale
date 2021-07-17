@@ -1,12 +1,7 @@
 package model.card;
 
-import model.Settings;
-
-import java.awt.geom.Point2D;
-
 /**
  * Troop class, saves
- *
  * @author Adibov & Armin Gh
  * @version 1.0
  */
@@ -15,14 +10,9 @@ public abstract class Troop extends Attacker {
   private int count;
   private Speed speed;
 
-  public Troop(int elixirCost, String deckElixirImageKey) {
-    super(elixirCost, deckElixirImageKey);
-  }
-
-  @Override
-  public CardGroups getCardGroup() {
-    return CardGroups.TROOP;
-  }
+    public Troop(int elixirCost, String imageKey) {
+        super(elixirCost, imageKey, CardType.TROOP);
+    }
 
   /**
    * areaSplash getter
@@ -55,5 +45,5 @@ public abstract class Troop extends Attacker {
    * movement getter
    * @return movement
    */
-  abstract public MOVEMENT getMovement();
+  abstract public Movement getMovement();
 }

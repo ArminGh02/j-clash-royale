@@ -5,18 +5,17 @@ import model.Settings;
 import util.Config;
 
 public class BabyDragon extends Troop {
+
+  private static final Image deckImage = new Image(
+      Config.retrieveProperty("BABY_DRAGON_DECK_IMAGE"));
+
   public BabyDragon() {
-    super(4, "BABY_DRAGON_DECK_ELIXIR_IMAGE");
+    super(4, "BABY_DRAGON");
     range = Range.RANGED;
   }
 
   public static Image getDeckImage() {
-    return new Image(Config.retrieveProperty("BABY_DRAGON_DECK_IMAGE"));
-  }
-
-  @Override
-  public String getImageKey() {
-    return "BABY_DRAGON";
+    return deckImage;
   }
 
   /**
@@ -35,7 +34,12 @@ public class BabyDragon extends Troop {
    * @return movement
    */
   @Override
-  public MOVEMENT getMovement() {
-    return MOVEMENT.AIR;
+  public Movement getMovement() {
+    return Movement.AIR;
+  }
+
+  @Override
+  public Card newInstance() {
+    return new BabyDragon();
   }
 }

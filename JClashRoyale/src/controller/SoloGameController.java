@@ -13,7 +13,7 @@ import model.player.*;
  */
 public class SoloGameController {
   private Person personPlayer;
-  private Robot robotPlayer = new BeginnerRobot();
+  private Robot robotPlayer;
   private GameTimerController timer;
   private AnimationTimer gameLoop;
   private static SoloGameController instance;
@@ -31,21 +31,21 @@ public class SoloGameController {
     return instance;
   }
 
-  /**
-   * deploy the given card for the given player
-   * @param player the given player
-   * @return deployed card
-   */
-  public Card deployCard(Player player) {
-    if (!player.canDeployCard())
-      return null;
-    Card deployedCard = player.deployChosenCard();
-    if (player.getPlayerGroup().equals(PlayerGroup.PERSON))
-      deployedCard.setTeamNumber(0);
-    else
-      deployedCard.setTeamNumber(1);
-    return deployedCard;
-  }
+  // /**
+  //  * deploy the given card for the given player
+  //  * @param player the given player
+  //  * @return deployed card
+  //  */
+  // public Card deployCard(Player player) {
+  //   if (!player.canDeployCard())
+  //     return null;
+  //   Card deployedCard = player.deployChosenCard();
+  //   if (player instanceof Person)
+  //     deployedCard.setTeamNumber(0);
+  //   else
+  //     deployedCard.setTeamNumber(1);
+  //   return deployedCard;
+  // }
 
   public Person getPersonPlayer() {
     return personPlayer;

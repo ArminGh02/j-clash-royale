@@ -16,15 +16,6 @@ public class PrinceTower extends Tower {
     }
 
     /**
-     * get image key
-     * @return image key
-     */
-    @Override
-    public String getImageKey() {
-        return "PRINCE_TOWER";
-    }
-
-    /**
      * get euclidean range in double
      *
      * @return range distance

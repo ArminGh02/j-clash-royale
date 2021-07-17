@@ -4,18 +4,17 @@ import javafx.scene.image.Image;
 import util.Config;
 
 public class Barbarians extends Troop {
+
+  private static final Image deckImage = new Image(
+      Config.retrieveProperty("BARBARIANS_DECK_IMAGE"));
+
   public Barbarians() {
-    super(5, "BARBARIANS_DECK_ELIXIR_IMAGE");
+    super(5, "BARBARIANS");
     range = Range.MELEE;
   }
 
   public static Image getDeckImage() {
-    return new Image(Config.retrieveProperty("BARBARIANS_DECK_IMAGE"));
-  }
-
-  @Override
-  public String getImageKey() {
-    return "BARBARIAN";
+    return deckImage;
   }
 
   /**
@@ -24,7 +23,12 @@ public class Barbarians extends Troop {
    * @return movement
    */
   @Override
-  public MOVEMENT getMovement() {
-    return MOVEMENT.GROUND;
+  public Movement getMovement() {
+    return Movement.GROUND;
+  }
+
+  @Override
+  public Card newInstance() {
+    return new Barbarians();
   }
 }

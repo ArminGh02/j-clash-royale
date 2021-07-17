@@ -5,18 +5,17 @@ import model.Settings;
 import util.Config;
 
 public class Cannon extends Building {
+
+  private static final Image cannonDeckImage = new Image(
+      Config.retrieveProperty("CANNON_DECK_IMAGE"));
+
   public Cannon() {
     super(3, "CANNON_DECK_ELIXIR_IMAGE");
     range = Range.RANGED;
   }
 
   public static Image getDeckImage() {
-    return new Image(Config.retrieveProperty("CANNON_DECK_IMAGE"));
-  }
-
-  @Override
-  public String getImageKey() {
-    return "CANNON";
+    return cannonDeckImage;
   }
 
   /**
@@ -27,5 +26,10 @@ public class Cannon extends Building {
   @Override
   public double getRangeDistance() {
     return Settings.CANNON_ATTACK_RANGE;
+  }
+
+  @Override
+  public Card newInstance() {
+    return new Cannon();
   }
 }

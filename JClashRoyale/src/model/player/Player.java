@@ -1,5 +1,6 @@
 package model.player;
 
+import java.util.List;
 import model.Deck;
 import model.Settings;
 
@@ -13,7 +14,7 @@ import model.card.Card;
  */
 public abstract class Player {
   protected int elixir = Settings.INITIAL_ELIXIR;
-  protected Deck deck = new Deck();
+  protected Deck deck;
 
   public int getElixir() {
     return elixir;
@@ -23,32 +24,17 @@ public abstract class Player {
     this.elixir += Settings.ELIXIR_INCREASE;
   }
 
-  public void decreaseElixir(int decreaseAmount) {
-    this.elixir -= decreaseAmount;
-  }
-
   /**
    * deploy chosen card for the given player if possible
    * @return chosen card
    */
-  public Card deployChosenCard() {
-    if (!canDeployCard())
-      return null;
-    Card result = deck.getChosenCard();
-    decreaseElixir(deck.getChosenCard().getElixirCost());
-    deck.pickChosenCard();
-    return result;
-  }
-
-  /**
-   * check if the player can deploy chosen card
-   *
-   * @return boolean result
-   */
-  public boolean canDeployCard() {
-    Card chosenCard = deck.getChosenCard();
-    if (chosenCard == null) return false;
-    return chosenCard.getElixirCost() <= elixir;
+  public boolean deploy(Card toDeploy) {
+    int cardElixirCost = toDeploy.getElixirCost();
+    if (elixir >= cardElixirCost) {
+      elixir -= cardElixirCost;
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -64,4 +50,8 @@ public abstract class Player {
    * @return PlayerGroup
    */
   abstract public PlayerGroup getPlayerGroup();
+
+  public void setDeck(List<Card> deck) {
+    this.deck = new Deck(deck);
+  }
 }

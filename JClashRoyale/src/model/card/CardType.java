@@ -1,6 +1,6 @@
 package model.card;
 
-public enum CardGroups {
+public enum CardType {
     TROOP,
     SPELL,
     BUILDING

@@ -4,16 +4,20 @@ import javafx.scene.image.Image;
 import util.Config;
 
 public class Arrows extends Spell {
+
+  private static final Image deckImage = new Image(
+      Config.retrieveProperty("ARROWS_DECK_IMAGE"));
+
   public Arrows() {
-    super(3, "ARROWS_DECK_ELIXIR_IMAGE");
+    super(3, "ARROWS");
   }
 
   public static Image getDeckImage() {
-    return new Image(Config.retrieveProperty("ARROWS_DECK_IMAGE"));
+    return deckImage;
   }
 
   @Override
-  public String getImageKey() {
-    return "ARROWS";
+  public Card newInstance() {
+    return new Arrows();
   }
 }

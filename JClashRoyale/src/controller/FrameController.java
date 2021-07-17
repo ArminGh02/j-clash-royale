@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+import java.util.Map;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
@@ -7,11 +9,12 @@ import javafx.scene.image.ImageView;
 import model.Settings;
 import model.card.*;
 import util.Config;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import model.card.Building;
+import model.card.Card;
+import model.card.Spell;
+import model.card.Troop;
 
 /**
  * FrameController class, handles each frame's update
@@ -98,18 +101,23 @@ public class FrameController extends AnimationTimer {
    * add the given card to the list of active cards
    *
    * @param card the given card
-   * @param x x position of the new card
-   * @param y y position of the new card
    */
-  public void addCardToMap(Card card, double x, double y) {
-    if (card.getCardGroup().equals(CardGroups.TROOP)) activeTroops.add((Troop) card);
-    else if (card.getCardGroup().equals(CardGroups.SPELL)) activeSpells.add((Spell) card);
-    else activeBuildings.add((Building) card);
-    ImageView newImageView = new ImageView(Config.retrieveProperty(card.getImageKey()));
-    newImageView.setX(x);
-    newImageView.setY(y);
+  public void addToActiveCards(Card card) {
+    switch (card.getType()) {
+      case BUILDING:
+        activeBuildings.add((Building) card);
+        break;
+      case TROOP:
+        activeTroops.add((Troop) card);
+        break;
+      case SPELL:
+        activeSpells.add((Spell) card);
+        break;
+    }
+  }
+
+  public void addImageOfCard(Card card, ImageView newImageView) {
     cardsImage.put(card, newImageView);
-    mapViewController.addImageView(newImageView);
   }
 
   /** update hp of the active troops and building */
@@ -177,7 +185,7 @@ public class FrameController extends AnimationTimer {
 
     ImageView source = cardsImage.get(troop);
     ImageView destination = cardsImage.get(troop.getCurrentTarget());
-    if (troop.getMovement().equals(MOVEMENT.AIR)
+    if (troop.getMovement().equals(Movement.AIR)
         || getRegionNumber(troop) == 0
         || getRegionNumber(troop.getCurrentTarget()) == 0
         || getRegionNumber(troop) == getRegionNumber(troop.getCurrentTarget())) { // straight line
@@ -193,10 +201,12 @@ public class FrameController extends AnimationTimer {
                 Settings.LEFT_BRIDGE_Y,
                 destination.getX(),
                 destination.getY());
+    
     if (Math.abs(getDistance(troop, troop.getCurrentTarget()) - leftBridge) <= Settings.EPSILON)
       troop.setVelocity(Settings.LEFT_BRIDGE_X - source.getX(), Settings.LEFT_BRIDGE_Y - source.getY());
     else
-      troop.setVelocity(Settings.RIGHT_BRIDGE_X - source.getX(), Settings.RIGHT_BRIDGE_Y - source.getY());
+      troop.setVelocity(
+          Settings.RIGHT_BRIDGE_X - source.getX(), Settings.RIGHT_BRIDGE_Y - source.getY());
   }
 
   /**
@@ -281,9 +291,9 @@ public class FrameController extends AnimationTimer {
     if (sourceImage == null || destinationImage == null) return 100;
 
     boolean euclideanDistance = false;
-    if (source.getCardGroup().equals(CardGroups.TROOP)) {
+    if (source.getType().equals(CardType.TROOP)) {
       Troop tempTroop = (Troop) source;
-      euclideanDistance |= tempTroop.getMovement().equals(MOVEMENT.AIR);
+      euclideanDistance |= tempTroop.getMovement().equals(Movement.AIR);
     }
     if (sourceRegion == destinationRegion || sourceRegion == 0 || destinationRegion == 0)
       euclideanDistance = true;

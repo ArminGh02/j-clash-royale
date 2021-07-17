@@ -5,18 +5,17 @@ import model.Settings;
 import util.Config;
 
 public class InfernoTower extends Building {
+
+  private static final Image infernoTowerDeckImage = new Image(
+      Config.retrieveProperty("INFERNO_TOWER_DECK_IMAGE"));
+
   public InfernoTower() {
-    super(5, "INFERNO_TOWER_DECK_ELIXIR_IMAGE");
+    super(5, "INFERNO_TOWER");
     range = Range.RANGED;
   }
 
   public static Image getDeckImage() {
-    return new Image(Config.retrieveProperty("INFERNO_TOWER_DECK_IMAGE"));
-  }
-
-  @Override
-  public String getImageKey() {
-    return "INFERNO_TOWER";
+    return infernoTowerDeckImage;
   }
 
   /**
@@ -27,5 +26,10 @@ public class InfernoTower extends Building {
   @Override
   public double getRangeDistance() {
     return Settings.INFERNO_TOWER_ATTACK_RANGE;
+  }
+
+  @Override
+  public Card newInstance() {
+    return new InfernoTower();
   }
 }

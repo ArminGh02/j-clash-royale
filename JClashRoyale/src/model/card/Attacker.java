@@ -23,10 +23,10 @@ abstract public class Attacker extends Card {
     /**
      * class constructor
      * @param elixirCost elixirCost
-     * @param deckElixirImageKey deckElixirImageKey
+     * @param imageKey imageKey
      */
-    public Attacker(int elixirCost, String deckElixirImageKey) {
-        super(elixirCost, deckElixirImageKey);
+    public Attacker(int elixirCost, String imageKey, CardType type) {
+        super(elixirCost, imageKey, type);
     }
 
     /**

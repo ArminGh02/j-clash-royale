@@ -5,18 +5,17 @@ import model.Settings;
 import util.Config;
 
 public class Wizard extends Troop {
+
+  private static final Image deckImage = new Image(
+      Config.retrieveProperty("WIZARD_DECK_IMAGE"));
+
   public Wizard() {
-    super(5, "WIZARD_DECK_ELIXIR_IMAGE");
+    super(5, "WIZARD");
     range = Range.RANGED;
   }
 
   public static Image getDeckImage() {
-    return new Image(Config.retrieveProperty("WIZARD_DECK_IMAGE"));
-  }
-
-  @Override
-  public String getImageKey() {
-    return "WIZARD";
+    return deckImage;
   }
 
   /**
@@ -35,7 +34,12 @@ public class Wizard extends Troop {
    * @return movement
    */
   @Override
-  public MOVEMENT getMovement() {
-    return MOVEMENT.GROUND;
+  public Movement getMovement() {
+    return Movement.GROUND;
+  }
+
+  @Override
+  public Card newInstance() {
+    return new Wizard();
   }
 }
