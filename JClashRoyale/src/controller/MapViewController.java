@@ -39,7 +39,6 @@ public class MapViewController {
   public void initialize() {
     initializeDeckSlots();
     makeMapBaseField();
-    addTowersToMap();
     startElixirControllers();
     startTimer();
     startGameLoop();
@@ -128,24 +127,6 @@ public class MapViewController {
     mapGrid.add(new ImageView(Config.retrieveProperty("BRIDGE_IMAGE")), 1, waterRow);
     mapGrid.add(
         new ImageView(Config.retrieveProperty("BRIDGE_IMAGE")), mapColumnCount - 2, waterRow);
-  }
-
-  /** add tower images to the grid pane */
-  private void addTowersToMap() {
-    friendlyKingTower = new ImageView(Config.retrieveProperty("KING_TOWER_FRIENDLY"));
-    friendlyPrinceTowerL = new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
-    friendlyPrinceTowerR = new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
-    enemyKingTower = new ImageView(Config.retrieveProperty("KING_TOWER_ENEMY"));
-    enemyPrinceTowerL = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
-    enemyPrinceTowerR = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
-
-    int middleColumn = mapColumnCount / 2;
-    mapGrid.add(friendlyKingTower, middleColumn, mapRowCount - 1);
-    mapGrid.add(friendlyPrinceTowerL, 1, mapRowCount - 3);
-    mapGrid.add(friendlyPrinceTowerR, mapColumnCount - 2, mapRowCount - 3);
-    mapGrid.add(enemyKingTower, middleColumn, 0);
-    mapGrid.add(enemyPrinceTowerL, 1, 1);
-    mapGrid.add(enemyPrinceTowerR, mapColumnCount - 2, 1);
   }
 
   /**

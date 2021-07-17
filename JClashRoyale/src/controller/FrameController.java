@@ -121,7 +121,19 @@ public class FrameController extends AnimationTimer {
   }
 
   /** update hp of the active troops and building */
-  private void updateHps() {}
+  private void updateHps() {
+  }
+
+  /**
+   * up hp for the given attacker
+   * @param attacker the give attacker
+   */
+  private void updateHp(Attacker attacker) {
+    Attacker target = (Attacker) attacker.getCurrentTarget();
+    if (target == null)
+      return;
+
+  }
 
   /** update spells' state */
   private void updateSpells() {}

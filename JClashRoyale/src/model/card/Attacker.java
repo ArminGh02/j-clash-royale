@@ -37,6 +37,10 @@ abstract public class Attacker extends Card {
         this.currentImageKey = currentImageKey;
     }
 
+    public void decreaseHp(int decreaseAmount) {
+
+    }
+
     /**
      * hp getter
      *
