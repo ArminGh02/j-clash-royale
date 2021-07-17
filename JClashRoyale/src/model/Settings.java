@@ -31,4 +31,12 @@ public class Settings {
   public static final double PRINCE_TOWER_ATTACK_RANGE = 7.5;
 
   public static final double EPSILON = 0.01;
+  public static final double UP_RIGHT_SLOPE = 2.41; // tan(90 - 45 / 2)
+  public static final double UP_LEFT_SLOPE = -2.41; // tan(90 + 45 / 2)
+  public static final double LEFT_UP_SLOPE = -0.41; // tan(180 - 45 / 2)
+  public static final double LEFT_DOWN_SLOPE = 0.41; // tan(180 + 45 / 2)
+  public static final double DOWN_LEFT_SLOPE = 2.41; // tan(270 - 45 / 2)
+  public static final double DOWN_RIGHT_SLOPE = -2.41; // tan(270 + 45 / 2)
+  public static final double RIGHT_DOWN_SLOPE = -0.41; // tan(360 - 45 / 2)
+  public static final double RIGHT_UP_SLOPE = 0.41; // tan(45 / 2)
 }

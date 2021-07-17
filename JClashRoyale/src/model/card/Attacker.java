@@ -18,6 +18,7 @@ abstract public class Attacker extends Card {
     private Point2D velocity;
     private Card currentTarget;
     private boolean isAttacking;
+    private String currentImageKey;
 
     /**
      * class constructor
@@ -26,6 +27,14 @@ abstract public class Attacker extends Card {
      */
     public Attacker(int elixirCost, String deckElixirImageKey) {
         super(elixirCost, deckElixirImageKey);
+    }
+
+    /**
+     * currentImageKey setter
+     * @param currentImageKey currentImageKey new value
+     */
+    public void setCurrentImageKey(String currentImageKey) {
+        this.currentImageKey = currentImageKey;
     }
 
     /**
@@ -134,5 +143,13 @@ abstract public class Attacker extends Card {
      */
     public boolean isAttacking() {
       return isAttacking;
+    }
+
+    /**
+     * currentImageKey getter
+     * @return currentImageKey
+     */
+    public String getCurrentImageKey() {
+        return currentImageKey;
     }
 }

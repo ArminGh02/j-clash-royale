@@ -2,6 +2,7 @@ package controller;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.Settings;
 import model.card.*;
@@ -155,6 +156,7 @@ public class FrameController extends AnimationTimer {
   private void updateVelocities() {
     for (Troop troop : activeTroops) {
       updateVelocity(troop);
+      updateImage(troop);
       double x = troop.getVelocity().getX(), y = troop.getVelocity().getY();
       double length = Math.sqrt(x * x + y * y);
       if (length > 0)
@@ -195,6 +197,63 @@ public class FrameController extends AnimationTimer {
       troop.setVelocity(Settings.LEFT_BRIDGE_X - source.getX(), Settings.LEFT_BRIDGE_Y - source.getY());
     else
       troop.setVelocity(Settings.RIGHT_BRIDGE_X - source.getX(), Settings.RIGHT_BRIDGE_Y - source.getY());
+  }
+
+  /**
+   * update image for the given attacker
+   * @param attacker the given attacker
+   */
+  private void updateImage(Attacker attacker) {
+    ImageView attackerImage = cardsImage.get(attacker);
+    String resultImageKey = attacker.getImageKey();
+    double x = attacker.getVelocity().getX(), y = -attacker.getVelocity().getY();
+    if (attacker.isAttacking()) {
+      ImageView targetImage = cardsImage.get(attacker.getCurrentTarget());
+      x = targetImage.getX() - attackerImage.getX();
+      y = attackerImage.getY() - targetImage.getY();
+    }
+
+    if (y == 0) {
+      if (x >= 0)
+        resultImageKey += "_RIGHT";
+      else
+        resultImageKey += "_LEFT";
+    }
+    else {
+      double slope = y / x;
+      if (x >= 0) {
+        if (Settings.UP_RIGHT_SLOPE <= slope)
+          resultImageKey += "_UP";
+        else if (Settings.RIGHT_UP_SLOPE <= slope && slope <= Settings.UP_RIGHT_SLOPE)
+          resultImageKey += "_UP_RIGHT";
+        else if (Settings.RIGHT_DOWN_SLOPE <= slope && slope <= Settings.RIGHT_UP_SLOPE)
+          resultImageKey += "_RIGHT";
+        else if (Settings.DOWN_RIGHT_SLOPE <= slope && slope <= Settings.RIGHT_DOWN_SLOPE)
+          resultImageKey += "_DOWN_RIGHT";
+        else
+          resultImageKey += "_DOWN";
+      }
+      else {
+        if (slope <= Settings.UP_LEFT_SLOPE)
+          resultImageKey += "_UP";
+        else if (Settings.UP_LEFT_SLOPE <= slope && slope <= Settings.LEFT_UP_SLOPE)
+          resultImageKey += "_UP_LEFT";
+        else if (Settings.LEFT_UP_SLOPE <= slope && slope <= Settings.LEFT_DOWN_SLOPE)
+          resultImageKey += "_LEFT";
+        else if (Settings.LEFT_DOWN_SLOPE <= slope && slope <= Settings.DOWN_LEFT_SLOPE)
+          resultImageKey += "_DOWN_LEFT";
+        else
+          resultImageKey += "_DOWN";
+      }
+    }
+
+    if (attacker.getCardGroup().equals(CardGroups.TROOP) && attacker.isAttacking())
+      resultImageKey += "_ATTACKING";
+    final String finalResultImageKey = resultImageKey;
+    if (attacker.getCurrentImageKey() == null || !attacker.getCurrentImageKey().equals(resultImageKey)) {
+      Platform.runLater(() -> attackerImage.setImage(new Image(Config.retrieveProperty(finalResultImageKey))));
+      attacker.setCurrentImageKey(resultImageKey);
+    }
   }
 
   /** move troops by their velocities */
