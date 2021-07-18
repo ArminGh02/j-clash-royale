@@ -5,6 +5,7 @@ import model.Settings;
 import model.card.Card;
 import model.card.Movement;
 import model.card.Range;
+import model.card.Speed;
 import util.Config;
 
 public class Archer extends Troop {
@@ -14,6 +15,7 @@ public class Archer extends Troop {
   public Archer() {
     super(3, "ARCHER", new int[] {125, 127, 151, 166, 182}, new int[] {33, 44, 48, 53, 58}, 1200);
     range = Range.RANGED;
+    speed = Speed.MEDIUM;
   }
 
   public static Image getDeckImage() {

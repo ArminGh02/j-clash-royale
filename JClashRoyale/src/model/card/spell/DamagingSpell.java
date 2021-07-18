@@ -13,4 +13,12 @@ abstract public class DamagingSpell extends Spell {
     public DamagingSpell(int elixirCost, String imageKey) {
         super(elixirCost, imageKey, CardType.DAMAGING_SPELL);
     }
+
+    /**
+     * areaDamage getter
+     * @return areaDamage
+     */
+    public int getAreaDamage() {
+        return areaDamage;
+    }
 }

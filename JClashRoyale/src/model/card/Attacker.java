@@ -21,14 +21,15 @@ public abstract class Attacker extends Card {
   private boolean isAttacking;
   private String currentImageKey;
   private long lastAttackTime = 0;
+  protected double attributeMultiplier = 1.0;
 
   /**
    * class constructor
    *  @param elixirCost elixirCost
    * @param imageKey imageKey
-   * @param hpPerLevel
-   * @param damagePerLevel
-   * @param hitSpeed
+   * @param hpPerLevel hp per level
+   * @param damagePerLevel damage per level
+   * @param hitSpeed hit speed
    */
   public Attacker(int elixirCost, String imageKey, CardType type, int[] hpPerLevel,
       int[] damagePerLevel, int hitSpeed) {
@@ -55,6 +56,22 @@ public abstract class Attacker extends Card {
     this.lastAttackTime = lastAttackTime;
   }
 
+  /**
+   * rageMultiplier setter
+   * @param attributeMultiplier rageMultiplier new value
+   */
+  public void setAttributeMultiplier(double attributeMultiplier) {
+    this.attributeMultiplier = Math.max(attributeMultiplier, 1.0); // to make sure that the rage spell won't unapply in the wrong way
+  }
+
+  /**
+   * attributeMultiplier getter
+   * @return attributeMultiplier
+   */
+  public double getAttributeMultiplier() {
+    return attributeMultiplier;
+  }
+
   public void decreaseHp(int decreaseAmount) {
       hpPerLevel[level] -= decreaseAmount;
   }
@@ -74,7 +91,7 @@ public abstract class Attacker extends Card {
    * @return damage
    */
   public int getDamage() {
-    return damagePerLevel[level];
+    return (int) (damagePerLevel[level] * attributeMultiplier);
   }
 
   /**
@@ -83,7 +100,7 @@ public abstract class Attacker extends Card {
    * @return hitSpeed
    */
   public int getHitSpeed() {
-    return hitSpeed;
+    return (int) (hitSpeed / attributeMultiplier);
   }
 
   /**

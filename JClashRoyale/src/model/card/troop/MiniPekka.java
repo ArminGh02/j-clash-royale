@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import model.card.Card;
 import model.card.Movement;
 import model.card.Range;
+import model.card.Speed;
 import util.Config;
 
 public class MiniPekka extends Troop {
@@ -16,6 +17,7 @@ public class MiniPekka extends Troop {
         4, "MINI_PEKKA", new int[] {600, 660, 726, 798, 876}, new int[] {325, 357, 393, 432, 474},
         1500);
     range = Range.MELEE;
+    speed = Speed.FAST;
   }
 
   public static Image getDeckImage() {

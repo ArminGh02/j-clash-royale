@@ -30,6 +30,12 @@ public class Settings {
   public static final double KING_TOWER_ATTACK_RANGE = 7.0;
   public static final double PRINCE_TOWER_ATTACK_RANGE = 7.5;
 
+  public static final double SLOW_SPEED = 0.1; // FIXME check how much speed will be appropriate
+  public static final double MEDIUM_SPEED = 0.15;
+  public static final double FAST_SPEED = 0.2;
+
+  public static final double RAGE_SPELL_COEFFICIENT = 1.4;
+
   public static final double EPSILON = 0.01;
   public static final double UP_RIGHT_SLOPE = 2.41; // tan(90 - 45 / 2)
   public static final double UP_LEFT_SLOPE = -2.41; // tan(90 + 45 / 2)

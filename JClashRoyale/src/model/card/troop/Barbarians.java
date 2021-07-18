@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import model.card.Card;
 import model.card.Movement;
 import model.card.Range;
+import model.card.Speed;
 import util.Config;
 
 public class Barbarians extends Troop {
@@ -20,6 +21,7 @@ public class Barbarians extends Troop {
         1500);
     range = Range.MELEE;
     count = 5;
+    speed = Speed.MEDIUM;
   }
 
   public static Image getDeckImage() {
