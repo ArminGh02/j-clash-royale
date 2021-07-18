@@ -10,9 +10,10 @@ public abstract class Spell extends Card {
    * class constructor
    * @param elixirCost elixirCost
    * @param imageKey imageKey
+   * @param cardType cardType
    */
-  public Spell(int elixirCost, String imageKey) {
-    super(elixirCost, imageKey, CardType.SPELL);
+  public Spell(int elixirCost, String imageKey, CardType cardType) {
+    super(elixirCost, imageKey, cardType);
   }
 
   /**

@@ -113,7 +113,7 @@ public class FrameController extends AnimationTimer {
       case TROOP:
         activeTroops.add((Troop) card);
         break;
-      case SPELL:
+      default:
         activeSpells.add((Spell) card);
         break;
     }
@@ -167,6 +167,15 @@ public class FrameController extends AnimationTimer {
 
   /** update spells' state */
   private void updateSpells() {
+    for (Spell spell : activeSpells)
+      updateSpell(spell);
+  }
+
+  /**
+   * update spell's state for the given spell
+   * @param spell the given spell
+   */
+  private void updateSpell(Spell spell) {
 
   }
 
