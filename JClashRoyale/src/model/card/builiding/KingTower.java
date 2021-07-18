@@ -17,15 +17,6 @@ public class KingTower extends Tower {
         new int[] {2400, 2568, 2736, 2904, 3096},
         new int[] {50, 53, 57, 60, 64},
         1000);
-  }
-
-  /**
-   * get euclidean range in double
-   *
-   * @return range distance
-   */
-  @Override
-  public double getRangeDistance() {
-    return Settings.KING_TOWER_ATTACK_RANGE;
+    rangeDistance = 7.0;
   }
 }

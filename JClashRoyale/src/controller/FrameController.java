@@ -193,10 +193,10 @@ public class FrameController extends AnimationTimer {
     if (spell.getType().equals(CardType.DAMAGING_SPELL)) {
       DamagingSpell damagingSpell = (DamagingSpell) spell;
       for (Troop troop : activeTroops)
-        if (isInRange(spell, troop))
+        if (isInRange(spell, troop) && troop.getTeamNumber() == spell.getTeamNumber())
           troop.decreaseHp(damagingSpell.getAreaDamage());
       for (Building building : activeBuildings)
-        if (isInRange(spell, building))
+        if (isInRange(spell, building) && building.getTeamNumber() == spell.getTeamNumber())
           building.decreaseHp(damagingSpell.getAreaDamage());
       return true;
     }
@@ -205,10 +205,10 @@ public class FrameController extends AnimationTimer {
     if (rageSpell.getStartingTime() == 0)
       rageSpell.setStartingTime(currentMilliSecond);
     for (Troop troop : activeTroops)
-      if (isInRange(rageSpell, troop))
+      if (isInRange(rageSpell, troop) && troop.getTeamNumber() == spell.getTeamNumber())
         troop.setAttributeMultiplier(troop.getAttributeMultiplier() * Settings.RAGE_SPELL_COEFFICIENT);
     for (Building building : activeBuildings)
-      if (isInRange(rageSpell, building))
+      if (isInRange(rageSpell, building) && building.getTeamNumber() == spell.getTeamNumber())
         building.setAttributeMultiplier(building.getAttributeMultiplier() * Settings.RAGE_SPELL_COEFFICIENT);
     return false;
   }
@@ -249,10 +249,10 @@ public class FrameController extends AnimationTimer {
       return false;
 
     for (Troop troop : activeTroops)
-      if (isInRange(spell, troop)) // it is guaranteed that the troop is still in the range of spell
+      if (isInRange(spell, troop) && troop.getTeamNumber() == spell.getTeamNumber()) // it is guaranteed that the troop is still in the range of spell
         troop.setAttributeMultiplier(troop.getAttributeMultiplier() / Settings.RAGE_SPELL_COEFFICIENT);
     for (Building building : activeBuildings)
-      if (isInRange(spell, building))
+      if (isInRange(spell, building) && building.getTeamNumber() == spell.getTeamNumber())
         building.setAttributeMultiplier(building.getAttributeMultiplier() / Settings.RAGE_SPELL_COEFFICIENT);
 
     Rage rageSpell = (Rage) spell;
@@ -359,8 +359,10 @@ public class FrameController extends AnimationTimer {
     double x = attacker.getVelocity().getX(), y = -attacker.getVelocity().getY();
     if (attacker.isAttacking()) {
       ImageView targetImage = cardsImage.get(attacker.getCurrentTarget());
-      x = targetImage.getX() - attackerImage.getX();
-      y = attackerImage.getY() - targetImage.getY();
+      if (targetImage != null) {
+        x = targetImage.getX() - attackerImage.getX();
+        y = attackerImage.getY() - targetImage.getY();
+      }
     }
 
     if (y == 0) {

@@ -1,6 +1,7 @@
 package model.card.spell;
 
 import javafx.scene.image.Image;
+import model.Settings;
 import model.card.Card;
 import model.card.CardType;
 import util.Config;
@@ -13,7 +14,7 @@ public class Rage extends Spell {
 
   public Rage() {
     super(3, "RAGE", CardType.RAGE_SPELL);
-    radius = 5.0;
+    radius = 5.0 / Settings.MAP_SCALE * Settings.CELL_WIDTH;
     duration = 6000;
   }
 

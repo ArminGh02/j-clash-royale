@@ -21,20 +21,11 @@ public class BabyDragon extends Troop {
         new int[] {100, 110, 121, 133, 146}, 1800);
     range = Range.RANGED;
     speed = Speed.FAST;
+    rangeDistance = 3.0;
   }
 
   public static Image getDeckImage() {
     return deckImage;
-  }
-
-  /**
-   * get euclidean range in double
-   *
-   * @return range distance
-   */
-  @Override
-  public double getRangeDistance() {
-    return Settings.BABY_DRAGON_ATTACK_RANGE;
   }
 
   /**

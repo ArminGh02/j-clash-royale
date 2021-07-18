@@ -21,20 +21,11 @@ public class Wizard extends Troop {
         1700);
     range = Range.RANGED;
     speed = Speed.MEDIUM;
+    rangeDistance = 5.0;
   }
 
   public static Image getDeckImage() {
     return deckImage;
-  }
-
-  /**
-   * get euclidean range in double
-   *
-   * @return range distance
-   */
-  @Override
-  public double getRangeDistance() {
-    return Settings.WIZARD_ATTACK_RANGE;
   }
 
   /**

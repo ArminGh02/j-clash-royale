@@ -19,20 +19,11 @@ public class Cannon extends Building {
         new int[] {60, 66, 72, 79, 87},
         800);
     range = Range.RANGED;
+    rangeDistance = 5.5;
   }
 
   public static Image getDeckImage() {
     return cannonDeckImage;
-  }
-
-  /**
-   * get euclidean range in double
-   *
-   * @return range distance
-   */
-  @Override
-  public double getRangeDistance() {
-    return Settings.CANNON_ATTACK_RANGE;
   }
 
   @Override

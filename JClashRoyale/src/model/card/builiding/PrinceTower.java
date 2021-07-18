@@ -17,15 +17,6 @@ public class PrinceTower extends Tower {
         new int[] {1400, 1512, 1624, 1750, 1890},
         new int[] {50, 54, 58, 62, 69},
         800);
-  }
-
-  /**
-   * get euclidean range in double
-   *
-   * @return range distance
-   */
-  @Override
-  public double getRangeDistance() {
-    return Settings.PRINCE_TOWER_ATTACK_RANGE;
+    rangeDistance = 7.5;
   }
 }

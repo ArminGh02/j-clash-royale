@@ -16,20 +16,11 @@ public class Archer extends Troop {
     super(3, "ARCHER", new int[] {125, 127, 151, 166, 182}, new int[] {33, 44, 48, 53, 58}, 1200);
     range = Range.RANGED;
     speed = Speed.MEDIUM;
+    rangeDistance = 5.0;
   }
 
   public static Image getDeckImage() {
     return deckImage;
-  }
-
-  /**
-   * get euclidean range in double
-   *
-   * @return range distance
-   */
-  @Override
-  public double getRangeDistance() {
-    return Settings.ARCHER_ATTACK_RANGE;
   }
 
   /**

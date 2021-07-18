@@ -15,6 +15,7 @@ public abstract class Attacker extends Card {
   private final int[] damagePerLevel;
   protected int hitSpeed;
   protected Range range;
+  protected double rangeDistance;
   protected Target target;
   private Point2D velocity;
   private Card currentTarget;
@@ -104,22 +105,14 @@ public abstract class Attacker extends Card {
   }
 
   /**
-   * range getter
-   *
-   * @return range
-   */
-  public Range getRange() {
-    return range;
-  }
-
-  /**
    * get euclidean range in double
    *
    * @return range distance
    */
   public double getRangeDistance() {
-    if (range.equals(Range.MELEE)) return Settings.MELEE_ATTACK_RANGE;
-    return 0;
+    if (range == Range.MELEE)
+      rangeDistance = Settings.MELEE_ATTACK_RANGE;
+    return rangeDistance * Settings.CELL_WIDTH / Settings.MAP_SCALE;
   }
 
   /**
