@@ -18,6 +18,7 @@ public class MiniPekka extends Troop {
         1500);
     range = Range.MELEE;
     speed = Speed.FAST;
+    count = 1;
   }
 
   public static Image getDeckImage() {

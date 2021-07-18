@@ -22,6 +22,7 @@ public class BabyDragon extends Troop {
     range = Range.RANGED;
     speed = Speed.FAST;
     rangeDistance = 3.0;
+    count = 1;
   }
 
   public static Image getDeckImage() {
