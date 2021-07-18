@@ -179,7 +179,7 @@ public class MapViewController {
     }
   }
 
-  private void addImageOfCard(Card toDeploy, double x, double y) {
+  public void addImageOfCard(Card toDeploy, double x, double y) {
     if (toDeploy.getType().equals(CardType.DAMAGING_SPELL) || toDeploy.getType().equals(CardType.RAGE_SPELL)) {
       Spell spellCard = (Spell) toDeploy;
       spellCard.setXDeployment(x);
