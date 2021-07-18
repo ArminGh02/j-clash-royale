@@ -123,14 +123,7 @@ public class FrameController extends AnimationTimer {
    * remove the given card from the list of active cards
    * @param card the given card
    */
-  private void removeFromActiveCards(Card card) {
-    if (card.getType().equals(CardType.TROOP))
-      activeTroops.remove((Troop) card);
-    else if (card.getType().equals(CardType.BUILDING))
-      activeBuildings.remove((Building) card);
-    else
-      activeSpells.remove((Spell) card);
-    
+  private void removeImageCard(Card card) {
     ImageView cardImage = cardsImage.get(card);
     if (cardImage == null)
       return;
@@ -149,10 +142,21 @@ public class FrameController extends AnimationTimer {
     for (Building building : activeBuildings)
       updateHp(building);
 
-    for (Iterator<Troop> troopIterator = activeTroops.iterator(); troopIterator.hasNext(); )
-      checkHp(troopIterator.next());
-    for (Iterator<Building> buildingIterator = activeBuildings.iterator(); buildingIterator.hasNext();)
-      checkHp(buildingIterator.next());
+
+    for (Iterator<Troop> troopIterator = activeTroops.iterator(); troopIterator.hasNext(); ) {
+      Troop troop = troopIterator.next();
+      if (troop.getHp() <= 0) {
+        troopIterator.remove();
+        removeImageCard(troop);
+      }
+    }
+    for (Iterator<Building> buildingIterator = activeBuildings.iterator(); buildingIterator.hasNext();) {
+      Building building = buildingIterator.next();
+      if (building.getHp() <= 0) {
+        buildingIterator.remove();
+        removeImageCard(building);
+      }
+    }
   }
 
   /**
@@ -169,27 +173,23 @@ public class FrameController extends AnimationTimer {
     }
   }
 
-  /**
-   * check whether if the given attacker is dead or not
-   * @param attacker the given attacker
-   */
-  private void checkHp(Attacker attacker) {
-    if (attacker.getHp() > 0)
-      return;
-    removeFromActiveCards(attacker);
-  }
-
   /** update spells' state */
   private void applySpells() {
-    for (Iterator<Spell> spellIterator = activeSpells.iterator(); spellIterator.hasNext();)
-      applySpell(spellIterator.next());
+    for (Iterator<Spell> spellIterator = activeSpells.iterator(); spellIterator.hasNext();) {
+      Spell spell = spellIterator.next();
+      if (applySpell(spell)) {
+        spellIterator.remove();
+        removeImageCard(spell);
+      }
+    }
   }
 
   /**
    * apply the given spell
    * @param spell the given spell
+   * @return true, if the spell must be removed from the list of active spells
    */
-  private void applySpell(Spell spell) {
+  private boolean applySpell(Spell spell) {
     if (spell.getType().equals(CardType.DAMAGING_SPELL)) {
       DamagingSpell damagingSpell = (DamagingSpell) spell;
       for (Troop troop : activeTroops)
@@ -198,8 +198,7 @@ public class FrameController extends AnimationTimer {
       for (Building building : activeBuildings)
         if (isInRange(spell, building))
           building.decreaseHp(damagingSpell.getAreaDamage());
-      removeFromActiveCards(spell);
-      return;
+      return true;
     }
 
     Rage rageSpell = (Rage) spell;
@@ -211,6 +210,7 @@ public class FrameController extends AnimationTimer {
     for (Building building : activeBuildings)
       if (isInRange(rageSpell, building))
         building.setAttributeMultiplier(building.getAttributeMultiplier() * Settings.RAGE_SPELL_COEFFICIENT);
+    return false;
   }
 
   /**
@@ -230,17 +230,23 @@ public class FrameController extends AnimationTimer {
    * unapply all active spells
    */
   private void unapplySpells() {
-    for (Iterator<Spell> spellIterator = activeSpells.iterator(); spellIterator.hasNext();)
-      unapplySpell(spellIterator.next());
+    for (Iterator<Spell> spellIterator = activeSpells.iterator(); spellIterator.hasNext();) {
+      Spell spell = spellIterator.next();
+      if (unapplySpell(spell)) {
+        spellIterator.remove();
+        removeImageCard(spell);
+      }
+    }
   }
 
   /**
    * unapply the given spell
    * @param spell the given spell
+   * @return true, if the given spell must be removed from the list of active spells
    */
-  private void unapplySpell(Spell spell) {
+  private boolean unapplySpell(Spell spell) {
     if (spell.getType().equals(CardType.DAMAGING_SPELL))
-      return;
+      return false;
 
     for (Troop troop : activeTroops)
       if (isInRange(spell, troop)) // it is guaranteed that the troop is still in the range of spell
@@ -250,8 +256,7 @@ public class FrameController extends AnimationTimer {
         building.setAttributeMultiplier(building.getAttributeMultiplier() / Settings.RAGE_SPELL_COEFFICIENT);
 
     Rage rageSpell = (Rage) spell;
-    if (currentMilliSecond - rageSpell.getStartingTime() > rageSpell.getDuration())
-      removeFromActiveCards(spell);
+    return (currentMilliSecond - rageSpell.getStartingTime() > rageSpell.getDuration());
   }
 
   /** update troops and buildings' target */
@@ -295,8 +300,12 @@ public class FrameController extends AnimationTimer {
       updateImage(troop);
       double x = troop.getVelocity().getX(), y = troop.getVelocity().getY();
       double length = Math.sqrt(x * x + y * y);
-      if (length > 0)
-        troop.setVelocity(x / length, y / length);
+      if (length > 0) {
+        troop.setVelocity(x / length, y / length); // make it a unit vector
+        x = troop.getVelocity().getX();
+        y = troop.getVelocity().getY();
+        troop.setVelocity(x * troop.getSpeed(), y * troop.getSpeed());
+      }
     }
   }
 
@@ -343,6 +352,9 @@ public class FrameController extends AnimationTimer {
    */
   private void updateImage(Attacker attacker) {
     ImageView attackerImage = cardsImage.get(attacker);
+    if (attackerImage == null)
+      return;
+
     String resultImageKey = attacker.getImageKey();
     double x = attacker.getVelocity().getX(), y = -attacker.getVelocity().getY();
     if (attacker.isAttacking()) {
