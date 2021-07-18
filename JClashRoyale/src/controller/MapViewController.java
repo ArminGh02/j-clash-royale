@@ -178,7 +178,7 @@ public class MapViewController {
     }
   }
 
-  private void addImageOfCard(Card toDeploy, double x, double y) {
+  public void addImageOfCard(Card toDeploy, double x, double y) {
     ImageView imageToAdd = new ImageView(toDeploy.getDeployedImage());
     imageToAdd.setX(x);
     imageToAdd.setY(y);
