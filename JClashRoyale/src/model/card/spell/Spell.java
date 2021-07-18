@@ -1,70 +1,25 @@
 package model.card.spell;
 
-import java.awt.geom.Point2D;
 import model.card.Card;
 import model.card.CardType;
 
 public abstract class Spell extends Card {
+  protected double radius; // FIXME fix radius
 
-  private Point2D velocity;
-  private Card currentTarget;
-  private boolean isAttacking;
-
+  /**
+   * class constructor
+   * @param elixirCost elixirCost
+   * @param imageKey imageKey
+   */
   public Spell(int elixirCost, String imageKey) {
     super(elixirCost, imageKey, CardType.SPELL);
   }
 
   /**
-   * velocity setter
-   *
-   * @param velocity velocity new value
+   * radius getter
+   * @return radius
    */
-  public void setVelocity(Point2D velocity) {
-    this.velocity = velocity;
-  }
-
-  /**
-   * currentTarget setter
-   *
-   * @param currentTarget currentTarget new value
-   */
-  public void setCurrentTarget(Card currentTarget) {
-    this.currentTarget = currentTarget;
-  }
-
-  /**
-   * isAttacking setter
-   *
-   * @param attacking isAttacking new value
-   */
-  public void setAttacking(boolean attacking) {
-    isAttacking = attacking;
-  }
-
-  /**
-   * velocity getter
-   *
-   * @return velocity
-   */
-  public Point2D getVelocity() {
-    return velocity;
-  }
-
-  /**
-   * currentTarget getter
-   *
-   * @return currentTarget
-   */
-  public Card getCurrentTarget() {
-    return currentTarget;
-  }
-
-  /**
-   * isAttacking getter
-   *
-   * @return isAttacking
-   */
-  public boolean isAttacking() {
-    return isAttacking;
+  public double getRadius() {
+    return radius;
   }
 }
