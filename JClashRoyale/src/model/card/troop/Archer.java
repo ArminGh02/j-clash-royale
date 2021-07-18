@@ -17,6 +17,7 @@ public class Archer extends Troop {
     range = Range.RANGED;
     speed = Speed.MEDIUM;
     rangeDistance = 5.0;
+    count = 2;
   }
 
   public static Image getDeckImage() {

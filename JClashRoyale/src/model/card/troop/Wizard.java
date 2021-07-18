@@ -22,6 +22,7 @@ public class Wizard extends Troop {
     range = Range.RANGED;
     speed = Speed.MEDIUM;
     rangeDistance = 5.0;
+    count = 1;
   }
 
   public static Image getDeckImage() {

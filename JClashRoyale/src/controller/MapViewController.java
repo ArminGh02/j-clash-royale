@@ -40,7 +40,7 @@ public class MapViewController {
     startElixirControllers();
     startTimer();
     startGameLoop();
-    gameController.getRobotPlayer().play(gameController.getTimer(), this, gameLoop);
+//    gameController.getRobotPlayer().play(gameController.getTimer(), this, gameLoop);
   }
 
   private void initializeDeckSlots() {
@@ -139,8 +139,6 @@ public class MapViewController {
       Card toDeploy = (Card) deckSlots[chosenSlot].getUserData();
       Person person = gameController.getPersonPlayer();
       if (person.deploy(toDeploy)) {
-        toDeploy.setTeamNumber(0);
-        gameLoop.addToActiveCards(toDeploy);
         deployCard(toDeploy, event.getSceneX() - Settings.CELL_WIDTH_SHIFT,
             event.getSceneY() - Settings.CELL_HEIGHT_SHIFT);
 

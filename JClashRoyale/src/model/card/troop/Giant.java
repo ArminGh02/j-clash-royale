@@ -17,6 +17,7 @@ public class Giant extends Troop {
         1500);
     range = Range.MELEE;
     speed = Speed.SLOW;
+    count = 1;
   }
 
   public static Image getDeckImage() {
