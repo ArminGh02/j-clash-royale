@@ -8,6 +8,7 @@ public class Settings {
   public static final int ELIXIR_INCREASE = 1;
   public static final int DECK_SIZE = 8;
 
+  public static final double MAP_SCALE = 2.5;
   public static final int MAP_ROW_COUNT = 13;
   public static final int MAP_COLUMN_COUNT = 7;
   public static final int CELL_HEIGHT = 64;
@@ -23,14 +24,13 @@ public class Settings {
   public static final double RIGHT_BRIDGE_X = 470;
   public static final double RIGHT_BRIDGE_Y = 320;
 
-  public static final double MELEE_ATTACK_RANGE = 1.0; // FIXME check how much range will be appropriate
-  public static final double ARCHER_ATTACK_RANGE = 5.0;
-  public static final double BABY_DRAGON_ATTACK_RANGE = 3.0;
-  public static final double WIZARD_ATTACK_RANGE = 5.0;
-  public static final double CANNON_ATTACK_RANGE = 5.5;
-  public static final double INFERNO_TOWER_ATTACK_RANGE = 6.0;
-  public static final double KING_TOWER_ATTACK_RANGE = 7.0;
-  public static final double PRINCE_TOWER_ATTACK_RANGE = 7.5;
+  public static final double MELEE_ATTACK_RANGE = 0.3; // FIXME check how much range will be appropriate
+
+  public static final double SLOW_SPEED = 0.2; // FIXME check how much speed will be appropriate
+  public static final double MEDIUM_SPEED = 0.3;
+  public static final double FAST_SPEED = 0.4;
+
+  public static final double RAGE_SPELL_COEFFICIENT = 1.4;
 
   public static final double EPSILON = 0.01;
   public static final double UP_RIGHT_SLOPE = 2.41; // tan(90 - 45 / 2)

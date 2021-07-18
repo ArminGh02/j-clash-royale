@@ -1,15 +1,45 @@
 package model.card.spell;
 
 import javafx.scene.image.Image;
+import model.Settings;
 import model.card.Card;
+import model.card.CardType;
 import util.Config;
 
 public class Rage extends Spell {
+  private final long duration;
+  private long startingTime; // in milliseconds
 
   private static final Image deckImage = new Image(Config.retrieveProperty("RAGE_DECK_IMAGE"));
 
   public Rage() {
-    super(3, "RAGE");
+    super(3, "RAGE", CardType.RAGE_SPELL);
+    radius = 5.0 / Settings.MAP_SCALE * Settings.CELL_WIDTH;
+    duration = 6000;
+  }
+
+  /**
+   * startingTime setter
+   * @param startingTime startingTime new value
+   */
+  public void setStartingTime(long startingTime) {
+    this.startingTime = startingTime;
+  }
+
+  /**
+   * duration getter
+   * @return duration
+   */
+  public long getDuration() {
+    return duration;
+  }
+
+  /**
+   * startingTime getter
+   * @return startingTime
+   */
+  public long getStartingTime() {
+    return startingTime;
   }
 
   public static Image getDeckImage() {

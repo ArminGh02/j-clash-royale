@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import model.Settings;
 import model.card.Card;
 import model.card.CardType;
+import model.card.spell.Spell;
 import model.card.troop.Troop;
 import model.player.Person;
 import util.Config;
@@ -39,7 +40,7 @@ public class MapViewController {
     startElixirControllers();
     startTimer();
     startGameLoop();
-    gameController.getRobotPlayer().play(gameController.getTimer(), this, gameLoop);
+//    gameController.getRobotPlayer().play(gameController.getTimer(), this, gameLoop);
   }
 
   private void initializeDeckSlots() {
@@ -138,8 +139,6 @@ public class MapViewController {
       Card toDeploy = (Card) deckSlots[chosenSlot].getUserData();
       Person person = gameController.getPersonPlayer();
       if (person.deploy(toDeploy)) {
-        toDeploy.setTeamNumber(0);
-        gameLoop.addToActiveCards(toDeploy);
         deployCard(toDeploy, event.getSceneX() - Settings.CELL_WIDTH_SHIFT,
             event.getSceneY() - Settings.CELL_HEIGHT_SHIFT);
 
@@ -179,6 +178,13 @@ public class MapViewController {
   }
 
   public void addImageOfCard(Card toDeploy, double x, double y) {
+    if (toDeploy.getType().equals(CardType.DAMAGING_SPELL) || toDeploy.getType().equals(CardType.RAGE_SPELL)) {
+      Spell spellCard = (Spell) toDeploy;
+      spellCard.setXDeployment(x);
+      spellCard.setYDeployment(y);
+      return;
+    }
+
     ImageView imageToAdd = new ImageView(toDeploy.getDeployedImage());
     imageToAdd.setX(x);
     imageToAdd.setY(y);

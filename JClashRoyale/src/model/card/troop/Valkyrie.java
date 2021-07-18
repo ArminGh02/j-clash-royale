@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import model.card.Card;
 import model.card.Movement;
 import model.card.Range;
+import model.card.Speed;
 import util.Config;
 
 public class Valkyrie extends Troop {
@@ -18,6 +19,8 @@ public class Valkyrie extends Troop {
         new int[] {120, 132, 145, 159, 175},
         1500);
     range = Range.MELEE;
+    speed = Speed.MEDIUM;
+    count = 1;
   }
 
   public static Image getDeckImage() {
