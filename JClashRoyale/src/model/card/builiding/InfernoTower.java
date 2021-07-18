@@ -19,20 +19,11 @@ public class InfernoTower extends Building {
         new int[] {200, 220, 242, 266, 292},
         400);
     range = Range.RANGED;
+    rangeDistance = 6.0;
   }
 
   public static Image getDeckImage() {
     return infernoTowerDeckImage;
-  }
-
-  /**
-   * get euclidean range in double
-   *
-   * @return range distance
-   */
-  @Override
-  public double getRangeDistance() {
-    return Settings.INFERNO_TOWER_ATTACK_RANGE;
   }
 
   @Override

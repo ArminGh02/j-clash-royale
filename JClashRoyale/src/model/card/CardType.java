@@ -2,6 +2,7 @@ package model.card;
 
 public enum CardType {
     TROOP,
-    SPELL,
+    DAMAGING_SPELL,
+    RAGE_SPELL,
     BUILDING
 }

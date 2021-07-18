@@ -1,5 +1,6 @@
 package model.card.troop;
 
+import model.Settings;
 import model.card.Attacker;
 import model.card.CardType;
 import model.card.Movement;
@@ -14,7 +15,7 @@ import model.card.Speed;
 public abstract class Troop extends Attacker {
   private int areaSplash;
   protected int count;
-  private Speed speed;
+  protected Speed speed;
 
   public Troop(
       int elixirCost, String imageKey, int[] hpPerLevel, int[] damagePerLevel, int hitSpeed) {
@@ -40,12 +41,19 @@ public abstract class Troop extends Attacker {
   }
 
   /**
-   * speed getter
-   *
+   * get speed of the troop with respect to speed and attributeMultiplier field
    * @return speed
    */
-  public Speed getSpeed() {
-    return speed;
+  public double getSpeed() {
+    switch (speed) {
+      case SLOW:
+        return Settings.SLOW_SPEED * attributeMultiplier;
+      case MEDIUM:
+        return Settings.MEDIUM_SPEED * attributeMultiplier;
+      case FAST:
+        return Settings.FAST_SPEED * attributeMultiplier;
+    }
+    return Settings.SLOW_SPEED;
   }
 
   /**

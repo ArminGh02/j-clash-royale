@@ -5,6 +5,7 @@ import model.Settings;
 import model.card.Card;
 import model.card.Movement;
 import model.card.Range;
+import model.card.Speed;
 import util.Config;
 
 public class Wizard extends Troop {
@@ -19,20 +20,12 @@ public class Wizard extends Troop {
         new int[] {130, 143, 157, 172, 189},
         1700);
     range = Range.RANGED;
+    speed = Speed.MEDIUM;
+    rangeDistance = 5.0;
   }
 
   public static Image getDeckImage() {
     return deckImage;
-  }
-
-  /**
-   * get euclidean range in double
-   *
-   * @return range distance
-   */
-  @Override
-  public double getRangeDistance() {
-    return Settings.WIZARD_ATTACK_RANGE;
   }
 
   /**

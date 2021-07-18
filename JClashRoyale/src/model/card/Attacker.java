@@ -15,20 +15,22 @@ public abstract class Attacker extends Card {
   private final int[] damagePerLevel;
   protected int hitSpeed;
   protected Range range;
+  protected double rangeDistance;
   protected Target target;
   private Point2D velocity;
   private Card currentTarget;
   private boolean isAttacking;
   private String currentImageKey;
   private long lastAttackTime = 0;
+  protected double attributeMultiplier = 1.0;
 
   /**
    * class constructor
    *  @param elixirCost elixirCost
    * @param imageKey imageKey
-   * @param hpPerLevel
-   * @param damagePerLevel
-   * @param hitSpeed
+   * @param hpPerLevel hp per level
+   * @param damagePerLevel damage per level
+   * @param hitSpeed hit speed
    */
   public Attacker(int elixirCost, String imageKey, CardType type, int[] hpPerLevel,
       int[] damagePerLevel, int hitSpeed) {
@@ -55,6 +57,22 @@ public abstract class Attacker extends Card {
     this.lastAttackTime = lastAttackTime;
   }
 
+  /**
+   * rageMultiplier setter
+   * @param attributeMultiplier rageMultiplier new value
+   */
+  public void setAttributeMultiplier(double attributeMultiplier) {
+    this.attributeMultiplier = Math.max(attributeMultiplier, 1.0); // to make sure that the rage spell won't unapply in the wrong way
+  }
+
+  /**
+   * attributeMultiplier getter
+   * @return attributeMultiplier
+   */
+  public double getAttributeMultiplier() {
+    return attributeMultiplier;
+  }
+
   public void decreaseHp(int decreaseAmount) {
       hpPerLevel[level] -= decreaseAmount;
   }
@@ -74,7 +92,7 @@ public abstract class Attacker extends Card {
    * @return damage
    */
   public int getDamage() {
-    return damagePerLevel[level];
+    return (int) (damagePerLevel[level] * attributeMultiplier);
   }
 
   /**
@@ -83,16 +101,7 @@ public abstract class Attacker extends Card {
    * @return hitSpeed
    */
   public int getHitSpeed() {
-    return hitSpeed;
-  }
-
-  /**
-   * range getter
-   *
-   * @return range
-   */
-  public Range getRange() {
-    return range;
+    return (int) (hitSpeed / attributeMultiplier);
   }
 
   /**
@@ -101,8 +110,9 @@ public abstract class Attacker extends Card {
    * @return range distance
    */
   public double getRangeDistance() {
-    if (range.equals(Range.MELEE)) return Settings.MELEE_ATTACK_RANGE;
-    return 0;
+    if (range == Range.MELEE)
+      rangeDistance = Settings.MELEE_ATTACK_RANGE;
+    return rangeDistance * Settings.CELL_WIDTH / Settings.MAP_SCALE;
   }
 
   /**

@@ -5,6 +5,7 @@ import model.Settings;
 import model.card.Card;
 import model.card.Movement;
 import model.card.Range;
+import model.card.Speed;
 import util.Config;
 
 public class BabyDragon extends Troop {
@@ -19,20 +20,12 @@ public class BabyDragon extends Troop {
         new int[] {800, 880, 968, 1064, 1168},
         new int[] {100, 110, 121, 133, 146}, 1800);
     range = Range.RANGED;
+    speed = Speed.FAST;
+    rangeDistance = 3.0;
   }
 
   public static Image getDeckImage() {
     return deckImage;
-  }
-
-  /**
-   * get euclidean range in double
-   *
-   * @return range distance
-   */
-  @Override
-  public double getRangeDistance() {
-    return Settings.BABY_DRAGON_ATTACK_RANGE;
   }
 
   /**

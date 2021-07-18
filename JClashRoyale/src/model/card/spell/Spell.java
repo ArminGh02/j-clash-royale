@@ -1,70 +1,59 @@
 package model.card.spell;
 
-import java.awt.geom.Point2D;
 import model.card.Card;
 import model.card.CardType;
 
 public abstract class Spell extends Card {
+  protected double radius; // FIXME fix radius
+  private double xDeployment, yDeployment;
 
-  private Point2D velocity;
-  private Card currentTarget;
-  private boolean isAttacking;
-
-  public Spell(int elixirCost, String imageKey) {
-    super(elixirCost, imageKey, CardType.SPELL);
+  /**
+   * class constructor
+   * @param elixirCost elixirCost
+   * @param imageKey imageKey
+   * @param cardType cardType
+   */
+  public Spell(int elixirCost, String imageKey, CardType cardType) {
+    super(elixirCost, imageKey, cardType);
   }
 
   /**
-   * velocity setter
-   *
-   * @param velocity velocity new value
+   * radius getter
+   * @return radius
    */
-  public void setVelocity(Point2D velocity) {
-    this.velocity = velocity;
+  public double getRadius() {
+    return radius;
   }
 
   /**
-   * currentTarget setter
-   *
-   * @param currentTarget currentTarget new value
+   * xDeployment getter
+   * @return xDeployment
    */
-  public void setCurrentTarget(Card currentTarget) {
-    this.currentTarget = currentTarget;
+  public double getXDeployment() {
+    return xDeployment;
   }
 
   /**
-   * isAttacking setter
-   *
-   * @param attacking isAttacking new value
+   * xDeployment setter
+   * @param xDeployment xDeployment new value
    */
-  public void setAttacking(boolean attacking) {
-    isAttacking = attacking;
+  public void setXDeployment(double xDeployment) {
+    this.xDeployment = xDeployment;
   }
 
   /**
-   * velocity getter
-   *
-   * @return velocity
+   * yDeployment getter
+   * @return yDeployment
    */
-  public Point2D getVelocity() {
-    return velocity;
+  public double getYDeployment() {
+    return yDeployment;
   }
 
   /**
-   * currentTarget getter
-   *
-   * @return currentTarget
+   * yDeployment setter
+   * @param yDeployment yDeployment new value
    */
-  public Card getCurrentTarget() {
-    return currentTarget;
-  }
-
-  /**
-   * isAttacking getter
-   *
-   * @return isAttacking
-   */
-  public boolean isAttacking() {
-    return isAttacking;
+  public void setYDeployment(double yDeployment) {
+    this.yDeployment = yDeployment;
   }
 }
