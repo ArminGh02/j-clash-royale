@@ -20,9 +20,6 @@ import model.player.Person;
 import util.Config;
 
 public class MapViewController {
-  public final int mapRowCount = 13;
-  public final int mapColumnCount = 7;
-
   @FXML private GridPane mapGrid;
   @FXML private AnchorPane basePane;
 
@@ -43,6 +40,7 @@ public class MapViewController {
     startElixirControllers();
     startTimer();
     startGameLoop();
+    gameController.getRobotPlayer().play(gameController.getTimer(), this, gameLoop);
   }
 
   private void initializeDeckSlots() {
@@ -137,11 +135,14 @@ public class MapViewController {
    */
   @FXML
   void deployCard(MouseEvent event) {
-    if (chosenSlot != -1) { // player hasn't pressed a deck slot
+    if (chosenSlot != -1) { // player has pressed a deck slot
       Card toDeploy = (Card) deckSlots[chosenSlot].getUserData();
       Person person = gameController.getPersonPlayer();
       if (person.deploy(toDeploy)) {
-        deployCard(toDeploy, event.getSceneX() - Settings.CELL_WIDTH_SHIFT, event.getSceneY() - Settings.CELL_HEIGHT_SHIFT);
+        toDeploy.setTeamNumber(0);
+        gameLoop.addToActiveCards(toDeploy);
+        deployCard(toDeploy, event.getSceneX() - Settings.CELL_WIDTH_SHIFT,
+            event.getSceneY() - Settings.CELL_HEIGHT_SHIFT);
 
         Card nextCard = person.getDeck().nextCard(toDeploy);
         deckSlots[chosenSlot].setUserData(nextCard);

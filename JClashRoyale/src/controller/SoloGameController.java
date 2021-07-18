@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Timer;
 import javafx.animation.AnimationTimer;
 import model.card.Card;
 import model.player.*;
@@ -83,5 +84,9 @@ public class SoloGameController {
    */
   public void setGameLoop(AnimationTimer gameLoop) {
     this.gameLoop = gameLoop;
+  }
+
+  public GameTimerController getTimer() {
+    return timer;
   }
 }
