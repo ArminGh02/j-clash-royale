@@ -20,9 +20,9 @@ public class Settings {
   public static final int MAP_WIDTH = 448;
 
   public static final double LEFT_BRIDGE_X = 214;
-  public static final double LEFT_BRIDGE_Y = 320;
+  public static final double LEFT_BRIDGE_Y = 320 + CELL_HEIGHT_SHIFT;
   public static final double RIGHT_BRIDGE_X = 470;
-  public static final double RIGHT_BRIDGE_Y = 320;
+  public static final double RIGHT_BRIDGE_Y = 320 + CELL_HEIGHT_SHIFT;
 
   public static final double MELEE_ATTACK_RANGE = 0.3; // FIXME check how much range will be appropriate
 
@@ -32,7 +32,7 @@ public class Settings {
 
   public static final double RAGE_SPELL_COEFFICIENT = 1.4;
 
-  public static final double EPSILON = 0.01;
+  public static final double EPSILON = 5;
   public static final double UP_RIGHT_SLOPE = 2.41; // tan(90 - 45 / 2)
   public static final double UP_LEFT_SLOPE = -2.41; // tan(90 + 45 / 2)
   public static final double LEFT_UP_SLOPE = -0.41; // tan(180 - 45 / 2)

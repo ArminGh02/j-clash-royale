@@ -360,10 +360,14 @@ public class FrameController extends AnimationTimer {
 
     ImageView source = cardsImage.get(troop);
     ImageView destination = cardsImage.get(troop.getCurrentTarget());
+    double leftBridgeEuclideanDistance = getEuclideanDistance(source.getX(), source.getY(), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y);
+    double rightBridgeEuclideanDistance = getEuclideanDistance(source.getX(), source.getY(), Settings.RIGHT_BRIDGE_X, Settings.RIGHT_BRIDGE_Y);
     if (troop.getMovement().equals(Movement.AIR)
         || getRegionNumber(troop) == 0
         || getRegionNumber(troop.getCurrentTarget()) == 0
-        || getRegionNumber(troop) == getRegionNumber(troop.getCurrentTarget())) { // straight line
+        || getRegionNumber(troop) == getRegionNumber(troop.getCurrentTarget())
+        || Math.min(leftBridgeEuclideanDistance, rightBridgeEuclideanDistance) <= Settings.EPSILON
+    ) { // straight line
       troop.setVelocity(destination.getX() - source.getX(), destination.getY() - source.getY());
       return;
     }
@@ -380,8 +384,7 @@ public class FrameController extends AnimationTimer {
     if (Math.abs(getDistance(troop, troop.getCurrentTarget()) - leftBridge) <= Settings.EPSILON)
       troop.setVelocity(Settings.LEFT_BRIDGE_X - source.getX(), Settings.LEFT_BRIDGE_Y - source.getY());
     else
-      troop.setVelocity(
-          Settings.RIGHT_BRIDGE_X - source.getX(), Settings.RIGHT_BRIDGE_Y - source.getY());
+      troop.setVelocity(Settings.RIGHT_BRIDGE_X - source.getX(), Settings.RIGHT_BRIDGE_Y - source.getY());
   }
 
   /**
@@ -450,7 +453,6 @@ public class FrameController extends AnimationTimer {
   private void moveTroops() {
     for (Troop troop : activeTroops) {
       ImageView troopImage = cardsImage.get(troop);
-      System.out.println(troop.getImageKey() + ": " + troop.getVelocity().getX() + " " + troop.getVelocity().getY());
       Platform.runLater(() -> troopImage.setX(troopImage.getX() + troop.getVelocity().getX()));
       Platform.runLater(() -> troopImage.setY(troopImage.getY() + troop.getVelocity().getY()));
     }
@@ -545,7 +547,8 @@ public class FrameController extends AnimationTimer {
    */
   private int getRegionNumber(Card card) {
     ImageView cardImage = cardsImage.get(card);
-    if (cardImage == null) return 3;
+    if (cardImage == null)
+      return 3;
 
     int middleRow = Settings.MAP_ROW_COUNT / 2;
     int cellRow = (int) ((cardImage.getY() + Settings.CELL_HEIGHT_SHIFT) / Settings.CELL_HEIGHT);
