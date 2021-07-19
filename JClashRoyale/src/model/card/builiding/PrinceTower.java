@@ -15,7 +15,7 @@ public class PrinceTower extends Tower {
         0,
         "PRINCE_TOWER",
         new int[] {1400, 1512, 1624, 1750, 1890},
-        new int[] {0, 54, 58, 62, 69},
+        new int[] {50, 54, 58, 62, 69},
         800);
     rangeDistance = 7.5;
   }
