@@ -38,6 +38,13 @@ public class FrameController extends AnimationTimer {
   private KingTower enemyKingTower;
   private PrinceTower enemyPrinceTowerL, enemyPrinceTowerR;
 
+  private ImageView friendlyKingTowerImage;
+  private ImageView friendlyPrinceTowerLImage;
+  private ImageView friendlyPrinceTowerRImage;
+  private ImageView enemyKingTowerImage;
+  private ImageView enemyPrinceTowerLImage;
+  private ImageView enemyPrinceTowerRImage;
+
   /**
    * class constructor
    *
@@ -74,15 +81,12 @@ public class FrameController extends AnimationTimer {
     activeBuildings.add(enemyPrinceTowerL);
     activeBuildings.add(enemyPrinceTowerR);
 
-    ImageView friendlyKingTowerImage =
-        new ImageView(Config.retrieveProperty("KING_TOWER_FRIENDLY"));
-    ImageView friendlyPrinceTowerLImage =
-        new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
-    ImageView friendlyPrinceTowerRImage =
-        new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
-    ImageView enemyKingTowerImage = new ImageView(Config.retrieveProperty("KING_TOWER_ENEMY"));
-    ImageView enemyPrinceTowerLImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
-    ImageView enemyPrinceTowerRImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
+    friendlyKingTowerImage = new ImageView(Config.retrieveProperty("KING_TOWER_FRIENDLY"));
+    friendlyPrinceTowerLImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
+    friendlyPrinceTowerRImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
+    enemyKingTowerImage = new ImageView(Config.retrieveProperty("KING_TOWER_ENEMY"));
+    enemyPrinceTowerLImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
+    enemyPrinceTowerRImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
 
     cardsImage.put(friendlyKingTower, friendlyKingTowerImage);
     cardsImage.put(friendlyPrinceTowerL, friendlyPrinceTowerLImage);
@@ -172,6 +176,20 @@ public class FrameController extends AnimationTimer {
       target.decreaseHp(attacker.getDamage());
       attacker.setLastAttackTime(currentMilliSecond);
     }
+  }
+
+  /**
+   * check if the towers has been destroyed
+   */
+  private void checkTowers() {
+    if (friendlyPrinceTowerL.getHp() <= 0)
+      Platform.runLater(() -> friendlyPrinceTowerLImage.setImage(new Image(Config.retrieveProperty("DESTROYED_TOWER"))));
+    if (friendlyPrinceTowerR.getHp() <= 0)
+      Platform.runLater(() -> friendlyPrinceTowerRImage.setImage(new Image(Config.retrieveProperty("DESTROYED_TOWER"))));
+    if (enemyPrinceTowerL.getHp() <= 0)
+      Platform.runLater(() -> enemyPrinceTowerLImage.setImage(new Image(Config.retrieveProperty("DESTROYED_TOWER"))));
+    if (enemyPrinceTowerR.getHp() <= 0)
+      Platform.runLater(() -> enemyPrinceTowerRImage.setImage(new Image(Config.retrieveProperty("DESTROYED_TOWER"))));
   }
 
   /** update spells' state */
@@ -528,6 +546,7 @@ public class FrameController extends AnimationTimer {
     updateTargets();
     updateVelocities();
     updateHps();
+    checkTowers();
     unapplySpells();
     moveTroops();
     checkGameEnding();
