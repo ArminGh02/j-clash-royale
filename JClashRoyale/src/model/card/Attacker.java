@@ -16,6 +16,7 @@ public abstract class Attacker extends Card {
   protected Range range;
   protected double rangeDistance;
   protected Target target;
+  protected Movement movement;
   private Point2D velocity;
   private Card currentTarget;
   private boolean isAttacking;
@@ -121,6 +122,14 @@ public abstract class Attacker extends Card {
    */
   public Target getTarget() {
     return target;
+  }
+
+  /**
+   * movement getter
+   * @return movement
+   */
+  public Movement getMovement() {
+    return movement;
   }
 
   /**

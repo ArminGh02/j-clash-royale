@@ -293,7 +293,7 @@ public class FrameController extends AnimationTimer {
     double minimumDistance = 1000;
     for (Troop troop : activeTroops) {
       double distance = getDistance(attackingCard, troop);
-      if (attackingCard.getTeamNumber() != troop.getTeamNumber() && distance < minimumDistance) {
+      if (attackingCard.getTeamNumber() != troop.getTeamNumber() && distance < minimumDistance && isTargetValid(attackingCard, troop)) {
         minimumDistance = distance;
         attackingCard.setCurrentTarget(troop);
       }
@@ -301,7 +301,7 @@ public class FrameController extends AnimationTimer {
 
     for (Building building : activeBuildings) {
       double distance = getDistance(attackingCard, building);
-      if (building.getTeamNumber() != attackingCard.getTeamNumber() && distance < minimumDistance) {
+      if (building.getTeamNumber() != attackingCard.getTeamNumber() && distance < minimumDistance && isTargetValid(attackingCard, building)) {
         minimumDistance = distance;
         attackingCard.setCurrentTarget(building);
       }
@@ -310,6 +310,25 @@ public class FrameController extends AnimationTimer {
     if (getDistance(attackingCard, attackingCard.getCurrentTarget())
         <= attackingCard.getRangeDistance()) attackingCard.setAttacking(true);
     else attackingCard.setAttacking(false);
+  }
+
+  /**
+   * check whether if the given attacker can attack the given target or not
+   * @param attacker the given attacker
+   * @param target his target
+   * @return boolean result
+   */
+  private boolean isTargetValid(Attacker attacker, Attacker target) {
+    switch (attacker.getTarget()) {
+      case BUILDING:
+        return target.getType() == CardType.BUILDING;
+      case GROUND:
+        return target.getMovement() == Movement.GROUND;
+      case AIR:
+        return target.getMovement() == Movement.AIR;
+      default:
+        return true;
+    }
   }
 
   /** update troops' velocity */
@@ -466,12 +485,12 @@ public class FrameController extends AnimationTimer {
 
     ImageView sourceImage = cardsImage.get(source);
     ImageView destinationImage = cardsImage.get(destination);
-    if (sourceImage == null || destinationImage == null) return 100;
+    if (sourceImage == null || destinationImage == null) return Settings.INF;
 
     boolean euclideanDistance = false;
     if (source.getType().equals(CardType.TROOP)) {
       Troop tempTroop = (Troop) source;
-      euclideanDistance |= tempTroop.getMovement().equals(Movement.AIR);
+      euclideanDistance = tempTroop.getMovement().equals(Movement.AIR);
     }
     if (sourceRegion == destinationRegion || sourceRegion == 0 || destinationRegion == 0)
       euclideanDistance = true;

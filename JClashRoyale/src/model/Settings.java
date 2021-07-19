@@ -46,6 +46,7 @@ public class Settings {
   public static final int LOOSING_POINT = 70;
 
   public static final int MAXIMUM_LEVEL = 5;
-
   public static final int[] LEVEL_POINTS = {300, 500, 900, 1700, 2500};
+
+  public static final int INF = (int) 1e9;
 }

@@ -1,10 +1,7 @@
 package model.card.troop;
 
 import javafx.scene.image.Image;
-import model.card.Card;
-import model.card.Movement;
-import model.card.Range;
-import model.card.Speed;
+import model.card.*;
 import util.Config;
 
 public class Giant extends Troop {
@@ -16,22 +13,14 @@ public class Giant extends Troop {
         5, "GIANT", new int[] {2000, 2200, 2420, 2660, 2920}, new int[] {126, 138, 152, 167, 183},
         1500);
     range = Range.MELEE;
+    movement = Movement.GROUND;
+    target = Target.BUILDING;
     speed = Speed.SLOW;
     count = 1;
   }
 
   public static Image getDeckImage() {
     return deckImage;
-  }
-
-  /**
-   * movement getter
-   *
-   * @return movement
-   */
-  @Override
-  public Movement getMovement() {
-    return Movement.GROUND;
   }
 
   @Override

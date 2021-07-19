@@ -40,7 +40,7 @@ public class MapViewController {
     startElixirControllers();
     startTimer();
     startGameLoop();
-//    gameController.getRobotPlayer().play(gameController.getTimer(), this, gameLoop);
+    gameController.getRobotPlayer().play(gameController.getTimer(), this, gameLoop);
   }
 
   private void initializeDeckSlots() {
