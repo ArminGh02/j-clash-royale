@@ -16,7 +16,7 @@ public abstract class Card {
   private final int ELIXIR_COST;
   private Image deckSlotImage;
   private Image deployedImage; // TODO: make it final
-  private int level;
+  protected int level;
   private int teamNumber;
   private final CardType type;
   private final String imageKey;
@@ -28,6 +28,7 @@ public abstract class Card {
       this.deployedImage = new Image(Config.retrieveProperty(imageKey));
     }
     this.type = cardType;
+    this.level = 1;
   }
 
   /**

@@ -250,4 +250,19 @@ public class DBHandler {
       exception.printStackTrace();
     }
   }
+
+  /**
+   * update level for the given person
+   * @param person the given person
+   */
+  public static void updatePersonsLevel(Person person) {
+    String username = person.getUsername();
+    int level = person.getLevel();
+    try {
+      dbStatement.execute("UPDATE Persons SET level = " + level + " WHERE username = '" + username + "';");
+    }
+    catch (SQLException exception) {
+      exception.printStackTrace();
+    }
+  }
 }

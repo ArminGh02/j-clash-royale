@@ -17,6 +17,7 @@ import model.card.builiding.Building;
 import model.card.Card;
 import model.card.spell.Spell;
 import model.card.troop.Troop;
+import view.ViewManager;
 
 /**
  * FrameController class, handles each frame's update
@@ -418,6 +419,23 @@ public class FrameController extends AnimationTimer {
   }
 
   /**
+   * check if game is finished or not
+   */
+  private void checkGameEnding() {
+    boolean isEnded = false;
+    if (SoloGameController.getInstance().getTimer().isEnded() || friendlyKingTower.getHp() <= 0 || enemyKingTower.getHp() <= 0)
+      isEnded = true;
+    if (!isEnded)
+      return;
+    stop();
+    if (friendlyKingTower.getHp() > enemyKingTower.getHp())
+      SoloGameController.getInstance().getPersonPlayer().increasePoints(Settings.WINNING_POINT);
+    else
+      SoloGameController.getInstance().getPersonPlayer().increasePoints(Settings.LOOSING_POINT);
+    ViewManager.loadMainMenuView();
+  }
+
+  /**
    * get minimum distance between two given card
    *
    * @param source source card (attacker)
@@ -512,5 +530,6 @@ public class FrameController extends AnimationTimer {
     updateHps();
     unapplySpells();
     moveTroops();
+    checkGameEnding();
   }
 }

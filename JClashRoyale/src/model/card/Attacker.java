@@ -10,7 +10,6 @@ import model.Settings;
  * @version 1.0
  */
 public abstract class Attacker extends Card {
-  private int level;
   private int[] hpPerLevel;
   private final int[] damagePerLevel;
   protected int hitSpeed;
