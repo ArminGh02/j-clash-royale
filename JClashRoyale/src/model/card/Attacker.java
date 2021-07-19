@@ -74,7 +74,7 @@ public abstract class Attacker extends Card {
   }
 
   public void decreaseHp(int decreaseAmount) {
-      hpPerLevel[level] -= decreaseAmount;
+      hpPerLevel[level - 1] -= decreaseAmount;
   }
 
   /**
@@ -83,7 +83,7 @@ public abstract class Attacker extends Card {
    * @return hp
    */
   public int getHp() {
-    return hpPerLevel[level];
+    return hpPerLevel[level - 1];
   }
 
   /**
@@ -92,7 +92,7 @@ public abstract class Attacker extends Card {
    * @return damage
    */
   public int getDamage() {
-    return (int) (damagePerLevel[level] * attributeMultiplier);
+    return (int) (damagePerLevel[level - 1] * attributeMultiplier);
   }
 
   /**
