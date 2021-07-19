@@ -44,7 +44,9 @@ public class DBHandler {
               + "    id INT,\n"
               + "    username varchar(20),\n"
               + "    password varchar(100),\n"
-              + "    level INT,\n"
+              + "    level INT DEFAULT 1,\n"
+              + "    points INT DEFAULT 0,\n"
+              + "    deck varchar(30) DEFAULT NULL,\n"
               + "    PRIMARY KEY (id)\n"
               + ");");
     }
@@ -138,6 +140,7 @@ public class DBHandler {
   public static void addPerson(Person person) {
     String username = person.getUsername(), password = person.getPassword().toString();
     int level = person.getLevel();
+    int points = person.getPoints();
     if (doesPersonExists(person)) return;
     int personCount = tableRowCount("Persons");
     try {
@@ -153,6 +156,8 @@ public class DBHandler {
               + password
               + "', '"
               + level
+              + "', '"
+              + points
               + "');");
     } catch (SQLException exception) {
       exception.printStackTrace();
@@ -176,6 +181,7 @@ public class DBHandler {
             new Person(resultSet.getString("username"), resultSet.getString("password"));
         person.setPassword(resultSet.getString("password"));
         person.setLevel(resultSet.getInt("level"));
+        person.setPoints(resultSet.getInt("points"));
         return person;
       }
     } catch (SQLException exception) {
@@ -224,6 +230,21 @@ public class DBHandler {
 
     try {
       dbStatement.execute("UPDATE Persons SET deck = '" + deckSerialized + "' WHERE username = '" + person.getUsername() + "';");
+    }
+    catch (SQLException exception) {
+      exception.printStackTrace();
+    }
+  }
+
+  /**
+   * update points of the given person
+   * @param person the given person
+   */
+  public static void updatePersonsPoints(Person person) {
+    String username = person.getUsername();
+    int points = person.getPoints();
+    try {
+      dbStatement.execute("UPDATE Persons SET points = " + points + " WHERE username = '" + username + "';");
     }
     catch (SQLException exception) {
       exception.printStackTrace();
