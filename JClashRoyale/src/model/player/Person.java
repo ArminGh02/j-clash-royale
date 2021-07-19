@@ -10,6 +10,7 @@ import model.Password;
 public class Person extends Player {
     private String username;
     private Password password;
+    private int level;
     private int chosenSlotIndex = -1;
 
     /**
@@ -31,6 +32,14 @@ public class Person extends Player {
     }
 
     /**
+     * level getter
+     * @return level
+     */
+    public int getLevel() {
+        return level;
+    }
+
+    /**
      * password getter
      * @return password
      */
@@ -45,6 +54,14 @@ public class Person extends Player {
     public void setPassword(String  password) {
         this.password = new Password(password);
         this.password.setHashedPassword(password);
+    }
+
+    /**
+     * level setter
+     * @param level level new value
+     */
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     /**
