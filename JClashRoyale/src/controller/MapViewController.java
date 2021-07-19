@@ -40,7 +40,7 @@ public class MapViewController {
     startElixirControllers();
     startTimer();
     startGameLoop();
-//    gameController.getRobotPlayer().play(gameController.getTimer(), this, gameLoop);
+    gameController.getRobotPlayer().play(gameController.getTimer(), this, gameLoop);
   }
 
   private void initializeDeckSlots() {
@@ -140,7 +140,7 @@ public class MapViewController {
       Person person = gameController.getPersonPlayer();
       if (person.deploy(toDeploy)) {
         deployCard(toDeploy, event.getSceneX() - Settings.CELL_WIDTH_SHIFT,
-            event.getSceneY() - Settings.CELL_HEIGHT_SHIFT);
+            event.getSceneY() - Settings.CELL_HEIGHT_SHIFT, false);
 
         Card nextCard = person.getDeck().nextCard(toDeploy);
         deckSlots[chosenSlot].setUserData(nextCard);
@@ -155,7 +155,7 @@ public class MapViewController {
    * deploy the given card by the number of card's count
    * @param card the given card
    */
-  private void deployCard(Card card, double x, double y) {
+  public void deployCard(Card card, double x, double y, boolean isBot) {
     int count = 1;
     if (card.getType().equals(CardType.TROOP)) {
       Troop temp = (Troop) card;
@@ -171,7 +171,7 @@ public class MapViewController {
         newCard = card;
       else
         newCard = card.newInstance();
-      newCard.setTeamNumber(0);
+      newCard.setTeamNumber(isBot ? 1 : 0);
       gameLoop.addToActiveCards(newCard);
       addImageOfCard(newCard, x + coefficient * i * Settings.CELL_WIDTH_SHIFT, y);
     }
@@ -189,7 +189,7 @@ public class MapViewController {
     imageToAdd.setX(x);
     imageToAdd.setY(y);
     gameLoop.addImageOfCard(toDeploy, imageToAdd);
-    basePane.getChildren().add(imageToAdd);
+    Platform.runLater(() -> basePane.getChildren().add(imageToAdd));
   }
 
   /**

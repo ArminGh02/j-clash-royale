@@ -20,7 +20,7 @@ public class BeginnerRobot extends Robot {
           if (toDeploy != null) {
             int randomX = Settings.LEFT_VBOX_WIDTH + rand.nextInt(Settings.MAP_WIDTH);
             int randomY = rand.nextInt(Settings.MAP_UP_HALF_HEIGHT);
-            map.addImageOfCard(toDeploy, randomX, randomY);
+            map.deployCard(toDeploy, randomX, randomY, true);
             gameLoop.addToActiveCards(toDeploy);
           }
         } else {
