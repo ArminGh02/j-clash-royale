@@ -41,4 +41,6 @@ public class Settings {
   public static final double DOWN_RIGHT_SLOPE = -2.41; // tan(270 + 45 / 2)
   public static final double RIGHT_DOWN_SLOPE = -0.41; // tan(360 - 45 / 2)
   public static final double RIGHT_UP_SLOPE = 0.41; // tan(45 / 2)
+
+  public static final int BOT_LEVEL = 2;
 }

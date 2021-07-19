@@ -5,7 +5,12 @@ import model.card.CardType;
 
 public abstract class Building extends Attacker {
   public Building(
-      int elixirCost, String imageKey, int[] hpPerLevel, int[] damagePerLevel, int hitSpeed) {
-    super(elixirCost, imageKey, CardType.BUILDING, hpPerLevel, damagePerLevel, hitSpeed);
+      int level,
+      int elixirCost,
+      String imageKey,
+      int[] hpPerLevel,
+      int[] damagePerLevel,
+      int hitSpeed) {
+    super(level, elixirCost, imageKey, CardType.BUILDING, hpPerLevel, damagePerLevel, hitSpeed);
   }
 }

@@ -13,8 +13,8 @@ public abstract class Spell extends Card {
    * @param imageKey imageKey
    * @param cardType cardType
    */
-  public Spell(int elixirCost, String imageKey, CardType cardType) {
-    super(elixirCost, imageKey, cardType);
+  public Spell(int level, int elixirCost, String imageKey, CardType cardType) {
+    super(level, elixirCost, imageKey, cardType);
   }
 
   /**

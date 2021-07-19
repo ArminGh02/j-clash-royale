@@ -1,8 +1,6 @@
 package model.card;
 
 import javafx.scene.image.Image;
-import model.card.troop.Archer;
-import model.card.troop.Barbarians;
 import model.card.troop.Troop;
 import util.Config;
 
@@ -16,12 +14,13 @@ public abstract class Card {
   private final int ELIXIR_COST;
   private Image deckSlotImage;
   private Image deployedImage; // TODO: make it final
-  private int level;
+  protected int level;
   private int teamNumber;
   private final CardType type;
   private final String imageKey;
 
-  protected Card(int elixirCost, String imageKey, CardType cardType) {
+  protected Card(int level, int elixirCost, String imageKey, CardType cardType) {
+    this.level = level;
     this.ELIXIR_COST = elixirCost;
     this.imageKey = imageKey;
     if (this instanceof Troop) { // TODO: add other gifs and remove
@@ -81,5 +80,9 @@ public abstract class Card {
    */
   public String getImageKey() {
     return imageKey;
+  }
+
+  public Cards asEnumMember() {
+     return null;
   }
 }

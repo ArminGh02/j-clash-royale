@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import model.Deck;
+import model.Settings;
 import model.card.Card;
 import model.card.Cards;
 import model.card.builiding.Cannon;
@@ -44,33 +45,33 @@ public abstract class Robot extends Player {
         new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
     Collections.shuffle(ordinalsOfCardsToAdd, rand);
 
-    List<Card> deckCards = new ArrayList<>(8);
+    List<Card> deckCards = new ArrayList<>(Settings.DECK_SIZE);
     for (int i = 0; i < 8; i++) {
       int ordinal = ordinalsOfCardsToAdd.get(i);
       if (ordinal == Cards.ARCHER.ordinal()) {
-        deckCards.add(new Archer());
+        deckCards.add(new Archer(Settings.BOT_LEVEL));
       } else if (ordinal == Cards.ARROWS.ordinal()) {
-        deckCards.add(new Arrows());
+        deckCards.add(new Arrows(Settings.BOT_LEVEL));
       } else if (ordinal == Cards.BABY_DRAGON.ordinal()) {
-        deckCards.add(new BabyDragon());
+        deckCards.add(new BabyDragon(Settings.BOT_LEVEL));
       } else if (ordinal == Cards.BARBARIANS.ordinal()) {
-        deckCards.add(new Barbarians());
+        deckCards.add(new Barbarians(Settings.BOT_LEVEL));
       } else if (ordinal == Cards.CANNON.ordinal()) {
-        deckCards.add(new Cannon());
+        deckCards.add(new Cannon(Settings.BOT_LEVEL));
       } else if (ordinal == Cards.FIREBALL.ordinal()) {
-        deckCards.add(new Fireball());
+        deckCards.add(new Fireball(Settings.BOT_LEVEL));
       } else if (ordinal == Cards.GIANT.ordinal()) {
-        deckCards.add(new Giant());
+        deckCards.add(new Giant(Settings.BOT_LEVEL));
       } else if (ordinal == Cards.INFERNO_TOWER.ordinal()) {
-        deckCards.add(new InfernoTower());
+        deckCards.add(new InfernoTower(Settings.BOT_LEVEL));
       } else if (ordinal == Cards.MINI_PEKKA.ordinal()) {
-        deckCards.add(new MiniPekka());
+        deckCards.add(new MiniPekka(Settings.BOT_LEVEL));
       } else if (ordinal == Cards.RAGE.ordinal()) {
-        deckCards.add(new Rage());
+        deckCards.add(new Rage(Settings.BOT_LEVEL));
       } else if (ordinal == Cards.VALKYRIE.ordinal()) {
-        deckCards.add(new Valkyrie());
+        deckCards.add(new Valkyrie(Settings.BOT_LEVEL));
       } else if (ordinal == Cards.WIZARD.ordinal()) {
-        deckCards.add(new Wizard());
+        deckCards.add(new Wizard(Settings.BOT_LEVEL));
       }
     }
     return new Deck(deckCards);

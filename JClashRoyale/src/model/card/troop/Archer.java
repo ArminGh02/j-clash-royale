@@ -1,8 +1,8 @@
 package model.card.troop;
 
 import javafx.scene.image.Image;
-import model.Settings;
 import model.card.Card;
+import model.card.Cards;
 import model.card.Movement;
 import model.card.Range;
 import model.card.Speed;
@@ -12,8 +12,8 @@ public class Archer extends Troop {
 
   private static final Image deckImage = new Image(Config.retrieveProperty("ARCHER_DECK_IMAGE"));
 
-  public Archer() {
-    super(3, "ARCHER", new int[] {125, 127, 151, 166, 182}, new int[] {33, 44, 48, 53, 58}, 1200);
+  public Archer(int level) {
+    super(level, 3, "ARCHER", new int[] {125, 127, 151, 166, 182}, new int[] {33, 44, 48, 53, 58}, 1200);
     range = Range.RANGED;
     speed = Speed.MEDIUM;
     rangeDistance = 5.0;
@@ -36,6 +36,11 @@ public class Archer extends Troop {
 
   @Override
   public Card newInstance() {
-    return new Archer();
+    return new Archer(level);
+  }
+
+  @Override
+  public Cards asEnumMember() {
+    return Cards.ARCHER;
   }
 }

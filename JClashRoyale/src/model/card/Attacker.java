@@ -10,7 +10,6 @@ import model.Settings;
  * @version 1.0
  */
 public abstract class Attacker extends Card {
-  private int level;
   private int[] hpPerLevel;
   private final int[] damagePerLevel;
   protected int hitSpeed;
@@ -26,15 +25,22 @@ public abstract class Attacker extends Card {
 
   /**
    * class constructor
-   *  @param elixirCost elixirCost
+   *
+   * @param elixirCost elixirCost
    * @param imageKey imageKey
    * @param hpPerLevel hp per level
    * @param damagePerLevel damage per level
    * @param hitSpeed hit speed
    */
-  public Attacker(int elixirCost, String imageKey, CardType type, int[] hpPerLevel,
-      int[] damagePerLevel, int hitSpeed) {
-    super(elixirCost, imageKey, type);
+  public Attacker(
+      int level,
+      int elixirCost,
+      String imageKey,
+      CardType type,
+      int[] hpPerLevel,
+      int[] damagePerLevel,
+      int hitSpeed) {
+    super(level, elixirCost, imageKey, type);
     this.hpPerLevel = hpPerLevel;
     this.damagePerLevel = damagePerLevel;
     this.hitSpeed = hitSpeed;
@@ -51,6 +57,7 @@ public abstract class Attacker extends Card {
 
   /**
    * lastAttackTime setter
+   *
    * @param lastAttackTime lastAttackTime new value
    */
   public void setLastAttackTime(long lastAttackTime) {
@@ -59,14 +66,19 @@ public abstract class Attacker extends Card {
 
   /**
    * rageMultiplier setter
+   *
    * @param attributeMultiplier rageMultiplier new value
    */
   public void setAttributeMultiplier(double attributeMultiplier) {
-    this.attributeMultiplier = Math.max(attributeMultiplier, 1.0); // to make sure that the rage spell won't unapply in the wrong way
+    this.attributeMultiplier =
+        Math.max(
+            attributeMultiplier,
+            1.0); // to make sure that the rage spell won't unapply in the wrong way
   }
 
   /**
    * attributeMultiplier getter
+   *
    * @return attributeMultiplier
    */
   public double getAttributeMultiplier() {
@@ -74,7 +86,7 @@ public abstract class Attacker extends Card {
   }
 
   public void decreaseHp(int decreaseAmount) {
-      hpPerLevel[level - 1] -= decreaseAmount;
+    hpPerLevel[level - 1] -= decreaseAmount;
   }
 
   /**
@@ -110,8 +122,7 @@ public abstract class Attacker extends Card {
    * @return range distance
    */
   public double getRangeDistance() {
-    if (range == Range.MELEE)
-      rangeDistance = Settings.MELEE_ATTACK_RANGE;
+    if (range == Range.MELEE) rangeDistance = Settings.MELEE_ATTACK_RANGE;
     return rangeDistance * Settings.CELL_WIDTH / Settings.MAP_SCALE;
   }
 
@@ -194,6 +205,7 @@ public abstract class Attacker extends Card {
 
   /**
    * lastAttackTime getter
+   *
    * @return lastAttackTime
    */
   public long getLastAttackTime() {

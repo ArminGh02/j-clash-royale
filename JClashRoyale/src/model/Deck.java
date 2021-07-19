@@ -25,6 +25,14 @@ public class Deck {
     inactiveCards = new ArrayDeque<>(deck.subList(4, 8));
   }
 
+  public static ArrayList<Integer> toOrdinals(List<Card> deck) {
+    ArrayList<Integer> ordinals = new ArrayList<>();
+    for (int i = 0; i < 8; i++) {
+      ordinals.add(deck.get(i).asEnumMember().ordinal());
+    }
+    return ordinals;
+  }
+
   public Card nextCard(Card toDeploy) {
     Card nextCard = inactiveCards.remove();
     inactiveCards.add(toDeploy.newInstance());

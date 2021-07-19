@@ -10,8 +10,8 @@ import model.card.CardType;
 abstract public class DamagingSpell extends Spell {
     protected int areaDamage; // TODO make it dependent to level
 
-    public DamagingSpell(int elixirCost, String imageKey) {
-        super(elixirCost, imageKey, CardType.DAMAGING_SPELL);
+    public DamagingSpell(int level, int elixirCost, String imageKey) {
+        super(level, elixirCost, imageKey, CardType.DAMAGING_SPELL);
     }
 
     /**

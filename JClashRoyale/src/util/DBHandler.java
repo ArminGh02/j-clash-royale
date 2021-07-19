@@ -203,7 +203,10 @@ public class DBHandler {
       if (dbStatement.execute("" + "SELECT * FROM Persons " + "WHERE username='" + username + "';")) {
         ResultSet resultSet = dbStatement.getResultSet();
         resultSet.next();
-        String[] deck = resultSet.getString("deck").split(",");
+        String deckAsString = resultSet.getString("deck");
+        if (deckAsString == null)
+          return null;
+        String[] deck = deckAsString.split(",");
         ArrayList<Integer> result = new ArrayList<>();
         for (String index : deck)
           result.add(Integer.parseInt(index));

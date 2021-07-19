@@ -1,8 +1,8 @@
 package model.card.troop;
 
 import javafx.scene.image.Image;
-import model.Settings;
 import model.card.Card;
+import model.card.Cards;
 import model.card.Movement;
 import model.card.Range;
 import model.card.Speed;
@@ -12,8 +12,9 @@ public class Wizard extends Troop {
 
   private static final Image deckImage = new Image(Config.retrieveProperty("WIZARD_DECK_IMAGE"));
 
-  public Wizard() {
+  public Wizard(int level) {
     super(
+        level,
         5,
         "WIZARD",
         new int[] {340, 374, 411, 452, 496},
@@ -41,6 +42,11 @@ public class Wizard extends Troop {
 
   @Override
   public Card newInstance() {
-    return new Wizard();
+    return new Wizard(level);
+  }
+
+  @Override
+  public Cards asEnumMember() {
+    return Cards.WIZARD;
   }
 }

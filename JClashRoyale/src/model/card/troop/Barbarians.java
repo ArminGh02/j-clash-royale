@@ -2,6 +2,7 @@ package model.card.troop;
 
 import javafx.scene.image.Image;
 import model.card.Card;
+import model.card.Cards;
 import model.card.Movement;
 import model.card.Range;
 import model.card.Speed;
@@ -12,8 +13,9 @@ public class Barbarians extends Troop {
   private static final Image deckImage =
       new Image(Config.retrieveProperty("BARBARIANS_DECK_IMAGE"));
 
-  public Barbarians() {
+  public Barbarians(int level) {
     super(
+        level,
         5,
         "BARBARIANS",
         new int[] {300, 330, 363, 438, 480},
@@ -40,6 +42,11 @@ public class Barbarians extends Troop {
 
   @Override
   public Card newInstance() {
-    return new Barbarians();
+    return new Barbarians(level);
+  }
+
+  @Override
+  public Cards asEnumMember() {
+    return Cards.BARBARIANS;
   }
 }

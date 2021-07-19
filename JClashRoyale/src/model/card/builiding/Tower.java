@@ -16,11 +16,12 @@ public abstract class Tower extends Building {
    * @param damagePerLevel
    */
   public Tower(
+      int level,
       int elixirCost,
       String deckElixirImageKey,
       int[] hpPerLevel,
       int[] damagePerLevel,
       int hitSpeed) {
-    super(elixirCost, deckElixirImageKey, hpPerLevel, damagePerLevel, hitSpeed);
+    super(level, elixirCost, deckElixirImageKey, hpPerLevel, damagePerLevel, hitSpeed);
   }
 }

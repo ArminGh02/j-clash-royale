@@ -3,6 +3,7 @@ package model.card.builiding;
 import javafx.scene.image.Image;
 import model.Settings;
 import model.card.Card;
+import model.card.Cards;
 import model.card.Range;
 import util.Config;
 
@@ -11,8 +12,9 @@ public class InfernoTower extends Building {
   private static final Image infernoTowerDeckImage =
       new Image(Config.retrieveProperty("INFERNO_TOWER_DECK_IMAGE"));
 
-  public InfernoTower() {
+  public InfernoTower(int level) {
     super(
+        level,
         5,
         "INFERNO_TOWER",
         new int[] {800, 880, 968, 1064, 1168},
@@ -28,6 +30,11 @@ public class InfernoTower extends Building {
 
   @Override
   public Card newInstance() {
-    return new InfernoTower();
+    return new InfernoTower(level);
+  }
+
+  @Override
+  public Cards asEnumMember() {
+    return Cards.INFERNO_TOWER;
   }
 }

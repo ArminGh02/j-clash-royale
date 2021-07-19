@@ -52,12 +52,14 @@ public class FrameController extends AnimationTimer {
 
   /** add tower images to map */
   private void addTowersToMap() {
-    friendlyKingTower = new KingTower();
-    friendlyPrinceTowerL = new PrinceTower();
-    friendlyPrinceTowerR = new PrinceTower();
-    enemyKingTower = new KingTower();
-    enemyPrinceTowerL = new PrinceTower();
-    enemyPrinceTowerR = new PrinceTower();
+    int personLevel = SoloGameController.getInstance().getPersonPlayer().getLevel();
+
+    friendlyKingTower = new KingTower(personLevel);
+    friendlyPrinceTowerL = new PrinceTower(personLevel);
+    friendlyPrinceTowerR = new PrinceTower(personLevel);
+    enemyKingTower = new KingTower(Settings.BOT_LEVEL);
+    enemyPrinceTowerL = new PrinceTower(Settings.BOT_LEVEL);
+    enemyPrinceTowerR = new PrinceTower(Settings.BOT_LEVEL);
 
     friendlyKingTower.setTeamNumber(0);
     friendlyPrinceTowerL.setTeamNumber(0);

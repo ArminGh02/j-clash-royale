@@ -49,14 +49,6 @@ public class Person extends Player {
     }
 
     /**
-     * points getter
-     * @return points
-     */
-    public int getPoints() {
-        return points;
-    }
-
-    /**
      * password setter
      * @param password new password
      */
@@ -74,14 +66,6 @@ public class Person extends Player {
     }
 
     /**
-     * points setter
-     * @param points points new value
-     */
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    /**
      * get player group of the player
      *
      * @return PlayerGroup
@@ -89,5 +73,13 @@ public class Person extends Player {
     @Override
     public PlayerGroup getPlayerGroup() {
         return PlayerGroup.PERSON;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public int getPoints() {
+        return points;
     }
 }

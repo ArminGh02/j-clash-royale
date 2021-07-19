@@ -10,8 +10,9 @@ import model.Settings;
  */
 public class PrinceTower extends Tower {
   /** class constructor */
-  public PrinceTower() {
+  public PrinceTower(int level) {
     super(
+        level,
         0,
         "PRINCE_TOWER",
         new int[] {1400, 1512, 1624, 1750, 1890},

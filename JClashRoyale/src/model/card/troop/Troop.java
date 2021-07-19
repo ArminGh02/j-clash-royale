@@ -18,8 +18,13 @@ public abstract class Troop extends Attacker {
   protected Speed speed;
 
   public Troop(
-      int elixirCost, String imageKey, int[] hpPerLevel, int[] damagePerLevel, int hitSpeed) {
-    super(elixirCost, imageKey, CardType.TROOP, hpPerLevel, damagePerLevel, hitSpeed);
+      int level,
+      int elixirCost,
+      String imageKey,
+      int[] hpPerLevel,
+      int[] damagePerLevel,
+      int hitSpeed) {
+    super(level, elixirCost, imageKey, CardType.TROOP, hpPerLevel, damagePerLevel, hitSpeed);
   }
 
   /**
@@ -42,6 +47,7 @@ public abstract class Troop extends Attacker {
 
   /**
    * get speed of the troop with respect to speed and attributeMultiplier field
+   *
    * @return speed
    */
   public double getSpeed() {

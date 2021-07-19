@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import model.Settings;
 import model.card.Card;
 import model.card.CardType;
+import model.card.Cards;
 import util.Config;
 
 public class Rage extends Spell {
@@ -12,8 +13,8 @@ public class Rage extends Spell {
 
   private static final Image deckImage = new Image(Config.retrieveProperty("RAGE_DECK_IMAGE"));
 
-  public Rage() {
-    super(3, "RAGE", CardType.RAGE_SPELL);
+  public Rage(int level) {
+    super(level, 3, "RAGE", CardType.RAGE_SPELL);
     radius = 5.0 / Settings.MAP_SCALE * Settings.CELL_WIDTH;
     duration = 6000;
   }
@@ -48,6 +49,11 @@ public class Rage extends Spell {
 
   @Override
   public Card newInstance() {
-    return new Rage();
+    return new Rage(level);
+  }
+
+  @Override
+  public Cards asEnumMember() {
+    return Cards.RAGE;
   }
 }
