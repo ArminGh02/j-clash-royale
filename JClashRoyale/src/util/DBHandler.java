@@ -4,6 +4,7 @@ import model.Password;
 import model.player.Person;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * DBHandler class, handles queries and interactions with database
@@ -181,5 +182,51 @@ public class DBHandler {
       exception.printStackTrace();
     }
     return null;
+  }
+
+  /**
+   * get deck for the given person
+   * @param person the given person
+   * @return person's deck
+   */
+  public static ArrayList<Integer> getPersonsDeck(Person person) {
+    String username = person.getUsername();
+    if (!doesPersonExists(username))
+      return null;
+    try {
+      if (dbStatement.execute("" + "SELECT * FROM Persons " + "WHERE username='" + username + "';")) {
+        ResultSet resultSet = dbStatement.getResultSet();
+        resultSet.next();
+        String[] deck = resultSet.getString("deck").split(",");
+        ArrayList<Integer> result = new ArrayList<>();
+        for (String index : deck)
+          result.add(Integer.parseInt(index));
+        return result;
+      }
+    } catch (SQLException exception) {
+      exception.printStackTrace();
+    }
+    return null;
+  }
+
+  /**
+   * update deck for the given person
+   * @param person the given person
+   * @param deck person's deck
+   */
+  public static void updatePersonsDeck(Person person, ArrayList<Integer> deck) {
+    StringBuilder deckSerialized = new StringBuilder();
+    for (int i = 0; i < deck.size(); i++) {
+      deckSerialized.append(deck.get(i).toString());
+      if (i != deck.size() - 1)
+        deckSerialized.append(',');
+    }
+
+    try {
+      dbStatement.execute("UPDATE Persons SET deck = '" + deckSerialized + "' WHERE username = '" + person.getUsername() + "';");
+    }
+    catch (SQLException exception) {
+      exception.printStackTrace();
+    }
   }
 }
