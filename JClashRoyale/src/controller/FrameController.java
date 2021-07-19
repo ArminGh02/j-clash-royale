@@ -508,8 +508,8 @@ public class FrameController extends AnimationTimer {
     currentMilliSecond = currentNanoTime / 1000000;
     applySpells();
     updateTargets();
-    updateHps();
     updateVelocities();
+    updateHps();
     unapplySpells();
     moveTroops();
   }

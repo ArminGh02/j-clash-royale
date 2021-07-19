@@ -3,6 +3,7 @@ package model.card;
 import javafx.scene.image.Image;
 import model.card.troop.Archer;
 import model.card.troop.Barbarians;
+import model.card.troop.Troop;
 import util.Config;
 
 /**
@@ -23,7 +24,7 @@ public abstract class Card {
   protected Card(int elixirCost, String imageKey, CardType cardType) {
     this.ELIXIR_COST = elixirCost;
     this.imageKey = imageKey;
-    if (this instanceof Barbarians || this instanceof Archer) { // TODO: add other gifs and remove
+    if (this instanceof Troop) { // TODO: add other gifs and remove
       this.deployedImage = new Image(Config.retrieveProperty(imageKey));
     }
     this.type = cardType;
