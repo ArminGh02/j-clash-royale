@@ -11,6 +11,7 @@ public class Person extends Player {
     private String username;
     private Password password;
     private int level;
+    private int points;
     private int chosenSlotIndex = -1;
 
     /**
@@ -48,6 +49,14 @@ public class Person extends Player {
     }
 
     /**
+     * points getter
+     * @return points
+     */
+    public int getPoints() {
+        return points;
+    }
+
+    /**
      * password setter
      * @param password new password
      */
@@ -62,6 +71,14 @@ public class Person extends Player {
      */
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    /**
+     * points setter
+     * @param points points new value
+     */
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     /**
