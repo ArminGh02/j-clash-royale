@@ -450,6 +450,7 @@ public class FrameController extends AnimationTimer {
   private void moveTroops() {
     for (Troop troop : activeTroops) {
       ImageView troopImage = cardsImage.get(troop);
+      System.out.println(troop.getImageKey() + ": " + troop.getVelocity().getX() + " " + troop.getVelocity().getY());
       Platform.runLater(() -> troopImage.setX(troopImage.getX() + troop.getVelocity().getX()));
       Platform.runLater(() -> troopImage.setY(troopImage.getY() + troop.getVelocity().getY()));
     }
