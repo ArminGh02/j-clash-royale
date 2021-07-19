@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import model.player.AdvancedRobot;
 import model.player.BeginnerRobot;
 import model.Settings;
 import model.card.Cards;
@@ -42,10 +43,21 @@ public class MainMenuController {
 
   @FXML
   void startGameVsEasyBot(ActionEvent event) {
+    startGame(true);
+  }
+
+  @FXML
+  void startGameVsAdvancedBot(ActionEvent event) {
+    startGame(false);
+  }
+
+  private void startGame(boolean vsEasyBot) {
     if (deck.size() == Settings.DECK_SIZE) {
-      SoloGameController.getInstance().setRobotPlayer(new BeginnerRobot());
-      SoloGameController.getInstance().getPersonPlayer().setDeck(deck);
+      SoloGameController gameController = SoloGameController.getInstance();
+      gameController.setRobotPlayer(vsEasyBot ? new BeginnerRobot() : new AdvancedRobot());
+      gameController.getPersonPlayer().setDeck(deck);
       ViewManager.loadMapView();
+      // save deck to database
     } else {
       DialogShower.show("Unable to Start the Game", "You need to set your battle deck first!");
     }

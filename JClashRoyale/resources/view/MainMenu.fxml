@@ -44,7 +44,7 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@MainMenuStyle.css" text="Battle Against Smart Bot">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#startGameVsAdvancedBot" stylesheets="@MainMenuStyle.css" text="Battle Against Smart Bot">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
@@ -171,7 +171,7 @@
                         </ImageView>
                      </children>
                   </GridPane>
-                  <Label fx:id="unableToPlaceCardLabel" layoutX="468.0" layoutY="613.0" prefHeight="47.0" prefWidth="317.0" styleClass="label-of-deck" text="Unable to Place Card in Deck" visible="false" />
+                  <Label fx:id="unableToPlaceCardLabel" alignment="CENTER" layoutX="454.0" layoutY="613.0" prefHeight="47.0" prefWidth="342.0" styleClass="label-of-deck" text="Unable to Place Card in Deck" visible="false" />
                   <Button layoutX="1137.0" layoutY="613.0" mnemonicParsing="false" onAction="#resetDeck" styleClass="label-and-button-for-deck" text="Reset">
                      <cursor>
                         <Cursor fx:constant="HAND" />
