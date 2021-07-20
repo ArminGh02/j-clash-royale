@@ -1,8 +1,11 @@
 package model.player;
 
+import model.GameResult;
 import model.Password;
 import model.Settings;
 import util.DBHandler;
+
+import java.util.ArrayList;
 
 /**
  * Person class, implements real player
@@ -15,6 +18,7 @@ public class Person extends Player {
     private int level;
     private int points;
     private int chosenSlotIndex = -1;
+    private ArrayList<GameResult> gameResults;
 
     /**
      * class constructor
@@ -101,6 +105,23 @@ public class Person extends Player {
      */
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    /**
+     * gameResults setter
+     * @param gameResults gameResults new value
+     */
+    public void setGameResults(ArrayList<GameResult> gameResults) {
+        this.gameResults = gameResults;
+    }
+
+    /**
+     * add the given new gameResult to the list of gameResults
+     * @param gameResult the given gameResult
+     */
+    public void addGameResult(GameResult gameResult) {
+        gameResults.add(gameResult);
+        DBHandler.addGameResult(gameResult);
     }
 
     /**

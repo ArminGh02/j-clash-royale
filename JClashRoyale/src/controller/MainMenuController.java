@@ -5,7 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -47,7 +50,11 @@ public class MainMenuController {
   private boolean[] isCardAdded = new boolean[12];
   @FXML private HBox deckView;
   @FXML private Label unableToPlaceCardLabel;
+  @FXML private Label personsNameLabel;
 
+  /**
+   * initialize method will be called before loading view
+   */
   @FXML
   public void initialize() {
     initDeck();
@@ -56,6 +63,9 @@ public class MainMenuController {
     personLevel = person.getLevel();
     personLevelLabel.setText("Level: " + personLevel);
     personPointsLabel.setText("Points: " + person.getPoints());
+    personsNameLabel.setText(person.getUsername());
+    if (SoloGameController.getInstance().getRobotPlayer() == null) // to make sure that this is the first time starting a game
+      person.setGameResults(DBHandler.getPersonsGameResults(person));
   }
 
   private void initDeck() {

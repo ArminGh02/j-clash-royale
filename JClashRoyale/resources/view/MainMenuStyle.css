@@ -37,3 +37,13 @@
 .battle-history-tab-of-main-menu {
     -fx-background-image: url("../images/BattleHistoryBackground.png");
 }
+
+.about-us-tab-of-main-menu {
+    -fx-background-image: url("../images/AboutUsBackground.png");
+}
+
+.about-us-label {
+    -fx-alignment: baseline-center;
+    -fx-text-fill: rgb(256, 256, 256);
+    -fx-font-size: 35;
+}

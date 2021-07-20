@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1250.0" side="BOTTOM" stylesheets="@MainMenuStyle.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1250.0" side="BOTTOM" stylesheets="@MainMenuStyle.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
   <tabs>
       <Tab text="Profile">
         <content>
@@ -32,6 +32,7 @@
                   </ImageView>
                   <Label fx:id="personLevelLabel" alignment="CENTER" layoutX="14.0" layoutY="12.0" prefHeight="73.0" prefWidth="206.0" styleClass="label-of-deck" text="Level:" />
                   <Label fx:id="personPointsLabel" alignment="CENTER" layoutX="13.0" layoutY="96.0" prefHeight="77.0" prefWidth="207.0" styleClass="label-of-deck" text="Points:" />
+                  <Label fx:id="personsNameLabel" layoutX="437.0" layoutY="28.0" prefHeight="139.0" prefWidth="376.0" style="-fx-alignment: center; -fx-font-size: 50;" text="Person's name" />
                </children>
             </AnchorPane>
         </content>
@@ -184,6 +185,17 @@
       <Tab text="Battle History">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="battle-history-tab-of-main-menu" />
+        </content>
+      </Tab>
+      <Tab text="About Us">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="about-us-tab-of-main-menu" stylesheets="@MainMenuStyle.css">
+               <children>
+                  <Label layoutX="250.0" layoutY="105.0" prefHeight="66.0" prefWidth="283.0" styleClass="about-us-label" stylesheets="@MainMenuStyle.css" text="Armin Ghorbanian" />
+                  <Label layoutX="704.0" layoutY="105.0" styleClass="about-us-label" stylesheets="@MainMenuStyle.css" text="Amirhesam Adibinia" />
+                  <Label layoutX="377.0" layoutY="592.0" prefHeight="86.0" prefWidth="504.0" style="-fx-alignment: center; -fx-text-fill: rgb(240, 240, 240);" text="AP final project Spring 1400" />
+               </children>
+            </AnchorPane>
         </content>
       </Tab>
   </tabs>
