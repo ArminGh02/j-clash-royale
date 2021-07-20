@@ -113,10 +113,6 @@ public class Person extends Player {
         return PlayerGroup.PERSON;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
     public int getPoints() {
         return points;
     }
