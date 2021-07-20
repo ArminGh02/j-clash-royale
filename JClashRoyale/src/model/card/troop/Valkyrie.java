@@ -24,6 +24,7 @@ public class Valkyrie extends Troop {
     target = Target.GROUND;
     speed = Speed.MEDIUM;
     count = 1;
+    isAreaSplash = true;
   }
 
   public static Image getDeckImage() {

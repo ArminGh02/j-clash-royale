@@ -15,6 +15,7 @@ public abstract class Attacker extends Card {
   protected int hitSpeed;
   protected Range range;
   protected double rangeDistance;
+  protected boolean isAreaSplash;
   protected Target target;
   protected Movement movement;
   private Point2D velocity;
@@ -45,6 +46,7 @@ public abstract class Attacker extends Card {
     this.hpPerLevel = hpPerLevel;
     this.damagePerLevel = damagePerLevel;
     this.hitSpeed = hitSpeed;
+    isAreaSplash = false;
   }
 
   /**
@@ -142,6 +144,14 @@ public abstract class Attacker extends Card {
    */
   public Movement getMovement() {
     return movement;
+  }
+
+  /**
+   * isAreaSplash getter
+   * @return isAreaSplash
+   */
+  public boolean isAreaSplash() {
+    return isAreaSplash;
   }
 
   /**

@@ -179,7 +179,17 @@ public class FrameController extends AnimationTimer {
     if (target == null || !attacker.isAttacking())
       return;
     if (currentMilliSecond - attacker.getLastAttackTime() >= attacker.getHitSpeed()) {
-      target.decreaseHp(attacker.getDamage());
+      if (attacker.isAreaSplash()) {
+        double areaSplashDistance = Settings.AREA_SPLASH_RANGE * Settings.CELL_WIDTH / Settings.MAP_SCALE;
+        for (Troop troop : activeTroops)
+          if (getEuclideanDistance(attacker, troop) <= areaSplashDistance && isTargetValid(attacker, troop))
+            troop.decreaseHp(attacker.getDamage());
+        for (Building building : activeBuildings)
+          if (getEuclideanDistance(attacker, building) <= areaSplashDistance && isTargetValid(attacker, building))
+            building.decreaseHp(attacker.getDamage());
+      }
+      else
+        target.decreaseHp(attacker.getDamage());
       attacker.setLastAttackTime(currentMilliSecond);
     }
   }
@@ -555,6 +565,20 @@ public class FrameController extends AnimationTimer {
    */
   private double getEuclideanDistance(double x1, double y1, double x2, double y2) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+  }
+
+  /**
+   * calculate the euclidean distance between the two given attacker
+   * @param firstAttacker firstAttacker
+   * @param secondAttacker secondAttacker
+   * @return distance
+   */
+  private double getEuclideanDistance(Attacker firstAttacker, Attacker secondAttacker) {
+    ImageView firstAttackerImage = cardsImage.get(firstAttacker);
+    ImageView secondAttackerImage = cardsImage.get(secondAttacker);
+    if (firstAttackerImage == null || secondAttackerImage == null)
+      return Settings.INF;
+    return getEuclideanDistance(firstAttackerImage.getX(), firstAttackerImage.getY(), secondAttackerImage.getX(), secondAttackerImage.getY());
   }
 
   /**
