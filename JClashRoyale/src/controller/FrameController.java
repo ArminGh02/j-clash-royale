@@ -355,8 +355,27 @@ public class FrameController extends AnimationTimer {
     }
 
     if (getDistance(attackingCard, attackingCard.getCurrentTarget())
-        <= attackingCard.getRangeDistance()) attackingCard.setAttacking(true);
+            <= attackingCard.getRangeDistance()) attackingCard.setAttacking(true);
     else attackingCard.setAttacking(false);
+
+    ImageView attackingCardImage = cardsImage.get(attackingCard);
+    boolean isInLeftSide = (attackingCardImage.getX() <= Settings.LEFT_VBOX_WIDTH + (Settings.MAP_COLUMN_COUNT * Settings.CELL_WIDTH / 2.0));
+    if (getRegionNumber(attackingCard) == 0 && !attackingCard.isAttacking()) {
+      if (isInLeftSide) {
+        if (attackingCard.getTeamNumber() == 0)
+          attackingCard.setCurrentTarget(enemyKingTower);
+        else
+          attackingCard.setCurrentTarget(friendlyKingTower);
+      }
+      else {
+        if (attackingCard.getTeamNumber() == 0)
+          attackingCard.setCurrentTarget(enemyKingTower);
+        else
+          attackingCard.setCurrentTarget(friendlyKingTower);
+      }
+      attackingCard.setAttacking(false);
+    }
+
   }
 
   /**
@@ -407,13 +426,10 @@ public class FrameController extends AnimationTimer {
 
     ImageView source = cardsImage.get(troop);
     ImageView destination = cardsImage.get(troop.getCurrentTarget());
-    double leftBridgeEuclideanDistance = getEuclideanDistance(source.getX(), source.getY(), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y);
-    double rightBridgeEuclideanDistance = getEuclideanDistance(source.getX(), source.getY(), Settings.RIGHT_BRIDGE_X, Settings.RIGHT_BRIDGE_Y);
     if (troop.getMovement().equals(Movement.AIR)
         || getRegionNumber(troop) == 0
         || getRegionNumber(troop.getCurrentTarget()) == 0
         || getRegionNumber(troop) == getRegionNumber(troop.getCurrentTarget())
-        || Math.min(leftBridgeEuclideanDistance, rightBridgeEuclideanDistance) <= Settings.EPSILON
     ) { // straight line
       troop.setVelocity(destination.getX() - source.getX(), destination.getY() - source.getY());
       return;

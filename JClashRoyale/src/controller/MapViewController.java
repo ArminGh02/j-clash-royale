@@ -166,7 +166,7 @@ public class MapViewController {
     }
 
     int coefficient = 1;
-    if (x > (Settings.MAP_COLUMN_COUNT / 2) * Settings.CELL_WIDTH + Settings.LEFT_VBOX_WIDTH)
+    if (x > (Settings.MAP_COLUMN_COUNT / 2.0) * Settings.CELL_WIDTH + Settings.LEFT_VBOX_WIDTH)
       coefficient = -1;
     for (int i = 0; i < count; i++) {
       Card newCard;
