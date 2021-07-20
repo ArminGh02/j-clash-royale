@@ -6,12 +6,16 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import model.GameResult;
 import model.Settings;
 import model.card.*;
 import model.card.builiding.KingTower;
 import model.card.builiding.PrinceTower;
 import model.card.spell.DamagingSpell;
 import model.card.spell.Rage;
+import model.player.Person;
+import model.player.Robot;
+import model.player.RobotType;
 import util.Config;
 import model.card.builiding.Building;
 import model.card.Card;
@@ -470,10 +474,22 @@ public class FrameController extends AnimationTimer {
     if (!isEnded)
       return;
     stop();
+
+    Person person = SoloGameController.getInstance().getPersonPlayer();
+    int personCrownCount = (enemyPrinceTowerL.getHp() <= 0? 1: 0) + (enemyPrinceTowerR.getHp() <= 0? 1: 0);
+    int enemyCrownCount = (friendlyPrinceTowerL.getHp() <= 0? 1: 0) + (friendlyPrinceTowerR.getHp() <= 0? 1: 0);
     if (friendlyKingTower.getHp() > enemyKingTower.getHp())
-      SoloGameController.getInstance().getPersonPlayer().increasePoints(Settings.WINNING_POINT);
+      person.increasePoints(Settings.WINNING_POINT);
     else
-      SoloGameController.getInstance().getPersonPlayer().increasePoints(Settings.LOOSING_POINT);
+      person.increasePoints(Settings.LOOSING_POINT);
+    if (enemyKingTower.getHp() <= 0)
+      personCrownCount = 3;
+    if (friendlyKingTower.getHp() <= 0)
+      enemyCrownCount = 3;
+
+    Robot enemy = SoloGameController.getInstance().getRobotPlayer();
+    String enemyUsername = (enemy.getRobotType() == RobotType.BEGINNER_BOT? "Beginner Bot": "Advanced Bot");
+    person.addGameResult(new GameResult(person.getUsername(), enemyUsername, personCrownCount, enemyCrownCount));
     ViewManager.loadMainMenuView();
   }
 

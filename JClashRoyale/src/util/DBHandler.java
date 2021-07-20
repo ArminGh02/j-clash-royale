@@ -1,10 +1,12 @@
 package util;
 
+import model.GameResult;
 import model.Password;
 import model.player.Person;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DBHandler class, handles queries and interactions with database
@@ -24,11 +26,7 @@ public class DBHandler {
       String dbUsername = "root", password = "rootroot";
       dbConnection = DriverManager.getConnection(url, dbUsername, password);
       dbStatement = dbConnection.createStatement();
-      if (dbStatement.execute("SHOW TABLES LIKE 'Persons'")) {
-        ResultSet resultSet = dbStatement.getResultSet();
-        if (resultSetRowCount(resultSet) == 0)
-          makeTables();
-      }
+      makeTables();
     } catch (ClassNotFoundException | SQLException e) {
       e.printStackTrace();
     }
@@ -39,16 +37,30 @@ public class DBHandler {
    */
   private static void makeTables() {
     try {
-      dbStatement.execute(
-          "CREATE TABLE Persons (\n"
-              + "    id INT,\n"
-              + "    username varchar(20),\n"
-              + "    password varchar(100),\n"
-              + "    level INT DEFAULT 1,\n"
-              + "    points INT DEFAULT 0,\n"
-              + "    deck varchar(30) DEFAULT NULL,\n"
-              + "    PRIMARY KEY (id)\n"
-              + ");");
+      dbStatement.execute("SHOW TABLES LIKE 'Persons'");
+      if (resultSetRowCount(dbStatement.getResultSet()) == 0)
+        dbStatement.execute(
+            "CREATE TABLE Persons (\n"
+                + "    id INT,\n"
+                + "    username varchar(20),\n"
+                + "    password varchar(100),\n"
+                + "    level INT DEFAULT 1,\n"
+                + "    points INT DEFAULT 0,\n"
+                + "    deck varchar(30) DEFAULT NULL,\n"
+                + "    PRIMARY KEY (id)\n"
+                + ");");
+
+      dbStatement.execute("SHOW TABLES LIKE 'Battles'");
+      if (resultSetRowCount(dbStatement.getResultSet()) == 0)
+        dbStatement.execute(
+                "CREATE TABLE Battles (\n" +
+                "    id INT,\n" +
+                "    firstPlayerUsername varchar(20),\n" +
+                "    secondPlayerUsername varchar(20),\n" +
+                "    firstPlayerCrownCount INT,\n" +
+                "    secondPlayerCrownCount INT,\n" +
+                "    PRIMARY KEY (id)\n" +
+                ");");
     }
     catch (SQLException exception) {
       exception.printStackTrace();
@@ -65,6 +77,7 @@ public class DBHandler {
     int count = 0;
     try {
       while (resultSet.next()) count++;
+      resultSet.close();
     } catch (SQLException exception) {
       exception.printStackTrace();
     }
@@ -101,7 +114,9 @@ public class DBHandler {
       if (dbStatement.execute(
           "" + "SELECT * FROM Persons " + "WHERE username='" + username + "';")) {
         ResultSet resultSet = dbStatement.getResultSet();
-        return resultSetRowCount(resultSet) > 0;
+        boolean result = resultSetRowCount(resultSet) > 0;
+        resultSet.close();
+        return result;
       }
     } catch (SQLException exception) {
       exception.printStackTrace();
@@ -146,7 +161,7 @@ public class DBHandler {
     try {
       dbStatement.execute(
           ""
-              + "INSERT INTO Persons "
+              + "INSERT INTO Persons (id, username, password, level, points)"
               + "VALUES ("
               + "'"
               + personCount
@@ -182,6 +197,7 @@ public class DBHandler {
         person.setPassword(resultSet.getString("password"));
         person.setLevel(resultSet.getInt("level"));
         person.setPoints(resultSet.getInt("points"));
+        resultSet.close();
         return person;
       }
     } catch (SQLException exception) {
@@ -200,7 +216,7 @@ public class DBHandler {
     if (!doesPersonExists(username))
       return null;
     try {
-      if (dbStatement.execute("" + "SELECT * FROM Persons " + "WHERE username='" + username + "';")) {
+      if (dbStatement.execute("SELECT * FROM Persons " + "WHERE username='" + username + "';")) {
         ResultSet resultSet = dbStatement.getResultSet();
         resultSet.next();
         String deckAsString = resultSet.getString("deck");
@@ -210,6 +226,7 @@ public class DBHandler {
         ArrayList<Integer> result = new ArrayList<>();
         for (String index : deck)
           result.add(Integer.parseInt(index));
+        resultSet.close();
         return result;
       }
     } catch (SQLException exception) {
@@ -263,6 +280,55 @@ public class DBHandler {
     int level = person.getLevel();
     try {
       dbStatement.execute("UPDATE Persons SET level = " + level + " WHERE username = '" + username + "';");
+    }
+    catch (SQLException exception) {
+      exception.printStackTrace();
+    }
+  }
+
+  /**
+   * get the list of game result for the given person
+   * @param person the given person
+   * @return the result list
+   */
+  public static ArrayList<GameResult> getPersonsGameResults(Person person) {
+    String username = person.getUsername();
+    ArrayList<GameResult> resultList = new ArrayList<>();
+    try {
+      dbStatement.execute("SELECT * FROM Battles WHERE firstPlayerUsername = '" + username + "';");
+      ResultSet resultSet = dbStatement.getResultSet();
+      while (resultSet.next()) {
+        GameResult newGameResult = new GameResult(resultSet.getInt("id"), resultSet.getString("firstPlayerUsername"), resultSet.getString("secondPlayerUsername"),
+                resultSet.getInt("firstPlayerCrownCount"), resultSet.getInt("secondPlayerCrownCount"));
+        resultList.add(newGameResult);
+      }
+      resultSet.close();
+    }
+    catch (SQLException exception) {
+      exception.printStackTrace();
+    }
+    return resultList;
+  }
+
+  /**
+   * add the given game result to the table
+   * @param gameResult the given game result
+   */
+  public static void addGameResult(GameResult gameResult) {
+    try {
+      dbStatement.execute(
+          "INSERT INTO Battles (id, firstPlayerUsername, secondPlayerUsername, firstPlayerCrownCount, secondPlayerCrownCount) "
+              + "VALUES("
+              + gameResult.getId()
+              + ", '"
+              + gameResult.getFirstPlayerUsername()
+              + "', '"
+              + gameResult.getSecondPlayerUsername()
+              + "', "
+              + gameResult.getFirstPlayerCrownCount()
+              + ", "
+              + gameResult.getSecondPlayerCrownCount()
+              + ");");
     }
     catch (SQLException exception) {
       exception.printStackTrace();

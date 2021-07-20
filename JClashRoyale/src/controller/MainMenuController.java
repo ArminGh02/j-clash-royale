@@ -64,6 +64,8 @@ public class MainMenuController {
     personLevelLabel.setText("Level: " + personLevel);
     personPointsLabel.setText("Points: " + person.getPoints());
     personsNameLabel.setText(person.getUsername());
+    if (SoloGameController.getInstance().getRobotPlayer() == null) // to make sure that this is the first time starting a game
+      person.setGameResults(DBHandler.getPersonsGameResults(person));
   }
 
   private void initDeck() {
