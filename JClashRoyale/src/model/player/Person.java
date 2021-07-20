@@ -1,6 +1,8 @@
 package model.player;
 
 import model.Password;
+import model.Settings;
+import util.DBHandler;
 
 /**
  * Person class, implements real player
@@ -71,6 +73,34 @@ public class Person extends Player {
      */
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    /**
+     * increment level
+     */
+    public void incrementLevel() {
+        if (level == Settings.MAXIMUM_LEVEL)
+            return;
+        level++;
+        DBHandler.updatePersonsLevel(this);
+    }
+
+    /**
+     * check if the person has been leveled up
+     */
+    private void checkLevelUp() {
+        if (level < Settings.MAXIMUM_LEVEL && points >= Settings.LEVEL_POINTS[level])
+            incrementLevel();
+    }
+
+    /**
+     * increase points
+     * @param increaseAmount increase amount
+     */
+    public void increasePoints(int increaseAmount) {
+        points += increaseAmount;
+        checkLevelUp();
+        DBHandler.updatePersonsPoints(this);
     }
 
     /**

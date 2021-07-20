@@ -21,7 +21,6 @@ public class BeginnerRobot extends Robot {
             int randomX = Settings.LEFT_VBOX_WIDTH + rand.nextInt(Settings.MAP_WIDTH);
             int randomY = rand.nextInt(Settings.MAP_UP_HALF_HEIGHT);
             map.deployCard(toDeploy, randomX, randomY, true);
-            gameLoop.addToActiveCards(toDeploy);
           }
         } else {
           timer.cancel();

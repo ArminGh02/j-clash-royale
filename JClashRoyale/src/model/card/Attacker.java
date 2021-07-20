@@ -10,13 +10,13 @@ import model.Settings;
  * @version 1.0
  */
 public abstract class Attacker extends Card {
-  private int level;
   private int[] hpPerLevel;
   private final int[] damagePerLevel;
   protected int hitSpeed;
   protected Range range;
   protected double rangeDistance;
   protected Target target;
+  protected Movement movement;
   private Point2D velocity;
   private Card currentTarget;
   private boolean isAttacking;
@@ -122,6 +122,14 @@ public abstract class Attacker extends Card {
    */
   public Target getTarget() {
     return target;
+  }
+
+  /**
+   * movement getter
+   * @return movement
+   */
+  public Movement getMovement() {
+    return movement;
   }
 
   /**

@@ -2,10 +2,7 @@ package model.card.troop;
 
 import javafx.scene.image.Image;
 import model.Settings;
-import model.card.Card;
-import model.card.Movement;
-import model.card.Range;
-import model.card.Speed;
+import model.card.*;
 import util.Config;
 
 public class BabyDragon extends Troop {
@@ -21,22 +18,14 @@ public class BabyDragon extends Troop {
         new int[] {100, 110, 121, 133, 146}, 1800);
     range = Range.RANGED;
     speed = Speed.FAST;
+    movement = Movement.AIR;
+    target = Target.ALL;
     rangeDistance = 3.0;
     count = 1;
   }
 
   public static Image getDeckImage() {
     return deckImage;
-  }
-
-  /**
-   * movement getter
-   *
-   * @return movement
-   */
-  @Override
-  public Movement getMovement() {
-    return Movement.AIR;
   }
 
   @Override

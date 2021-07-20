@@ -1,5 +1,8 @@
 package model.card.builiding;
 
+import model.card.Movement;
+import model.card.Target;
+
 /**
  * Tower class, implements tower behaviours
  *
@@ -22,5 +25,7 @@ public abstract class Tower extends Building {
       int[] damagePerLevel,
       int hitSpeed) {
     super(elixirCost, deckElixirImageKey, hpPerLevel, damagePerLevel, hitSpeed);
+    movement = Movement.GROUND;
+    target = Target.ALL;
   }
 }
