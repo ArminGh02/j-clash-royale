@@ -25,8 +25,12 @@ public class BeginnerRobot extends Robot {
         if (!gameTimer.isEnded()) {
           Card toDeploy = deck.deployRandomCard(elixir, rand);
           if (toDeploy != null) {
-            int randomX = Settings.LEFT_VBOX_WIDTH + rand.nextInt(Settings.MAP_WIDTH);
-            int randomY = rand.nextInt(Settings.MAP_UP_HALF_HEIGHT);
+            int randomX = Settings.LEFT_VBOX_WIDTH + rand.nextInt(Settings.MAP_WIDTH - Settings.CELL_WIDTH) + Settings.CELL_WIDTH_SHIFT;
+            int randomY = rand.nextInt(Settings.MAP_UP_HALF_HEIGHT - Settings.CELL_HEIGHT) + Settings.CELL_HEIGHT_SHIFT;
+            while (!gameLoop.canDeployCard(randomX, randomY, true)) {
+              randomX = Settings.LEFT_VBOX_WIDTH + rand.nextInt(Settings.MAP_WIDTH - Settings.CELL_WIDTH) + Settings.CELL_WIDTH_SHIFT;
+              randomY = rand.nextInt(Settings.MAP_UP_HALF_HEIGHT - Settings.CELL_HEIGHT) + Settings.CELL_HEIGHT_SHIFT;
+            }
             map.deployCard(toDeploy, randomX, randomY, true);
           }
         } else {
