@@ -200,8 +200,8 @@ public abstract class Attacker extends Card {
    *
    * @return currentTarget
    */
-  public Card getCurrentTarget() {
-    return currentTarget;
+  public Attacker getCurrentTarget() {
+    return (Attacker) currentTarget;
   }
 
   /**

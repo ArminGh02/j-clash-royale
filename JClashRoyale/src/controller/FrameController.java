@@ -131,6 +131,38 @@ public class FrameController extends AnimationTimer {
   }
 
   /**
+   * get x position of the given attacker's image
+   * @param attacker the given attacker
+   * @return x position
+   */
+  private double getX(Attacker attacker) {
+    double width = Settings.CELL_WIDTH_SHIFT;
+    ImageView attackerImage = cardsImage.get(attacker);
+    if (attackerImage == null)
+      return Settings.INF;
+    if (attackerImage.getImage() != null)
+      width = attackerImage.getImage().getWidth() / 2.0;
+    return attackerImage.getX() + width;
+  }
+
+  /**
+   * get y position of the given attacker's image
+   * @param attacker the given attacker
+   * @return y position
+   */
+  private double getY(Attacker attacker) {
+    double height = Settings.CELL_HEIGHT_SHIFT;
+    ImageView attackerImage = cardsImage.get(attacker);
+    if (attackerImage == null)
+      return Settings.INF;
+    if (attackerImage.getImage() != null)
+      height = attackerImage.getImage().getHeight() / 2.0;
+    if (attacker.getTeamNumber() == 0)
+      return attackerImage.getY();
+    return attackerImage.getY() + height;
+  }
+
+  /**
    * check if card can be deployed on the given position
    * @param x x of the given position
    * @param y y of the given position
@@ -206,7 +238,7 @@ public class FrameController extends AnimationTimer {
    * @param attacker the give attacker
    */
   private void updateHp(Attacker attacker) {
-    Attacker target = (Attacker) attacker.getCurrentTarget();
+    Attacker target = attacker.getCurrentTarget();
     if (target == null || !attacker.isAttacking())
       return;
     if (currentMilliSecond - attacker.getLastAttackTime() >= attacker.getHitSpeed()) {
@@ -358,24 +390,13 @@ public class FrameController extends AnimationTimer {
             <= attackingCard.getRangeDistance()) attackingCard.setAttacking(true);
     else attackingCard.setAttacking(false);
 
-    ImageView attackingCardImage = cardsImage.get(attackingCard);
-    boolean isInLeftSide = (attackingCardImage.getX() <= Settings.LEFT_VBOX_WIDTH + (Settings.MAP_COLUMN_COUNT * Settings.CELL_WIDTH / 2.0));
     if (getRegionNumber(attackingCard) == 0 && !attackingCard.isAttacking()) {
-      if (isInLeftSide) {
-        if (attackingCard.getTeamNumber() == 0)
-          attackingCard.setCurrentTarget(enemyKingTower);
-        else
-          attackingCard.setCurrentTarget(friendlyKingTower);
-      }
-      else {
-        if (attackingCard.getTeamNumber() == 0)
-          attackingCard.setCurrentTarget(enemyKingTower);
-        else
-          attackingCard.setCurrentTarget(friendlyKingTower);
-      }
+      if (attackingCard.getTeamNumber() == 0)
+        attackingCard.setCurrentTarget(enemyKingTower);
+      else
+        attackingCard.setCurrentTarget(friendlyKingTower);
       attackingCard.setAttacking(false);
     }
-
   }
 
   /**
@@ -424,30 +445,30 @@ public class FrameController extends AnimationTimer {
       return;
     }
 
-    ImageView source = cardsImage.get(troop);
-    ImageView destination = cardsImage.get(troop.getCurrentTarget());
-    if (troop.getMovement().equals(Movement.AIR)
-        || getRegionNumber(troop) == 0
-        || getRegionNumber(troop.getCurrentTarget()) == 0
-        || getRegionNumber(troop) == getRegionNumber(troop.getCurrentTarget())
+    double leftBridge = getEuclideanDistance(getX(troop), getY(troop), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y);
+    double rightBridge = getEuclideanDistance(getX(troop), getY(troop), Settings.RIGHT_BRIDGE_X, Settings.RIGHT_BRIDGE_Y);
+    boolean hasCrossedBridge = (troop.getTeamNumber() == 0 && Settings.LEFT_BRIDGE_Y - getY(troop) >= 0) ||
+            (troop.getTeamNumber() == 1 && getY(troop) - Settings.LEFT_BRIDGE_Y >= 0);
+    if (troop.getMovement() == Movement.AIR
+        || (getRegionNumber(troop.getCurrentTarget()) == 0 && getDistance(troop, troop.getCurrentTarget()) <= Settings.CELL_HEIGHT_SHIFT)
+        || (getRegionNumber(getX(troop), getY(troop)) == getRegionNumber(troop.getCurrentTarget()) && getRegionNumber(troop) != 0)
+        || hasCrossedBridge
     ) { // straight line
-      troop.setVelocity(destination.getX() - source.getX(), destination.getY() - source.getY());
+      troop.setVelocity(getX(troop.getCurrentTarget()) - getX(troop), getY(troop.getCurrentTarget()) - getY(troop));
       return;
     }
 
-    double leftBridge =
-        getEuclideanDistance(
-                source.getX(), source.getY(), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y)
+    leftBridge = getEuclideanDistance(getX(troop), getY(troop), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y)
             + getEuclideanDistance(
                 Settings.LEFT_BRIDGE_X,
                 Settings.LEFT_BRIDGE_Y,
-                destination.getX(),
-                destination.getY());
+                getX(troop.getCurrentTarget()),
+                getY(troop.getCurrentTarget()));
     
     if (Math.abs(getDistance(troop, troop.getCurrentTarget()) - leftBridge) <= Settings.EPSILON)
-      troop.setVelocity(Settings.LEFT_BRIDGE_X - source.getX(), Settings.LEFT_BRIDGE_Y - source.getY());
+      troop.setVelocity(Settings.LEFT_BRIDGE_X - getX(troop), Settings.LEFT_BRIDGE_Y - getY(troop));
     else
-      troop.setVelocity(Settings.RIGHT_BRIDGE_X - source.getX(), Settings.RIGHT_BRIDGE_Y - source.getY());
+      troop.setVelocity(Settings.RIGHT_BRIDGE_X - getX(troop), Settings.RIGHT_BRIDGE_Y - getY(troop));
   }
 
   /**
@@ -557,7 +578,7 @@ public class FrameController extends AnimationTimer {
    * @param destination destination card
    * @return distance value
    */
-  private double getDistance(Card source, Card destination) {
+  private double getDistance(Attacker source, Attacker destination) {
     int sourceRegion = getRegionNumber(source);
     int destinationRegion = getRegionNumber(destination);
 
@@ -565,39 +586,31 @@ public class FrameController extends AnimationTimer {
     ImageView destinationImage = cardsImage.get(destination);
     if (sourceImage == null || destinationImage == null) return Settings.INF;
 
-    boolean euclideanDistance = false;
-    if (source.getType().equals(CardType.TROOP)) {
-      Troop tempTroop = (Troop) source;
-      euclideanDistance = tempTroop.getMovement().equals(Movement.AIR);
-    }
-    if (sourceRegion == destinationRegion || sourceRegion == 0 || destinationRegion == 0)
-      euclideanDistance = true;
-    if (euclideanDistance)
-      return getEuclideanDistance(
-          sourceImage.getX(), sourceImage.getY(), destinationImage.getX(), destinationImage.getY());
+    if (source.getMovement() == Movement.AIR || sourceRegion == destinationRegion || sourceRegion == 0 || destinationRegion == 0)
+      return getEuclideanDistance(getX(source), getY(source), getX(destination), getY(destination));
 
     double firstPath =
         getEuclideanDistance(
-                sourceImage.getX(),
-                sourceImage.getY(),
+                getX(source),
+                getY(source),
                 Settings.LEFT_BRIDGE_X,
                 Settings.LEFT_BRIDGE_Y)
             + getEuclideanDistance(
                 Settings.LEFT_BRIDGE_X,
                 Settings.LEFT_BRIDGE_Y,
-                destinationImage.getX(),
-                destinationImage.getY());
+                getX(destination),
+                getY(destination));
     double secondPath =
         getEuclideanDistance(
-                sourceImage.getX(),
-                sourceImage.getY(),
+                getX(source),
+                getY(source),
                 Settings.RIGHT_BRIDGE_X,
                 Settings.RIGHT_BRIDGE_Y)
             + getEuclideanDistance(
                 Settings.RIGHT_BRIDGE_X,
                 Settings.RIGHT_BRIDGE_Y,
-                destinationImage.getX(),
-                destinationImage.getY());
+                getX(destination),
+                getY(destination));
     return Math.min(firstPath, secondPath);
   }
 
@@ -625,20 +638,20 @@ public class FrameController extends AnimationTimer {
     ImageView secondAttackerImage = cardsImage.get(secondAttacker);
     if (firstAttackerImage == null || secondAttackerImage == null)
       return Settings.INF;
-    return getEuclideanDistance(firstAttackerImage.getX(), firstAttackerImage.getY(), secondAttackerImage.getX(), secondAttackerImage.getY());
+    return getEuclideanDistance(getX(firstAttacker), getY(firstAttacker), getX(secondAttacker), getY(secondAttacker));
   }
 
   /**
    * calculate region number of the given card
    *
-   * @param card the given card
+   * @param attacker the given card
    * @return 0 for bridges and 1 for friendly half and 2 for enemy's half
    */
-  private int getRegionNumber(Card card) {
-    ImageView cardImage = cardsImage.get(card);
+  private int getRegionNumber(Attacker attacker) {
+    ImageView cardImage = cardsImage.get(attacker);
     if (cardImage == null)
       return 3;
-    return getRegionNumber(cardImage.getX(), cardImage.getY());
+    return getRegionNumber(getX(attacker), getY(attacker));
   }
 
   /**
@@ -647,7 +660,7 @@ public class FrameController extends AnimationTimer {
    * @param y y of the given position
    * @return 0 for bridge lane, 1 for friendly half and 2 for enemy's half
    */
-  public int getRegionNumber(double x, double y) {
+  private int getRegionNumber(double x, double y) {
     int middleRow = Settings.MAP_ROW_COUNT / 2;
     int cellRow = (int) (y / Settings.CELL_HEIGHT);
     if (cellRow == middleRow) return 0;
