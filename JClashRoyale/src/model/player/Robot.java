@@ -33,6 +33,7 @@ import model.card.troop.Wizard;
  */
 public abstract class Robot extends Player {
   protected static final Random rand = new Random();
+  protected RobotType robotType;
 
   protected Deck deck;
 
@@ -75,6 +76,14 @@ public abstract class Robot extends Player {
       }
     }
     return new Deck(deckCards);
+  }
+
+  /**
+   * robotType getter
+   * @return robotType
+   */
+  public RobotType getRobotType() {
+    return robotType;
   }
 
   /**

@@ -9,6 +9,13 @@ import model.Settings;
 import model.card.Card;
 
 public class BeginnerRobot extends Robot {
+  /**
+   * class constructor
+   */
+  public BeginnerRobot() {
+    robotType = RobotType.BEGINNER_BOT;
+  }
+
   @Override
   public void play(GameTimerController gameTimer, MapViewController map, FrameController gameLoop) {
     Timer timer = new Timer();

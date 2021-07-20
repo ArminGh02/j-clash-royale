@@ -45,6 +45,7 @@ public class LoginController {
         String password = passwordField.getText();
         if (!DBHandler.doesPersonExists(username)) {
             DBHandler.addPerson(new Person(username, password));
+            SoloGameController.getInstance().setPersonPlayer(DBHandler.getPerson(username));
             ViewManager.loadMainMenuView();
         }
         else { // user already exists
