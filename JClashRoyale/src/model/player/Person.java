@@ -137,4 +137,8 @@ public class Person extends Player {
     public int getPoints() {
         return points;
     }
+
+    public ArrayList<GameResult> getGameResults() {
+        return gameResults;
+    }
 }

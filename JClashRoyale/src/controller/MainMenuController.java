@@ -3,16 +3,19 @@ package controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import model.Deck;
+import model.GameResult;
 import model.player.AdvancedRobot;
 import model.player.BeginnerRobot;
 import model.Settings;
@@ -45,27 +48,48 @@ public class MainMenuController {
   private int personLevel;
   @FXML private Label personPointsLabel;
   @FXML private Label personLevelLabel;
+  @FXML private Label personNameLabel;
 
   private List<Card> deck = new ArrayList<>(Settings.DECK_SIZE);
   private boolean[] isCardAdded = new boolean[12];
   @FXML private HBox deckView;
   @FXML private Label unableToPlaceCardLabel;
-  @FXML private Label personsNameLabel;
+
+  @FXML private TableView<GameResult> battlesTable;
+  @FXML private TableColumn<GameResult, String> firstPlayerColumn;
+  @FXML private TableColumn<GameResult, String> secondPlayerColumn;
+  @FXML private TableColumn<GameResult, Integer> firstPlayerCrownsColumn;
+  @FXML private TableColumn<GameResult, Integer> secondPlayerCrownsColumn;
 
   /**
    * initialize method will be called before loading view
    */
   @FXML
   public void initialize() {
-    initDeck();
-
     Person person = SoloGameController.getInstance().getPersonPlayer();
+    if (SoloGameController.getInstance().getRobotPlayer() == null) // to make sure that this is the first time starting a game
+      person.setGameResults(DBHandler.getPersonsGameResults(person));
+    initDeck();
+    initProfile(person);
+    initBattleHistory(person);
+  }
+
+  private void initProfile(Person person) {
     personLevel = person.getLevel();
     personLevelLabel.setText("Level: " + personLevel);
     personPointsLabel.setText("Points: " + person.getPoints());
-    personsNameLabel.setText(person.getUsername());
-    if (SoloGameController.getInstance().getRobotPlayer() == null) // to make sure that this is the first time starting a game
-      person.setGameResults(DBHandler.getPersonsGameResults(person));
+    personNameLabel.setText("Username: " + person.getUsername());
+  }
+
+  private void initBattleHistory(Person person) {
+    firstPlayerColumn.setCellValueFactory(new PropertyValueFactory<>("firstPlayerUsername"));
+    secondPlayerColumn.setCellValueFactory(new PropertyValueFactory<>("secondPlayerUsername"));
+    firstPlayerCrownsColumn.setCellValueFactory(new PropertyValueFactory<>("firstPlayerCrownCount"));
+    secondPlayerCrownsColumn.setCellValueFactory(new PropertyValueFactory<>("secondPlayerCrownCount"));
+
+    final ObservableList<GameResult> personGameResults =
+        FXCollections.observableArrayList(person.getGameResults());
+    battlesTable.setItems(personGameResults);
   }
 
   private void initDeck() {
