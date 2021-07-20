@@ -57,6 +57,14 @@ public class GameTimerController {
     timer.scheduleAtFixedRate(updatingTimer_Task, 0, 1000);
   }
 
+  /**
+   * isEnded setter
+   * @param ended isEnded new value
+   */
+  public void setEnded(boolean ended) {
+    this.ended = ended;
+  }
+
   public boolean isEnded() {
     return ended;
   }

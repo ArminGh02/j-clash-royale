@@ -61,11 +61,4 @@ public abstract class Troop extends Attacker {
     }
     return Settings.SLOW_SPEED;
   }
-
-  /**
-   * movement getter
-   *
-   * @return movement
-   */
-  public abstract Movement getMovement();
 }

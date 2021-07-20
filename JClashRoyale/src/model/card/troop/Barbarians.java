@@ -6,6 +6,7 @@ import model.card.Cards;
 import model.card.Movement;
 import model.card.Range;
 import model.card.Speed;
+import model.card.*;
 import util.Config;
 
 public class Barbarians extends Troop {
@@ -22,22 +23,14 @@ public class Barbarians extends Troop {
         new int[] {75, 82, 90, 99, 109},
         1500);
     range = Range.MELEE;
+    target = Target.GROUND;
+    movement = Movement.GROUND;
     count = 5;
     speed = Speed.MEDIUM;
   }
 
   public static Image getDeckImage() {
     return deckImage;
-  }
-
-  /**
-   * movement getter
-   *
-   * @return movement
-   */
-  @Override
-  public Movement getMovement() {
-    return Movement.GROUND;
   }
 
   @Override

@@ -4,7 +4,9 @@ import javafx.scene.image.Image;
 import model.Settings;
 import model.card.Card;
 import model.card.Cards;
+import model.card.Movement;
 import model.card.Range;
+import model.card.Target;
 import util.Config;
 
 public class Cannon extends Building {
@@ -21,6 +23,8 @@ public class Cannon extends Building {
         new int[] {60, 66, 72, 79, 87},
         800);
     range = Range.RANGED;
+    movement = Movement.GROUND;
+    target = Target.GROUND;
     rangeDistance = 5.5;
   }
 

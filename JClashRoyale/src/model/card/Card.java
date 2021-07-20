@@ -27,6 +27,7 @@ public abstract class Card {
       this.deployedImage = new Image(Config.retrieveProperty(imageKey));
     }
     this.type = cardType;
+    this.level = 1;
   }
 
   /**

@@ -6,6 +6,8 @@ import model.card.Cards;
 import model.card.Movement;
 import model.card.Range;
 import model.card.Speed;
+import model.Settings;
+import model.card.*;
 import util.Config;
 
 public class Wizard extends Troop {
@@ -21,6 +23,8 @@ public class Wizard extends Troop {
         new int[] {130, 143, 157, 172, 189},
         1700);
     range = Range.RANGED;
+    movement = Movement.GROUND;
+    target = Target.ALL;
     speed = Speed.MEDIUM;
     rangeDistance = 5.0;
     count = 1;
@@ -28,16 +32,6 @@ public class Wizard extends Troop {
 
   public static Image getDeckImage() {
     return deckImage;
-  }
-
-  /**
-   * movement getter
-   *
-   * @return movement
-   */
-  @Override
-  public Movement getMovement() {
-    return Movement.GROUND;
   }
 
   @Override

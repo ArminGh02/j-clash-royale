@@ -6,6 +6,7 @@ import model.card.Cards;
 import model.card.Movement;
 import model.card.Range;
 import model.card.Speed;
+import model.card.*;
 import util.Config;
 
 public class Valkyrie extends Troop {
@@ -19,22 +20,14 @@ public class Valkyrie extends Troop {
         new int[] {120, 132, 145, 159, 175},
         1500);
     range = Range.MELEE;
+    movement = Movement.GROUND;
+    target = Target.GROUND;
     speed = Speed.MEDIUM;
     count = 1;
   }
 
   public static Image getDeckImage() {
     return deckImage;
-  }
-
-  /**
-   * movement getter
-   *
-   * @return movement
-   */
-  @Override
-  public Movement getMovement() {
-    return Movement.GROUND;
   }
 
   @Override

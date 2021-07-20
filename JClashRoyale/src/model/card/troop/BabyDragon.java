@@ -6,6 +6,8 @@ import model.card.Cards;
 import model.card.Movement;
 import model.card.Range;
 import model.card.Speed;
+import model.Settings;
+import model.card.*;
 import util.Config;
 
 public class BabyDragon extends Troop {
@@ -23,22 +25,14 @@ public class BabyDragon extends Troop {
         1800);
     range = Range.RANGED;
     speed = Speed.FAST;
+    movement = Movement.AIR;
+    target = Target.ALL;
     rangeDistance = 3.0;
     count = 1;
   }
 
   public static Image getDeckImage() {
     return deckImage;
-  }
-
-  /**
-   * movement getter
-   *
-   * @return movement
-   */
-  @Override
-  public Movement getMovement() {
-    return Movement.AIR;
   }
 
   @Override

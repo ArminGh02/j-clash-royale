@@ -17,6 +17,7 @@ import model.card.builiding.Building;
 import model.card.Card;
 import model.card.spell.Spell;
 import model.card.troop.Troop;
+import view.ViewManager;
 
 /**
  * FrameController class, handles each frame's update
@@ -36,6 +37,13 @@ public class FrameController extends AnimationTimer {
   private PrinceTower friendlyPrinceTowerL, friendlyPrinceTowerR;
   private KingTower enemyKingTower;
   private PrinceTower enemyPrinceTowerL, enemyPrinceTowerR;
+
+  private ImageView friendlyKingTowerImage;
+  private ImageView friendlyPrinceTowerLImage;
+  private ImageView friendlyPrinceTowerRImage;
+  private ImageView enemyKingTowerImage;
+  private ImageView enemyPrinceTowerLImage;
+  private ImageView enemyPrinceTowerRImage;
 
   /**
    * class constructor
@@ -75,15 +83,12 @@ public class FrameController extends AnimationTimer {
     activeBuildings.add(enemyPrinceTowerL);
     activeBuildings.add(enemyPrinceTowerR);
 
-    ImageView friendlyKingTowerImage =
-        new ImageView(Config.retrieveProperty("KING_TOWER_FRIENDLY"));
-    ImageView friendlyPrinceTowerLImage =
-        new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
-    ImageView friendlyPrinceTowerRImage =
-        new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
-    ImageView enemyKingTowerImage = new ImageView(Config.retrieveProperty("KING_TOWER_ENEMY"));
-    ImageView enemyPrinceTowerLImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
-    ImageView enemyPrinceTowerRImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
+    friendlyKingTowerImage = new ImageView(Config.retrieveProperty("KING_TOWER_FRIENDLY"));
+    friendlyPrinceTowerLImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
+    friendlyPrinceTowerRImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_FRIENDLY"));
+    enemyKingTowerImage = new ImageView(Config.retrieveProperty("KING_TOWER_ENEMY"));
+    enemyPrinceTowerLImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
+    enemyPrinceTowerRImage = new ImageView(Config.retrieveProperty("PRINCE_TOWER_ENEMY"));
 
     cardsImage.put(friendlyKingTower, friendlyKingTowerImage);
     cardsImage.put(friendlyPrinceTowerL, friendlyPrinceTowerLImage);
@@ -173,6 +178,20 @@ public class FrameController extends AnimationTimer {
       target.decreaseHp(attacker.getDamage());
       attacker.setLastAttackTime(currentMilliSecond);
     }
+  }
+
+  /**
+   * check if the towers has been destroyed
+   */
+  private void checkTowers() {
+    if (friendlyPrinceTowerL.getHp() <= 0)
+      Platform.runLater(() -> friendlyPrinceTowerLImage.setImage(new Image(Config.retrieveProperty("DESTROYED_TOWER"))));
+    if (friendlyPrinceTowerR.getHp() <= 0)
+      Platform.runLater(() -> friendlyPrinceTowerRImage.setImage(new Image(Config.retrieveProperty("DESTROYED_TOWER"))));
+    if (enemyPrinceTowerL.getHp() <= 0)
+      Platform.runLater(() -> enemyPrinceTowerLImage.setImage(new Image(Config.retrieveProperty("DESTROYED_TOWER"))));
+    if (enemyPrinceTowerR.getHp() <= 0)
+      Platform.runLater(() -> enemyPrinceTowerRImage.setImage(new Image(Config.retrieveProperty("DESTROYED_TOWER"))));
   }
 
   /** update spells' state */
@@ -276,7 +295,7 @@ public class FrameController extends AnimationTimer {
     double minimumDistance = 1000;
     for (Troop troop : activeTroops) {
       double distance = getDistance(attackingCard, troop);
-      if (attackingCard.getTeamNumber() != troop.getTeamNumber() && distance < minimumDistance) {
+      if (attackingCard.getTeamNumber() != troop.getTeamNumber() && distance < minimumDistance && isTargetValid(attackingCard, troop)) {
         minimumDistance = distance;
         attackingCard.setCurrentTarget(troop);
       }
@@ -284,7 +303,7 @@ public class FrameController extends AnimationTimer {
 
     for (Building building : activeBuildings) {
       double distance = getDistance(attackingCard, building);
-      if (building.getTeamNumber() != attackingCard.getTeamNumber() && distance < minimumDistance) {
+      if (building.getTeamNumber() != attackingCard.getTeamNumber() && distance < minimumDistance && isTargetValid(attackingCard, building)) {
         minimumDistance = distance;
         attackingCard.setCurrentTarget(building);
       }
@@ -293,6 +312,25 @@ public class FrameController extends AnimationTimer {
     if (getDistance(attackingCard, attackingCard.getCurrentTarget())
         <= attackingCard.getRangeDistance()) attackingCard.setAttacking(true);
     else attackingCard.setAttacking(false);
+  }
+
+  /**
+   * check whether if the given attacker can attack the given target or not
+   * @param attacker the given attacker
+   * @param target his target
+   * @return boolean result
+   */
+  private boolean isTargetValid(Attacker attacker, Attacker target) {
+    switch (attacker.getTarget()) {
+      case BUILDING:
+        return target.getType() == CardType.BUILDING;
+      case GROUND:
+        return target.getMovement() == Movement.GROUND;
+      case AIR:
+        return target.getMovement() == Movement.AIR;
+      default:
+        return true;
+    }
   }
 
   /** update troops' velocity */
@@ -324,10 +362,14 @@ public class FrameController extends AnimationTimer {
 
     ImageView source = cardsImage.get(troop);
     ImageView destination = cardsImage.get(troop.getCurrentTarget());
+    double leftBridgeEuclideanDistance = getEuclideanDistance(source.getX(), source.getY(), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y);
+    double rightBridgeEuclideanDistance = getEuclideanDistance(source.getX(), source.getY(), Settings.RIGHT_BRIDGE_X, Settings.RIGHT_BRIDGE_Y);
     if (troop.getMovement().equals(Movement.AIR)
         || getRegionNumber(troop) == 0
         || getRegionNumber(troop.getCurrentTarget()) == 0
-        || getRegionNumber(troop) == getRegionNumber(troop.getCurrentTarget())) { // straight line
+        || getRegionNumber(troop) == getRegionNumber(troop.getCurrentTarget())
+        || Math.min(leftBridgeEuclideanDistance, rightBridgeEuclideanDistance) <= Settings.EPSILON
+    ) { // straight line
       troop.setVelocity(destination.getX() - source.getX(), destination.getY() - source.getY());
       return;
     }
@@ -344,8 +386,7 @@ public class FrameController extends AnimationTimer {
     if (Math.abs(getDistance(troop, troop.getCurrentTarget()) - leftBridge) <= Settings.EPSILON)
       troop.setVelocity(Settings.LEFT_BRIDGE_X - source.getX(), Settings.LEFT_BRIDGE_Y - source.getY());
     else
-      troop.setVelocity(
-          Settings.RIGHT_BRIDGE_X - source.getX(), Settings.RIGHT_BRIDGE_Y - source.getY());
+      troop.setVelocity(Settings.RIGHT_BRIDGE_X - source.getX(), Settings.RIGHT_BRIDGE_Y - source.getY());
   }
 
   /**
@@ -420,6 +461,23 @@ public class FrameController extends AnimationTimer {
   }
 
   /**
+   * check if game is finished or not
+   */
+  private void checkGameEnding() {
+    boolean isEnded = false;
+    if (SoloGameController.getInstance().getTimer().isEnded() || friendlyKingTower.getHp() <= 0 || enemyKingTower.getHp() <= 0)
+      isEnded = true;
+    if (!isEnded)
+      return;
+    stop();
+    if (friendlyKingTower.getHp() > enemyKingTower.getHp())
+      SoloGameController.getInstance().getPersonPlayer().increasePoints(Settings.WINNING_POINT);
+    else
+      SoloGameController.getInstance().getPersonPlayer().increasePoints(Settings.LOOSING_POINT);
+    ViewManager.loadMainMenuView();
+  }
+
+  /**
    * get minimum distance between two given card
    *
    * @param source source card (attacker)
@@ -432,12 +490,12 @@ public class FrameController extends AnimationTimer {
 
     ImageView sourceImage = cardsImage.get(source);
     ImageView destinationImage = cardsImage.get(destination);
-    if (sourceImage == null || destinationImage == null) return 100;
+    if (sourceImage == null || destinationImage == null) return Settings.INF;
 
     boolean euclideanDistance = false;
     if (source.getType().equals(CardType.TROOP)) {
       Troop tempTroop = (Troop) source;
-      euclideanDistance |= tempTroop.getMovement().equals(Movement.AIR);
+      euclideanDistance = tempTroop.getMovement().equals(Movement.AIR);
     }
     if (sourceRegion == destinationRegion || sourceRegion == 0 || destinationRegion == 0)
       euclideanDistance = true;
@@ -491,7 +549,8 @@ public class FrameController extends AnimationTimer {
    */
   private int getRegionNumber(Card card) {
     ImageView cardImage = cardsImage.get(card);
-    if (cardImage == null) return 3;
+    if (cardImage == null)
+      return 3;
 
     int middleRow = Settings.MAP_ROW_COUNT / 2;
     int cellRow = (int) ((cardImage.getY() + Settings.CELL_HEIGHT_SHIFT) / Settings.CELL_HEIGHT);
@@ -512,7 +571,9 @@ public class FrameController extends AnimationTimer {
     updateTargets();
     updateVelocities();
     updateHps();
+    checkTowers();
     unapplySpells();
     moveTroops();
+    checkGameEnding();
   }
 }

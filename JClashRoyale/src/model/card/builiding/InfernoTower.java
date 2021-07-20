@@ -4,7 +4,9 @@ import javafx.scene.image.Image;
 import model.Settings;
 import model.card.Card;
 import model.card.Cards;
+import model.card.Movement;
 import model.card.Range;
+import model.card.Target;
 import util.Config;
 
 public class InfernoTower extends Building {
@@ -21,6 +23,8 @@ public class InfernoTower extends Building {
         new int[] {200, 220, 242, 266, 292},
         400);
     range = Range.RANGED;
+    movement = Movement.GROUND;
+    target = Target.ALL;
     rangeDistance = 6.0;
   }
 
