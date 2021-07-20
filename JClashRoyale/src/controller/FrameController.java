@@ -647,9 +647,9 @@ public class FrameController extends AnimationTimer {
    * @param y y of the given position
    * @return 0 for bridge lane, 1 for friendly half and 2 for enemy's half
    */
-  private int getRegionNumber(double x, double y) {
+  public int getRegionNumber(double x, double y) {
     int middleRow = Settings.MAP_ROW_COUNT / 2;
-    int cellRow = (int) ((y + Settings.CELL_HEIGHT_SHIFT) / Settings.CELL_HEIGHT);
+    int cellRow = (int) (y / Settings.CELL_HEIGHT);
     if (cellRow == middleRow) return 0;
     else if (cellRow > middleRow) return 1;
     else return 2;
