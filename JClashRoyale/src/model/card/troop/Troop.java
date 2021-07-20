@@ -13,7 +13,6 @@ import model.card.Speed;
  * @version 1.0
  */
 public abstract class Troop extends Attacker {
-  private int areaSplash;
   protected int count;
   protected Speed speed;
 
@@ -25,15 +24,6 @@ public abstract class Troop extends Attacker {
       int[] damagePerLevel,
       int hitSpeed) {
     super(level, elixirCost, imageKey, CardType.TROOP, hpPerLevel, damagePerLevel, hitSpeed);
-  }
-
-  /**
-   * areaSplash getter
-   *
-   * @return areaSplash
-   */
-  public int getAreaSplash() {
-    return areaSplash;
   }
 
   /**

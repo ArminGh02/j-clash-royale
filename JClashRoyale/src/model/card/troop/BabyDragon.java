@@ -29,6 +29,7 @@ public class BabyDragon extends Troop {
     target = Target.ALL;
     rangeDistance = 3.0;
     count = 1;
+    isAreaSplash = true;
   }
 
   public static Image getDeckImage() {
