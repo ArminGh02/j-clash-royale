@@ -3,7 +3,6 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
@@ -33,6 +32,7 @@
                   </ImageView>
                   <Label fx:id="personLevelLabel" alignment="CENTER" layoutX="14.0" layoutY="12.0" prefHeight="73.0" prefWidth="206.0" styleClass="label-of-deck" text="Level:" />
                   <Label fx:id="personPointsLabel" alignment="CENTER" layoutX="13.0" layoutY="96.0" prefHeight="77.0" prefWidth="207.0" styleClass="label-of-deck" text="Points:" />
+                  <Label fx:id="personsNameLabel" layoutX="437.0" layoutY="28.0" prefHeight="139.0" prefWidth="376.0" style="-fx-alignment: center; -fx-font-size: 50;" text="Person's name" />
                </children>
             </AnchorPane>
         </content>
@@ -184,10 +184,7 @@
     </Tab>
       <Tab text="Battle History">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="battle-history-tab-of-main-menu">
-               <children>
-                  <ListView layoutX="256.0" layoutY="169.0" prefHeight="342.0" prefWidth="704.0" />
-               </children></AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="battle-history-tab-of-main-menu" />
         </content>
       </Tab>
       <Tab text="About Us">

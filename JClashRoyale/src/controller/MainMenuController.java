@@ -50,8 +50,11 @@ public class MainMenuController {
   private boolean[] isCardAdded = new boolean[12];
   @FXML private HBox deckView;
   @FXML private Label unableToPlaceCardLabel;
-  @FXML private ScrollPane battleHistoryScrollBar;
+  @FXML private Label personsNameLabel;
 
+  /**
+   * initialize method will be called before loading view
+   */
   @FXML
   public void initialize() {
     initDeck();
@@ -60,6 +63,7 @@ public class MainMenuController {
     personLevel = person.getLevel();
     personLevelLabel.setText("Level: " + personLevel);
     personPointsLabel.setText("Points: " + person.getPoints());
+    personsNameLabel.setText(person.getUsername());
   }
 
   private void initDeck() {
@@ -106,13 +110,6 @@ public class MainMenuController {
   @FXML
   void startGameVsAdvancedBot(ActionEvent event) {
     startGame(false);
-  }
-
-  /**
-   * initialize method will be called before loading view
-   */
-  @FXML
-  public void initialize() {
   }
 
   private void startGame(boolean vsEasyBot) {
