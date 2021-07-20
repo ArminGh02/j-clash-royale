@@ -142,8 +142,8 @@ public class MapViewController {
       Card toDeploy = (Card) deckSlots[chosenSlot].getUserData();
       Person person = gameController.getPersonPlayer();
       if (person.deploy(toDeploy)) {
-        deployCard(toDeploy, event.getSceneX() - Settings.CELL_WIDTH_SHIFT,
-            event.getSceneY() - Settings.CELL_HEIGHT_SHIFT, false);
+        deployCard(toDeploy, event.getSceneX() - toDeploy.getDeployedImage().getWidth() / 2.0,
+            event.getSceneY() - toDeploy.getDeployedImage().getHeight() / 2.0, false);
 
         Card nextCard = person.getDeck().nextCard(toDeploy);
         deckSlots[chosenSlot].setUserData(nextCard);
@@ -166,7 +166,7 @@ public class MapViewController {
     }
 
     int coefficient = 1;
-    if (x > (Settings.MAP_COLUMN_COUNT / 2) * Settings.CELL_WIDTH + Settings.LEFT_VBOX_WIDTH)
+    if (x > (Settings.MAP_COLUMN_COUNT / 2.0) * Settings.CELL_WIDTH + Settings.LEFT_VBOX_WIDTH)
       coefficient = -1;
     for (int i = 0; i < count; i++) {
       Card newCard;
@@ -211,7 +211,7 @@ public class MapViewController {
    */
   public void addMapGrid(ImageView imageView, int j, int i) {
     mapGrid.add(imageView, j, i);
-    imageView.setX(Settings.LEFT_VBOX_WIDTH + j * Settings.CELL_WIDTH + Settings.CELL_WIDTH_SHIFT);
-    imageView.setY(i * Settings.CELL_HEIGHT + Settings.CELL_HEIGHT_SHIFT);
+    imageView.setX(Settings.LEFT_VBOX_WIDTH + j * Settings.CELL_WIDTH);
+    imageView.setY(i * Settings.CELL_HEIGHT);
   }
 }
