@@ -14,18 +14,18 @@ public abstract class Tower extends Building {
    * class constructor
    *
    * @param elixirCost elixirCost
-   * @param deckElixirImageKey deckElixirImageKey
+   * @param imageKey imageKey
    * @param hpPerLevel
    * @param damagePerLevel
    */
   public Tower(
       int level,
       int elixirCost,
-      String deckElixirImageKey,
+      String imageKey,
       int[] hpPerLevel,
       int[] damagePerLevel,
       int hitSpeed) {
-    super(level, elixirCost, deckElixirImageKey, hpPerLevel, damagePerLevel, hitSpeed);
+    super(level, elixirCost, imageKey, hpPerLevel, damagePerLevel, hitSpeed);
     movement = Movement.GROUND;
     target = Target.ALL;
   }

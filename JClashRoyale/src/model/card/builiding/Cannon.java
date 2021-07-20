@@ -18,7 +18,7 @@ public class Cannon extends Building {
     super(
         level,
         3,
-        "CANNON_DECK_ELIXIR_IMAGE",
+        "CANNON",
         new int[] {380, 418, 459, 505, 554},
         new int[] {60, 66, 72, 79, 87},
         800);
