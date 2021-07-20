@@ -28,6 +28,7 @@ public class Wizard extends Troop {
     speed = Speed.MEDIUM;
     rangeDistance = 5.0;
     count = 1;
+    isAreaSplash = true;
   }
 
   public static Image getDeckImage() {
