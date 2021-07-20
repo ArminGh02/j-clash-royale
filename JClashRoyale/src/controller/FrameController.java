@@ -131,6 +131,37 @@ public class FrameController extends AnimationTimer {
   }
 
   /**
+   * check if card can be deployed on the given position
+   * @param x x of the given position
+   * @param y y of the given position
+   * @param isBot is player a bot or not
+   * @return boolean result
+   */
+  public boolean canDeployCard(double x, double y, boolean isBot) {
+    if (getRegionNumber(x, y) == 0)
+      return false;
+
+    boolean isInLeftSide = (x <= Settings.LEFT_VBOX_WIDTH + Settings.MAP_COLUMN_COUNT * Settings.CELL_WIDTH / 2.0);
+    if (isBot) {
+      boolean isLeftTowerDestroyed = friendlyPrinceTowerL.getHp() <= 0;
+      boolean isRightTowerDestroyed = friendlyPrinceTowerR.getHp() <= 0;
+      if (y >= (Settings.MAP_ROW_COUNT - 2) * Settings.CELL_HEIGHT)
+        return false;
+      if (isInLeftSide)
+        return (isLeftTowerDestroyed || getRegionNumber(x, y) == 2);
+      return (isRightTowerDestroyed || getRegionNumber(x, y) == 2);
+    }
+
+    boolean isLeftTowerDestroyed = enemyPrinceTowerL.getHp() <= 0;
+    boolean isRightTowerDestroyed = enemyPrinceTowerR.getHp() <= 0;
+    if (y <= 2 * Settings.CELL_HEIGHT)
+      return false;
+    if (isInLeftSide)
+      return (isLeftTowerDestroyed || getRegionNumber(x, y) == 1);
+    return (isRightTowerDestroyed || getRegionNumber(x, y) == 1);
+  }
+
+  /**
    * remove the given card from the list of active cards
    * @param card the given card
    */
@@ -591,9 +622,18 @@ public class FrameController extends AnimationTimer {
     ImageView cardImage = cardsImage.get(card);
     if (cardImage == null)
       return 3;
+    return getRegionNumber(cardImage.getX(), cardImage.getY());
+  }
 
+  /**
+   * calculate region number of the given card
+   * @param x x of the given position
+   * @param y y of the given position
+   * @return 0 for bridge lane, 1 for friendly half and 2 for enemy's half
+   */
+  private int getRegionNumber(double x, double y) {
     int middleRow = Settings.MAP_ROW_COUNT / 2;
-    int cellRow = (int) ((cardImage.getY() + Settings.CELL_HEIGHT_SHIFT) / Settings.CELL_HEIGHT);
+    int cellRow = (int) ((y + Settings.CELL_HEIGHT_SHIFT) / Settings.CELL_HEIGHT);
     if (cellRow == middleRow) return 0;
     else if (cellRow > middleRow) return 1;
     else return 2;
