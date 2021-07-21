@@ -47,3 +47,13 @@
     -fx-text-fill: rgb(256, 256, 256);
     -fx-font-size: 35;
 }
+
+.table-view {
+    -fx-text-fill: #0a53be;
+    -fx-background-color: rgb(49, 49, 49);
+}
+
+.table-column {
+    -fx-alignment: baseline-center;
+    -fx-text-fill: Black;
+}

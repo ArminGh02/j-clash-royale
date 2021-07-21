@@ -25,7 +25,7 @@ public class Settings {
   public static final double RIGHT_BRIDGE_X = 502;
   public static final double RIGHT_BRIDGE_Y = 416;
 
-  public static final double MELEE_ATTACK_RANGE = 0.3; // FIXME check how much range will be appropriate
+  public static final double MELEE_ATTACK_RANGE = 0.5; // FIXME check how much range will be appropriate
   public static final double AREA_SPLASH_RANGE = 1;
 
   public static final double SLOW_SPEED = 0.2; // FIXME check how much speed will be appropriate

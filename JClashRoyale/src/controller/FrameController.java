@@ -4,8 +4,11 @@ import java.util.*;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import model.GameResult;
 import model.Settings;
 import model.card.*;
@@ -36,7 +39,6 @@ public class FrameController extends AnimationTimer {
   private List<Building> activeBuildings = new ArrayList<>();
   private Map<Card, ImageView> cardsImage = new HashMap<>();
   private long currentMilliSecond;
-  private long lastNotificationTime = -1;
 
   private KingTower friendlyKingTower;
   private PrinceTower friendlyPrinceTowerL, friendlyPrinceTowerR;
@@ -81,6 +83,13 @@ public class FrameController extends AnimationTimer {
     enemyPrinceTowerL.setTeamNumber(1);
     enemyPrinceTowerR.setTeamNumber(1);
 
+    friendlyKingTower.setDeploymentTime(System.currentTimeMillis());
+    friendlyPrinceTowerL.setDeploymentTime(System.currentTimeMillis());
+    friendlyPrinceTowerR.setDeploymentTime(System.currentTimeMillis());
+    enemyKingTower.setDeploymentTime(System.currentTimeMillis());
+    enemyPrinceTowerL.setDeploymentTime(System.currentTimeMillis());
+    enemyPrinceTowerR.setDeploymentTime(System.currentTimeMillis());
+
     activeBuildings.add(friendlyKingTower);
     activeBuildings.add(friendlyPrinceTowerL);
     activeBuildings.add(friendlyPrinceTowerR);
@@ -121,6 +130,7 @@ public class FrameController extends AnimationTimer {
     switch (card.getType()) {
       case BUILDING:
         activeBuildings.add((Building) card);
+        ((Building) card).setDeploymentTime(System.currentTimeMillis());
         break;
       case TROOP:
         activeTroops.add((Troop) card);
@@ -170,7 +180,7 @@ public class FrameController extends AnimationTimer {
    * @param isBot is player a bot or not
    * @return boolean result
    */
-  public boolean canDeployCard(double x, double y, boolean isBot) {
+  private boolean canDeployCard(double x, double y, boolean isBot) {
     if (getRegionNumber(x, y) == 0)
       return false;
 
@@ -192,6 +202,20 @@ public class FrameController extends AnimationTimer {
     if (isInLeftSide)
       return (isLeftTowerDestroyed || getRegionNumber(x, y) == 1);
     return (isRightTowerDestroyed || getRegionNumber(x, y) == 1);
+  }
+
+  /**
+   * check whether the given card can be deployed in the given position
+   * @param card the given card
+   * @param x x of the position
+   * @param y y of the position
+   * @param isBot whether the deployer is bot or not
+   * @return the boolean result
+   */
+  public boolean canDeployCard(Card card, double x, double y, boolean isBot) {
+    if (card.getType() == CardType.DAMAGING_SPELL || card.getType() == CardType.RAGE_SPELL)
+      return true;
+    return canDeployCard(x, y, isBot);
   }
 
   /**
@@ -227,7 +251,7 @@ public class FrameController extends AnimationTimer {
     }
     for (Iterator<Building> buildingIterator = activeBuildings.iterator(); buildingIterator.hasNext();) {
       Building building = buildingIterator.next();
-      if (building.getHp() <= 0) {
+      if (building.getHp() <= 0 || System.currentTimeMillis() - building.getDeploymentTime() >= building.getLifeTime()) {
         buildingIterator.remove();
         removeImageCard(building);
       }
@@ -246,14 +270,16 @@ public class FrameController extends AnimationTimer {
       if (attacker.isAreaSplash()) {
         double areaSplashDistance = Settings.AREA_SPLASH_RANGE * Settings.CELL_WIDTH / Settings.MAP_SCALE;
         for (Troop troop : activeTroops)
-          if (getEuclideanDistance(attacker, troop) <= areaSplashDistance && isTargetValid(attacker, troop))
+          if (getEuclideanDistance(attacker, troop) <= areaSplashDistance && isTargetValid(attacker, troop) && attacker.getTeamNumber() != troop.getTeamNumber())
             troop.decreaseHp(attacker.getDamage());
         for (Building building : activeBuildings)
-          if (getEuclideanDistance(attacker, building) <= areaSplashDistance && isTargetValid(attacker, building))
+          if (getEuclideanDistance(attacker, building) <= areaSplashDistance && isTargetValid(attacker, building) && attacker.getTeamNumber() != building.getTeamNumber())
             building.decreaseHp(attacker.getDamage());
       }
       else
         target.decreaseHp(attacker.getDamage());
+      System.out.println(attacker.getImageKey() + ": " + attacker.getCurrentTarget().getImageKey() + " " + getDistance(attacker, attacker.getCurrentTarget()) + " " +
+              attacker.isAttacking());
       attacker.setLastAttackTime(currentMilliSecond);
     }
   }
@@ -292,10 +318,10 @@ public class FrameController extends AnimationTimer {
     if (spell.getType().equals(CardType.DAMAGING_SPELL)) {
       DamagingSpell damagingSpell = (DamagingSpell) spell;
       for (Troop troop : activeTroops)
-        if (isInRange(spell, troop) && troop.getTeamNumber() == spell.getTeamNumber())
+        if (isInRange(spell, troop) && troop.getTeamNumber() != spell.getTeamNumber())
           troop.decreaseHp(damagingSpell.getAreaDamage());
       for (Building building : activeBuildings)
-        if (isInRange(spell, building) && building.getTeamNumber() == spell.getTeamNumber())
+        if (isInRange(spell, building) && building.getTeamNumber() != spell.getTeamNumber())
           building.decreaseHp(damagingSpell.getAreaDamage());
       return true;
     }
@@ -370,7 +396,7 @@ public class FrameController extends AnimationTimer {
    * @param attackingCard the given attackingCard
    */
   private void updateTarget(Attacker attackingCard) {
-    double minimumDistance = 1000;
+    double minimumDistance = Settings.INF;
     for (Troop troop : activeTroops) {
       double distance = getDistance(attackingCard, troop);
       if (attackingCard.getTeamNumber() != troop.getTeamNumber() && distance < minimumDistance && isTargetValid(attackingCard, troop)) {
@@ -391,13 +417,13 @@ public class FrameController extends AnimationTimer {
             <= attackingCard.getRangeDistance()) attackingCard.setAttacking(true);
     else attackingCard.setAttacking(false);
 
-    if (getRegionNumber(attackingCard) == 0 && !attackingCard.isAttacking()) {
-      if (attackingCard.getTeamNumber() == 0)
-        attackingCard.setCurrentTarget(enemyKingTower);
-      else
-        attackingCard.setCurrentTarget(friendlyKingTower);
-      attackingCard.setAttacking(false);
-    }
+//    if (getRegionNumber(attackingCard) == 0 && !attackingCard.isAttacking()) {
+//      if (attackingCard.getTeamNumber() == 0)
+//        attackingCard.setCurrentTarget(enemyKingTower);
+//      else
+//        attackingCard.setCurrentTarget(friendlyKingTower);
+//      attackingCard.setAttacking(false);
+//    }
   }
 
   /**
@@ -433,43 +459,49 @@ public class FrameController extends AnimationTimer {
         troop.setVelocity(x * troop.getSpeed(), y * troop.getSpeed());
       }
     }
+
+    for (Building building : activeBuildings) {
+      if (building.isTower())
+        continue;
+      updateVelocity(building);
+      updateImage(building);
+    }
   }
 
   /**
-   * update velocity for the given troop
+   * update velocity for the given attacker
    *
-   * @param troop the given troop
+   * @param attacker the given attacker
    */
-  private void updateVelocity(Troop troop) {
-    if (troop.isAttacking() || troop.getCurrentTarget() == null) {
-      troop.setVelocity(0.0, 0.0);
+  private void updateVelocity(Attacker attacker) {
+    if (attacker.isAttacking() || attacker.getCurrentTarget() == null) {
+      attacker.setVelocity(0.0, 0.0);
       return;
     }
 
-    double leftBridge = getEuclideanDistance(getX(troop), getY(troop), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y);
-    double rightBridge = getEuclideanDistance(getX(troop), getY(troop), Settings.RIGHT_BRIDGE_X, Settings.RIGHT_BRIDGE_Y);
-    boolean hasCrossedBridge = (troop.getTeamNumber() == 0 && Settings.LEFT_BRIDGE_Y - getY(troop) >= 0) ||
-            (troop.getTeamNumber() == 1 && getY(troop) - Settings.LEFT_BRIDGE_Y >= 0);
-    if (troop.getMovement() == Movement.AIR
-        || (getRegionNumber(troop.getCurrentTarget()) == 0 && getDistance(troop, troop.getCurrentTarget()) <= Settings.CELL_HEIGHT_SHIFT)
-        || (getRegionNumber(getX(troop), getY(troop)) == getRegionNumber(troop.getCurrentTarget()) && getRegionNumber(troop) != 0)
+    boolean hasCrossedBridge = (attacker.getTeamNumber() == 0 && Settings.LEFT_BRIDGE_Y - getY(attacker) >= 0) ||
+            (attacker.getTeamNumber() == 1 && getY(attacker) - Settings.LEFT_BRIDGE_Y >= 0);
+    if (attacker.getMovement() == Movement.AIR
+        || getDistance(attacker, attacker.getCurrentTarget()) <= Settings.CELL_DIAGONAL_SHIFT
+        || (getRegionNumber(attacker) == getRegionNumber(attacker.getCurrentTarget()) && getRegionNumber(attacker) != 0)
         || hasCrossedBridge
+        || attacker.getType() == CardType.BUILDING
     ) { // straight line
-      troop.setVelocity(getX(troop.getCurrentTarget()) - getX(troop), getY(troop.getCurrentTarget()) - getY(troop));
+      attacker.setVelocity(getX(attacker.getCurrentTarget()) - getX(attacker), getY(attacker.getCurrentTarget()) - getY(attacker));
       return;
     }
 
-    leftBridge = getEuclideanDistance(getX(troop), getY(troop), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y)
+    double leftBridge = getEuclideanDistance(getX(attacker), getY(attacker), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y)
             + getEuclideanDistance(
                 Settings.LEFT_BRIDGE_X,
                 Settings.LEFT_BRIDGE_Y,
-                getX(troop.getCurrentTarget()),
-                getY(troop.getCurrentTarget()));
+                getX(attacker.getCurrentTarget()),
+                getY(attacker.getCurrentTarget()));
 
-    if (Math.abs(getDistance(troop, troop.getCurrentTarget()) - leftBridge) <= Settings.EPSILON)
-      troop.setVelocity(Settings.LEFT_BRIDGE_X - getX(troop), Settings.LEFT_BRIDGE_Y - getY(troop));
+    if (Math.abs(getDistance(attacker, attacker.getCurrentTarget()) - leftBridge) <= Settings.EPSILON)
+      attacker.setVelocity(Settings.LEFT_BRIDGE_X - getX(attacker), Settings.LEFT_BRIDGE_Y - getY(attacker));
     else
-      troop.setVelocity(Settings.RIGHT_BRIDGE_X - getX(troop), Settings.RIGHT_BRIDGE_Y - getY(troop));
+      attacker.setVelocity(Settings.RIGHT_BRIDGE_X - getX(attacker), Settings.RIGHT_BRIDGE_Y - getY(attacker));
   }
 
   /**
@@ -587,7 +619,7 @@ public class FrameController extends AnimationTimer {
     ImageView destinationImage = cardsImage.get(destination);
     if (sourceImage == null || destinationImage == null) return Settings.INF;
 
-    if (source.getMovement() == Movement.AIR || sourceRegion == destinationRegion || sourceRegion == 0 || destinationRegion == 0)
+    if (source.getMovement() == Movement.AIR || sourceRegion == destinationRegion && sourceRegion != 0 || getEuclideanDistance(source, destination) <= Settings.CELL_DIAGONAL_SHIFT)
       return getEuclideanDistance(getX(source), getY(source), getX(destination), getY(destination));
 
     double firstPath =

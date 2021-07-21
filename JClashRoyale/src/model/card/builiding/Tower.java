@@ -1,5 +1,6 @@
 package model.card.builiding;
 
+import model.Settings;
 import model.card.Movement;
 import model.card.Target;
 
@@ -28,5 +29,7 @@ public abstract class Tower extends Building {
     super(level, elixirCost, imageKey, hpPerLevel, damagePerLevel, hitSpeed);
     movement = Movement.GROUND;
     target = Target.ALL;
+    isTower = true;
+    lifeTime = Settings.INF;
   }
 }
