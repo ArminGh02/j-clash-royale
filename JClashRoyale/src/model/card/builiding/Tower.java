@@ -28,5 +28,6 @@ public abstract class Tower extends Building {
     super(level, elixirCost, imageKey, hpPerLevel, damagePerLevel, hitSpeed);
     movement = Movement.GROUND;
     target = Target.ALL;
+    isTower = true;
   }
 }

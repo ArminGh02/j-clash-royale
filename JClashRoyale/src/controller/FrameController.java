@@ -437,41 +437,49 @@ public class FrameController extends AnimationTimer {
         troop.setVelocity(x * troop.getSpeed(), y * troop.getSpeed());
       }
     }
+
+    for (Building building : activeBuildings) {
+      if (building.isTower())
+        continue;
+      updateVelocity(building);
+      updateImage(building);
+    }
   }
 
   /**
-   * update velocity for the given troop
+   * update velocity for the given attacker
    *
-   * @param troop the given troop
+   * @param attacker the given attacker
    */
-  private void updateVelocity(Troop troop) {
-    if (troop.isAttacking() || troop.getCurrentTarget() == null) {
-      troop.setVelocity(0.0, 0.0);
+  private void updateVelocity(Attacker attacker) {
+    if (attacker.isAttacking() || attacker.getCurrentTarget() == null) {
+      attacker.setVelocity(0.0, 0.0);
       return;
     }
 
-    boolean hasCrossedBridge = (troop.getTeamNumber() == 0 && Settings.LEFT_BRIDGE_Y - getY(troop) >= 0) ||
-            (troop.getTeamNumber() == 1 && getY(troop) - Settings.LEFT_BRIDGE_Y >= 0);
-    if (troop.getMovement() == Movement.AIR
-        || getDistance(troop, troop.getCurrentTarget()) <= Settings.CELL_DIAGONAL_SHIFT
-        || (getRegionNumber(troop) == getRegionNumber(troop.getCurrentTarget()) && getRegionNumber(troop) != 0)
+    boolean hasCrossedBridge = (attacker.getTeamNumber() == 0 && Settings.LEFT_BRIDGE_Y - getY(attacker) >= 0) ||
+            (attacker.getTeamNumber() == 1 && getY(attacker) - Settings.LEFT_BRIDGE_Y >= 0);
+    if (attacker.getMovement() == Movement.AIR
+        || getDistance(attacker, attacker.getCurrentTarget()) <= Settings.CELL_DIAGONAL_SHIFT
+        || (getRegionNumber(attacker) == getRegionNumber(attacker.getCurrentTarget()) && getRegionNumber(attacker) != 0)
         || hasCrossedBridge
+        || attacker.getType() == CardType.BUILDING
     ) { // straight line
-      troop.setVelocity(getX(troop.getCurrentTarget()) - getX(troop), getY(troop.getCurrentTarget()) - getY(troop));
+      attacker.setVelocity(getX(attacker.getCurrentTarget()) - getX(attacker), getY(attacker.getCurrentTarget()) - getY(attacker));
       return;
     }
 
-    double leftBridge = getEuclideanDistance(getX(troop), getY(troop), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y)
+    double leftBridge = getEuclideanDistance(getX(attacker), getY(attacker), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y)
             + getEuclideanDistance(
                 Settings.LEFT_BRIDGE_X,
                 Settings.LEFT_BRIDGE_Y,
-                getX(troop.getCurrentTarget()),
-                getY(troop.getCurrentTarget()));
+                getX(attacker.getCurrentTarget()),
+                getY(attacker.getCurrentTarget()));
     
-    if (Math.abs(getDistance(troop, troop.getCurrentTarget()) - leftBridge) <= Settings.EPSILON)
-      troop.setVelocity(Settings.LEFT_BRIDGE_X - getX(troop), Settings.LEFT_BRIDGE_Y - getY(troop));
+    if (Math.abs(getDistance(attacker, attacker.getCurrentTarget()) - leftBridge) <= Settings.EPSILON)
+      attacker.setVelocity(Settings.LEFT_BRIDGE_X - getX(attacker), Settings.LEFT_BRIDGE_Y - getY(attacker));
     else
-      troop.setVelocity(Settings.RIGHT_BRIDGE_X - getX(troop), Settings.RIGHT_BRIDGE_Y - getY(troop));
+      attacker.setVelocity(Settings.RIGHT_BRIDGE_X - getX(attacker), Settings.RIGHT_BRIDGE_Y - getY(attacker));
   }
 
   /**

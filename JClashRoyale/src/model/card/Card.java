@@ -1,6 +1,7 @@
 package model.card;
 
 import javafx.scene.image.Image;
+import model.card.builiding.Cannon;
 import model.card.troop.Troop;
 import util.Config;
 
@@ -23,7 +24,7 @@ public abstract class Card {
     this.level = level;
     this.ELIXIR_COST = elixirCost;
     this.imageKey = imageKey;
-    if (this instanceof Troop) { // TODO: add other gifs and remove
+    if (this instanceof Troop || this instanceof Cannon) { // TODO: add other gifs and remove
       this.deployedImage = new Image(Config.retrieveProperty(imageKey));
     }
     this.type = cardType;
