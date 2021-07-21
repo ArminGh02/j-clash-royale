@@ -83,6 +83,13 @@ public class FrameController extends AnimationTimer {
     enemyPrinceTowerL.setTeamNumber(1);
     enemyPrinceTowerR.setTeamNumber(1);
 
+    friendlyKingTower.setDeploymentTime(System.currentTimeMillis());
+    friendlyPrinceTowerL.setDeploymentTime(System.currentTimeMillis());
+    friendlyPrinceTowerR.setDeploymentTime(System.currentTimeMillis());
+    enemyKingTower.setDeploymentTime(System.currentTimeMillis());
+    enemyPrinceTowerL.setDeploymentTime(System.currentTimeMillis());
+    enemyPrinceTowerR.setDeploymentTime(System.currentTimeMillis());
+
     activeBuildings.add(friendlyKingTower);
     activeBuildings.add(friendlyPrinceTowerL);
     activeBuildings.add(friendlyPrinceTowerR);
@@ -123,7 +130,7 @@ public class FrameController extends AnimationTimer {
     switch (card.getType()) {
       case BUILDING:
         activeBuildings.add((Building) card);
-        ((Building) card).setDeploymentTime(currentMilliSecond);
+        ((Building) card).setDeploymentTime(System.currentTimeMillis());
         break;
       case TROOP:
         activeTroops.add((Troop) card);
@@ -244,7 +251,7 @@ public class FrameController extends AnimationTimer {
     }
     for (Iterator<Building> buildingIterator = activeBuildings.iterator(); buildingIterator.hasNext();) {
       Building building = buildingIterator.next();
-      if (building.getHp() <= 0 || currentMilliSecond - building.getDeploymentTime() >= building.getLifeTime()) {
+      if (building.getHp() <= 0 || System.currentTimeMillis() - building.getDeploymentTime() >= building.getLifeTime()) {
         buildingIterator.remove();
         removeImageCard(building);
       }
