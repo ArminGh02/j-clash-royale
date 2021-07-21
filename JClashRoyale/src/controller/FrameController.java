@@ -123,6 +123,7 @@ public class FrameController extends AnimationTimer {
     switch (card.getType()) {
       case BUILDING:
         activeBuildings.add((Building) card);
+        ((Building) card).setDeploymentTime(currentMilliSecond);
         break;
       case TROOP:
         activeTroops.add((Troop) card);
@@ -172,7 +173,7 @@ public class FrameController extends AnimationTimer {
    * @param isBot is player a bot or not
    * @return boolean result
    */
-  public boolean canDeployCard(double x, double y, boolean isBot) {
+  private boolean canDeployCard(double x, double y, boolean isBot) {
     if (getRegionNumber(x, y) == 0)
       return false;
 
@@ -194,6 +195,20 @@ public class FrameController extends AnimationTimer {
     if (isInLeftSide)
       return (isLeftTowerDestroyed || getRegionNumber(x, y) == 1);
     return (isRightTowerDestroyed || getRegionNumber(x, y) == 1);
+  }
+
+  /**
+   * check whether the given card can be deployed in the given position
+   * @param card the given card
+   * @param x x of the position
+   * @param y y of the position
+   * @param isBot whether the deployer is bot or not
+   * @return the boolean result
+   */
+  public boolean canDeployCard(Card card, double x, double y, boolean isBot) {
+    if (card.getType() == CardType.DAMAGING_SPELL || card.getType() == CardType.RAGE_SPELL)
+      return true;
+    return canDeployCard(x, y, isBot);
   }
 
   /**
@@ -229,7 +244,7 @@ public class FrameController extends AnimationTimer {
     }
     for (Iterator<Building> buildingIterator = activeBuildings.iterator(); buildingIterator.hasNext();) {
       Building building = buildingIterator.next();
-      if (building.getHp() <= 0) {
+      if (building.getHp() <= 0 || currentMilliSecond - building.getDeploymentTime() >= building.getLifeTime()) {
         buildingIterator.remove();
         removeImageCard(building);
       }

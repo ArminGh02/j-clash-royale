@@ -5,6 +5,8 @@ import model.card.CardType;
 
 public abstract class Building extends Attacker {
   protected boolean isTower = false;
+  protected long lifeTime; // in milliseconds
+  protected long deploymentTime;
 
   public Building(
       int level,
@@ -22,5 +24,29 @@ public abstract class Building extends Attacker {
    */
   public boolean isTower() {
     return isTower;
+  }
+
+  /**
+   * deploymentTime getter
+   * @return deploymentTime
+   */
+  public long getDeploymentTime() {
+    return deploymentTime;
+  }
+
+  /**
+   * lifeTime getter
+   * @return lifeTime
+   */
+  public long getLifeTime() {
+    return lifeTime;
+  }
+
+  /**
+   * deploymentTime setter
+   * @param deploymentTime deploymentTime new value
+   */
+  public void setDeploymentTime(long deploymentTime) {
+    this.deploymentTime = deploymentTime;
   }
 }

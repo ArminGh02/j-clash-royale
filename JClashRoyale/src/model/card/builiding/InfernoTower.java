@@ -26,6 +26,7 @@ public class InfernoTower extends Building {
     movement = Movement.GROUND;
     target = Target.ALL;
     rangeDistance = 6.0;
+    lifeTime = 40 * 1000;
   }
 
   public static Image getDeckImage() {

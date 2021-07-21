@@ -1,5 +1,6 @@
 package model.card.builiding;
 
+import model.Settings;
 import model.card.Movement;
 import model.card.Target;
 
@@ -29,5 +30,6 @@ public abstract class Tower extends Building {
     movement = Movement.GROUND;
     target = Target.ALL;
     isTower = true;
+    lifeTime = Settings.INF;
   }
 }

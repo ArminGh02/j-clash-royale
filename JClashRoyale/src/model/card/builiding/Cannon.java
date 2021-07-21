@@ -26,6 +26,7 @@ public class Cannon extends Building {
     movement = Movement.GROUND;
     target = Target.GROUND;
     rangeDistance = 5.5;
+    lifeTime = 30 * 1000;
   }
 
   public static Image getDeckImage() {

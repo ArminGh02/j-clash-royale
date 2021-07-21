@@ -136,10 +136,10 @@ public class MapViewController {
   @FXML
   void deployCard(MouseEvent event) {
     if (chosenSlot != -1) { // player has pressed a deck slot
-      if (!gameLoop.canDeployCard(event.getSceneX(), event.getSceneY(), false))
+      Card toDeploy = (Card) deckSlots[chosenSlot].getUserData();
+      if (!gameLoop.canDeployCard(toDeploy, event.getSceneX(), event.getSceneY(), false))
         return;
 
-      Card toDeploy = (Card) deckSlots[chosenSlot].getUserData();
       Person person = gameController.getPersonPlayer();
       if (person.deploy(toDeploy)) {
         if (toDeploy.getDeployedImage() != null)
