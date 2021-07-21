@@ -4,8 +4,11 @@ import java.util.*;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import model.GameResult;
 import model.Settings;
 import model.card.*;
@@ -253,6 +256,8 @@ public class FrameController extends AnimationTimer {
       }
       else
         target.decreaseHp(attacker.getDamage());
+      System.out.println(attacker.getImageKey() + ": " + attacker.getCurrentTarget().getImageKey() + " " + getDistance(attacker, attacker.getCurrentTarget()) + " " +
+              attacker.isAttacking());
       attacker.setLastAttackTime(currentMilliSecond);
     }
   }
@@ -369,7 +374,7 @@ public class FrameController extends AnimationTimer {
    * @param attackingCard the given attackingCard
    */
   private void updateTarget(Attacker attackingCard) {
-    double minimumDistance = 1000;
+    double minimumDistance = Settings.INF;
     for (Troop troop : activeTroops) {
       double distance = getDistance(attackingCard, troop);
       if (attackingCard.getTeamNumber() != troop.getTeamNumber() && distance < minimumDistance && isTargetValid(attackingCard, troop)) {
@@ -390,13 +395,13 @@ public class FrameController extends AnimationTimer {
             <= attackingCard.getRangeDistance()) attackingCard.setAttacking(true);
     else attackingCard.setAttacking(false);
 
-    if (getRegionNumber(attackingCard) == 0 && !attackingCard.isAttacking()) {
-      if (attackingCard.getTeamNumber() == 0)
-        attackingCard.setCurrentTarget(enemyKingTower);
-      else
-        attackingCard.setCurrentTarget(friendlyKingTower);
-      attackingCard.setAttacking(false);
-    }
+//    if (getRegionNumber(attackingCard) == 0 && !attackingCard.isAttacking()) {
+//      if (attackingCard.getTeamNumber() == 0)
+//        attackingCard.setCurrentTarget(enemyKingTower);
+//      else
+//        attackingCard.setCurrentTarget(friendlyKingTower);
+//      attackingCard.setAttacking(false);
+//    }
   }
 
   /**
@@ -445,20 +450,18 @@ public class FrameController extends AnimationTimer {
       return;
     }
 
-    double leftBridge = getEuclideanDistance(getX(troop), getY(troop), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y);
-    double rightBridge = getEuclideanDistance(getX(troop), getY(troop), Settings.RIGHT_BRIDGE_X, Settings.RIGHT_BRIDGE_Y);
     boolean hasCrossedBridge = (troop.getTeamNumber() == 0 && Settings.LEFT_BRIDGE_Y - getY(troop) >= 0) ||
             (troop.getTeamNumber() == 1 && getY(troop) - Settings.LEFT_BRIDGE_Y >= 0);
     if (troop.getMovement() == Movement.AIR
-        || (getRegionNumber(troop.getCurrentTarget()) == 0 && getDistance(troop, troop.getCurrentTarget()) <= Settings.CELL_HEIGHT_SHIFT)
-        || (getRegionNumber(getX(troop), getY(troop)) == getRegionNumber(troop.getCurrentTarget()) && getRegionNumber(troop) != 0)
+        || getDistance(troop, troop.getCurrentTarget()) <= Settings.CELL_DIAGONAL_SHIFT
+        || (getRegionNumber(troop) == getRegionNumber(troop.getCurrentTarget()) && getRegionNumber(troop) != 0)
         || hasCrossedBridge
     ) { // straight line
       troop.setVelocity(getX(troop.getCurrentTarget()) - getX(troop), getY(troop.getCurrentTarget()) - getY(troop));
       return;
     }
 
-    leftBridge = getEuclideanDistance(getX(troop), getY(troop), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y)
+    double leftBridge = getEuclideanDistance(getX(troop), getY(troop), Settings.LEFT_BRIDGE_X, Settings.LEFT_BRIDGE_Y)
             + getEuclideanDistance(
                 Settings.LEFT_BRIDGE_X,
                 Settings.LEFT_BRIDGE_Y,
@@ -586,7 +589,7 @@ public class FrameController extends AnimationTimer {
     ImageView destinationImage = cardsImage.get(destination);
     if (sourceImage == null || destinationImage == null) return Settings.INF;
 
-    if (source.getMovement() == Movement.AIR || sourceRegion == destinationRegion || sourceRegion == 0 || destinationRegion == 0)
+    if (source.getMovement() == Movement.AIR || sourceRegion == destinationRegion && sourceRegion != 0 || getEuclideanDistance(source, destination) <= Settings.CELL_DIAGONAL_SHIFT)
       return getEuclideanDistance(getX(source), getY(source), getX(destination), getY(destination));
 
     double firstPath =

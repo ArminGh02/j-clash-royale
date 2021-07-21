@@ -1,5 +1,6 @@
 package model.card.spell;
 
+import model.Settings;
 import model.card.Card;
 import model.card.CardType;
 
@@ -22,7 +23,7 @@ public abstract class Spell extends Card {
    * @return radius
    */
   public double getRadius() {
-    return radius;
+    return radius * Settings.CELL_WIDTH / Settings.MAP_SCALE;
   }
 
   /**

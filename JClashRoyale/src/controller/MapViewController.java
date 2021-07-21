@@ -142,8 +142,11 @@ public class MapViewController {
       Card toDeploy = (Card) deckSlots[chosenSlot].getUserData();
       Person person = gameController.getPersonPlayer();
       if (person.deploy(toDeploy)) {
-        deployCard(toDeploy, event.getSceneX() - toDeploy.getDeployedImage().getWidth() / 2.0,
-            event.getSceneY() - toDeploy.getDeployedImage().getHeight() / 2.0, false);
+        if (toDeploy.getDeployedImage() != null)
+          deployCard(toDeploy, event.getSceneX() - toDeploy.getDeployedImage().getWidth() / 2.0,
+              event.getSceneY() - toDeploy.getDeployedImage().getHeight() / 2.0, false);
+        else
+          deployCard(toDeploy, event.getSceneX(), event.getSceneY(), false);
 
         Card nextCard = person.getDeck().nextCard(toDeploy);
         deckSlots[chosenSlot].setUserData(nextCard);
