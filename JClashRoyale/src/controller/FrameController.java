@@ -36,6 +36,7 @@ public class FrameController extends AnimationTimer {
   private List<Building> activeBuildings = new ArrayList<>();
   private Map<Card, ImageView> cardsImage = new HashMap<>();
   private long currentMilliSecond;
+  private long lastNotificationTime = -1;
 
   private KingTower friendlyKingTower;
   private PrinceTower friendlyPrinceTowerL, friendlyPrinceTowerR;
@@ -464,7 +465,7 @@ public class FrameController extends AnimationTimer {
                 Settings.LEFT_BRIDGE_Y,
                 getX(troop.getCurrentTarget()),
                 getY(troop.getCurrentTarget()));
-    
+
     if (Math.abs(getDistance(troop, troop.getCurrentTarget()) - leftBridge) <= Settings.EPSILON)
       troop.setVelocity(Settings.LEFT_BRIDGE_X - getX(troop), Settings.LEFT_BRIDGE_Y - getY(troop));
     else
@@ -684,5 +685,32 @@ public class FrameController extends AnimationTimer {
     unapplySpells();
     moveTroops();
     checkGameEnding();
+    handleNotification();
+  }
+
+  /**
+   * prints information about active cards
+   */
+  private void handleNotification() {
+    if (lastNotificationTime == -1) {
+      lastNotificationTime = currentMilliSecond;
+    } else if (currentMilliSecond - lastNotificationTime >= 5000L) {
+      System.out.println("-Active Buildings:");
+      for (Building activeBuilding : activeBuildings) {
+        System.out.println(activeBuilding.getImageKey().toLowerCase()
+            + ": "
+            + activeBuilding.getHp()
+            + " Hp");
+      }
+
+      System.out.println("-Active Troops:");
+      for (Troop activeTroop : activeTroops) {
+        System.out.println(activeTroop.getImageKey().toLowerCase()
+            + ": "
+            + activeTroop.getHp());
+      }
+
+      lastNotificationTime = currentMilliSecond;
+    }
   }
 }
