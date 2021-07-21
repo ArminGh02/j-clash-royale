@@ -269,18 +269,23 @@ public class FrameController extends AnimationTimer {
       return;
     if (currentMilliSecond - attacker.getLastAttackTime() >= attacker.getHitSpeed()) {
       if (attacker.isAreaSplash()) {
-        double areaSplashDistance = Settings.AREA_SPLASH_RANGE * Settings.CELL_WIDTH / Settings.MAP_SCALE;
-        for (Troop troop : activeTroops)
-          if (getEuclideanDistance(attacker, troop) <= areaSplashDistance && isTargetValid(attacker, troop) && attacker.getTeamNumber() != troop.getTeamNumber())
+        double areaSplashDistance = Settings.AREA_SPLASH_RANGE * Settings.CELL_WIDTH;
+        for (Troop troop : activeTroops) {
+          if (getEuclideanDistance(attacker, troop) <= areaSplashDistance && isTargetValid(attacker, troop) && attacker.getTeamNumber() != troop.getTeamNumber()) {
             troop.decreaseHp(attacker.getDamage());
+//            System.out.println(attacker.getImageKey() + ": " + troop.getImageKey() + " " + getDistance(attacker, troop));
+          }
+        }
         for (Building building : activeBuildings)
-          if (getEuclideanDistance(attacker, building) <= areaSplashDistance && isTargetValid(attacker, building) && attacker.getTeamNumber() != building.getTeamNumber())
+          if (getEuclideanDistance(attacker, building) <= areaSplashDistance && isTargetValid(attacker, building) && attacker.getTeamNumber() != building.getTeamNumber()) {
             building.decreaseHp(attacker.getDamage());
+//            System.out.println(attacker.getImageKey() + ": " + building.getImageKey() + " " + getDistance(attacker, building));
+          }
       }
-      else
+      else {
         target.decreaseHp(attacker.getDamage());
-      System.out.println(attacker.getImageKey() + ": " + attacker.getCurrentTarget().getImageKey() + " " + getDistance(attacker, attacker.getCurrentTarget()) + " " +
-              attacker.isAttacking());
+//        System.out.println(attacker.getImageKey() + ": " + target.getImageKey() + " " + getDistance(attacker, target));
+      }
       attacker.setLastAttackTime(currentMilliSecond);
     }
   }
