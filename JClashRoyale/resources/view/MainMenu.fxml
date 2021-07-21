@@ -34,7 +34,7 @@
                   </ImageView>
                   <Label fx:id="personLevelLabel" alignment="CENTER" layoutX="14.0" layoutY="12.0" prefHeight="73.0" prefWidth="206.0" styleClass="label-of-deck" text="Level:" />
                   <Label fx:id="personPointsLabel" alignment="CENTER" layoutX="13.0" layoutY="96.0" prefHeight="77.0" prefWidth="207.0" styleClass="label-of-deck" text="Points:" />
-                  <Label fx:id="personNameLabel" layoutX="437.0" layoutY="28.0" prefHeight="139.0" prefWidth="376.0" style="-fx-alignment: center; -fx-font-size: 50;" text="Person's name" />
+                  <Label fx:id="personNameLabel" layoutX="327.0" layoutY="28.0" prefHeight="139.0" prefWidth="718.0" style="-fx-alignment: center; -fx-font-size: 50;" text="Person's name" />
                </children>
             </AnchorPane>
         </content>

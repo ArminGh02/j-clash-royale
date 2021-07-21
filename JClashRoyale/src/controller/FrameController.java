@@ -248,10 +248,10 @@ public class FrameController extends AnimationTimer {
       if (attacker.isAreaSplash()) {
         double areaSplashDistance = Settings.AREA_SPLASH_RANGE * Settings.CELL_WIDTH / Settings.MAP_SCALE;
         for (Troop troop : activeTroops)
-          if (getEuclideanDistance(attacker, troop) <= areaSplashDistance && isTargetValid(attacker, troop))
+          if (getEuclideanDistance(attacker, troop) <= areaSplashDistance && isTargetValid(attacker, troop) && attacker.getTeamNumber() != troop.getTeamNumber())
             troop.decreaseHp(attacker.getDamage());
         for (Building building : activeBuildings)
-          if (getEuclideanDistance(attacker, building) <= areaSplashDistance && isTargetValid(attacker, building))
+          if (getEuclideanDistance(attacker, building) <= areaSplashDistance && isTargetValid(attacker, building) && attacker.getTeamNumber() != building.getTeamNumber())
             building.decreaseHp(attacker.getDamage());
       }
       else
@@ -296,10 +296,10 @@ public class FrameController extends AnimationTimer {
     if (spell.getType().equals(CardType.DAMAGING_SPELL)) {
       DamagingSpell damagingSpell = (DamagingSpell) spell;
       for (Troop troop : activeTroops)
-        if (isInRange(spell, troop) && troop.getTeamNumber() == spell.getTeamNumber())
+        if (isInRange(spell, troop) && troop.getTeamNumber() != spell.getTeamNumber())
           troop.decreaseHp(damagingSpell.getAreaDamage());
       for (Building building : activeBuildings)
-        if (isInRange(spell, building) && building.getTeamNumber() == spell.getTeamNumber())
+        if (isInRange(spell, building) && building.getTeamNumber() != spell.getTeamNumber())
           building.decreaseHp(damagingSpell.getAreaDamage());
       return true;
     }
