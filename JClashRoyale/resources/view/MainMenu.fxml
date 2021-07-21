@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1250.0" side="BOTTOM" stylesheets="@MainMenuStyle.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1250.0" side="BOTTOM" stylesheets="@MainMenuStyle.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
   <tabs>
       <Tab text="Profile">
         <content>
@@ -188,7 +188,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="battle-history-tab-of-main-menu">
                <children>
-                  <TableView fx:id="battlesTable" layoutX="14.0" layoutY="14.0" opacity="0.85" prefHeight="651.0" prefWidth="858.0" styleClass="root">
+                  <TableView fx:id="battlesTable" layoutX="196.0" layoutY="14.0" opacity="0.85" prefHeight="651.0" prefWidth="858.0" style="-fx-background-color: rgb(49, 49, 49);" styleClass="root">
                     <columns>
                       <TableColumn fx:id="firstPlayerColumn" prefWidth="206.0" text="First Player" />
                       <TableColumn fx:id="secondPlayerColumn" minWidth="0.0" prefWidth="231.0" text="Second Player" />

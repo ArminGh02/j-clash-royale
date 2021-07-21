@@ -4,8 +4,11 @@ import java.util.*;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import model.GameResult;
 import model.Settings;
 import model.card.*;
@@ -253,6 +256,8 @@ public class FrameController extends AnimationTimer {
       }
       else
         target.decreaseHp(attacker.getDamage());
+      System.out.println(attacker.getImageKey() + ": " + attacker.getCurrentTarget().getImageKey() + " " + getDistance(attacker, attacker.getCurrentTarget()) + " " +
+              attacker.isAttacking());
       attacker.setLastAttackTime(currentMilliSecond);
     }
   }

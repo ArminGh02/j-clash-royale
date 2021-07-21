@@ -15,7 +15,7 @@ public class Rage extends Spell {
 
   public Rage(int level) {
     super(level, 3, "RAGE", CardType.RAGE_SPELL);
-    radius = 5.0 / Settings.MAP_SCALE * Settings.CELL_WIDTH;
+    radius = 5.0;
     duration = 6000;
   }
 
