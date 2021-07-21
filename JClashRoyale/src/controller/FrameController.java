@@ -39,6 +39,7 @@ public class FrameController extends AnimationTimer {
   private List<Building> activeBuildings = new ArrayList<>();
   private Map<Card, ImageView> cardsImage = new HashMap<>();
   private long currentMilliSecond;
+  private long lastNotificationTime;
 
   private KingTower friendlyKingTower;
   private PrinceTower friendlyPrinceTowerL, friendlyPrinceTowerR;
